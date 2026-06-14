@@ -8,15 +8,9 @@
     "start": "next start"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.101.0",
-    "init": "^0.1.2",
-    "next": "^16.2.9",
-    "npx": "^10.2.2",
+    "next": "16.2.9",
     "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "shadcn": "^4.11.0",
-    "zod": "^4.4.3",
-    "zustand": "^5.0.14"
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
