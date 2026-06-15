@@ -53,7 +53,7 @@ export default function AppSidebar() {
                         <SidebarMenuButton
                           asChild
                           isActive={isActive}
-                          className="justify-center my-1 py-5 data-[active=true]:bg-primary data-[active=true]:text-background data-[active=true]:py-6"
+                          className="justify-center my-1 py-5 data-[active=true]:bg-primary data-[active=true]:text-white data-[active=true]:py-6"
                         >
                           <Link href={item.href} className="text-sm">
                             {item.label}

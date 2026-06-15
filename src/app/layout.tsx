@@ -8,6 +8,7 @@ import AppSidebar from "@/components/layout/AppSidebar";
 const nunitoSans = Nunito_Sans({
   subsets: ["latin"],
   variable: "--font-nunito-sans",
+    weight: ["400", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {

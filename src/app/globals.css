@@ -46,6 +46,7 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --color-dashboard-text: var(--dashboard-text);
 }
 
 :root {
@@ -81,6 +82,8 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.8822 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --dashboard-text: #202224;
+  --shadow-dropdown: box-shadow: 0px 9px 40px rgba(0, 0, 0, 0.104977);
 }
 
 .dark {
@@ -115,6 +118,8 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.8822 0 0);
   --sidebar-ring: oklch(0.556 0 0);
+  --dashboard-text: #202224;
+  --shadow-dropdown: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 @layer base {
