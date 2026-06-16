@@ -1,5 +1,5 @@
-import AppSidebar from "@/components/layout/AppSidebar";
-import AppTopBar from "@/components/layout/AppTopBar";
+import AppSidebar from "@/components/layout/app-sidebar";
+import AppTopBar from "@/components/layout/app-topbar";
 import {
   SidebarInset,
   SidebarProvider,
@@ -9,13 +9,13 @@ import {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
-      <div className="flex w-full min-h-screen">
-        <AppSidebar />
-        <main>
+      <AppSidebar />
+      <div className="min-w-0 flex-1 min-h-screen">
+        <AppTopBar />
+        <main className="min-w-0">
           {/* <SidebarTrigger className="cursor-pointer" /> */}
           {children}
         </main>
-        <AppTopBar />
       </div>
     </SidebarProvider>
   );

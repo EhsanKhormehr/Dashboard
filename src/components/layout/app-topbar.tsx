@@ -15,7 +15,7 @@ import Link from "next/link";
 
 export default function AppTopBar() {
   return (
-    <div className="bg-sidebar h-[70px] w-full flex justify-end items-center">
+    <div className="bg-surface h-[70px] w-full flex justify-end items-center">
       <div className="mr-8 flex items-center">
         <Image
           src={"/Avatar.png"}
@@ -37,7 +37,7 @@ export default function AppTopBar() {
               <ChevronDown />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 shadow-[var(--shadow-dropdown)] bg-sidebar mr-10 mt-2 border-none ">
+          <DropdownMenuContent className="w-56 shadow-[var(--shadow-card)] bg-surface mr-10 mt-2 border-none ">
             <DropdownMenuGroup>
               <DropdownMenuItem className="py-2 cursor-pointer" asChild>
                 <Link href={"dashboard/my-account"}>

@@ -47,7 +47,6 @@ export default function AppSidebar() {
                 <SidebarMenu>
                   {group.items.map((item) => {
                     const isActive = item.href === path;
-                    console.log(isActive, item.href, path);
                     return (
                       <SidebarMenuItem key={item.href}>
                         <SidebarMenuButton

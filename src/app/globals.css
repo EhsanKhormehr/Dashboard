@@ -47,6 +47,8 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
   --color-dashboard-text: var(--dashboard-text);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
 }
 
 :root {
@@ -82,8 +84,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.8822 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --dashboard-text: #202224;
-  --shadow-dropdown: box-shadow: 0px 9px 40px rgba(0, 0, 0, 0.104977);
+  --dashboard-text: oklch(0.2507 0.0048 248.02);
+  --shadow-card: 0px 9px 40px rgba(0, 0, 0, 0.104977);
+  --surface: oklch(1 0 0);
+  --surface-foreground: oklch(0.2507 0.0048 248.02);
+  --table-header-bg :oklch(0.9663 0.0074 260.73);
+  
 }
 
 .dark {
@@ -118,8 +124,11 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.8822 0 0);
   --sidebar-ring: oklch(0.556 0 0);
-  --dashboard-text: #202224;
-  --shadow-dropdown: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  --dashboard-text: oklch(78.892% 0.00009 271.152);
+  --shadow-card: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  --surface: oklch(0.3116 0.0337 260.87);
+  --surface-foreground: oklch(0.985 0 0);
+  --table-header-bg: oklch(0.3574 0.0331 258.98);
 }
 
 @layer base {

@@ -3,7 +3,7 @@ import { ThemeProvider } from "next-themes";
 import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import AppSidebar from "@/components/layout/AppSidebar";
+import AppSidebar from "@/components/layout/app-sidebar";
 
 const nunitoSans = Nunito_Sans({
   subsets: ["latin"],
