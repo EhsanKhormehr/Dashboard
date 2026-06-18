@@ -1,12 +1,12 @@
-import DashboardCard from "@/features/dashboard/components/dashboard-card";
-import DashboardChart from "@/features/dashboard/components/dashboard-chart";
-import DashboardDeals from "@/features/dashboard/components/dashboard-deals-table";
+import DashboardCard from "@/features/dashboard/home/components/dashboard-card";
+import DashboardChart from "@/features/dashboard/home/components/dashboard-chart";
+import DashboardDeals from "@/features/dashboard/home/components/dashboard-deals-table";
 import { Box, ChartNoAxesCombined, ClockFading, Users } from "lucide-react";
 import React from "react";
 
-export default function page() {
+export default function Dashboard() {
   return (
-    <div className="p-8">
+    <div>
       <h1 className="font-bold text-3xl">Dashboard</h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 mt-6">
         <DashboardCard

@@ -15,60 +15,57 @@ export const ROUTE_GROUPS : RouteGroup[] = [
         label: "Dashboard",
       },
       {
-        href: "/products",
+        href: "/dashboard/products",
         label: "Products",
       },
       {
-        href: "/favorites",
-        label: "favorites",
+        href: "/dashboard/new-products",
+        label: "New Products",
       },
       {
-        href: "/inbox",
-        label: "Inbox",
+        href: "/dashboard/categories",
+        label: "Categories",
       },
       {
-        href: "/order-lists",
-        label: "Order Lists",
+        href: "/dashboard/new-categories",
+        label: "New Categories",
       },
-      {
-        href: "/product-stock",
-        label: "Product Stock",
-      },
+      
     ],
   },
   {
     group: "Pages",
     items: [
       {
-        href: "/pricing",
+        href: "/dashboard/pricing",
         label: "Pricing",
       },
       {
-        href: "/calender",
+        href: "/dashboard/calender",
         label: "Calender",
       },
       {
-        href: "/to-do",
+        href: "/dashboard/to-do",
         label: "To-Do",
       },
       {
-        href: "/contact",
+        href: "/dashboard/contact",
         label: "Contact",
       },
       {
-        href: "/invoice",
+        href: "/dashboard/invoice",
         label: "Invoice",
       },
       {
-        href: "/ui-elements",
+        href: "/dashboard/ui-elements",
         label: "UI Elements",
       },
       {
-        href: "/team",
+        href: "/dashboard/team",
         label: "Team",
       },
       {
-        href: "/table",
+        href: "/dashboard/table",
         label: "Table",
       },
     ],

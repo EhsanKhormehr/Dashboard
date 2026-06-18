@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <AppSidebar />
       <div className="min-w-0 flex-1 min-h-screen">
         <AppTopBar />
-        <main className="min-w-0">
+        <main className="min-w-0 p-8">
           {/* <SidebarTrigger className="cursor-pointer" /> */}
           {children}
         </main>

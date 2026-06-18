@@ -32,7 +32,7 @@ export default function DashboardCard({
   trendLabel,
 }: DashboardCardProps) {
   return (
-    <div className="shadow-[var(--shadow-card)] bg-surface rounded-2xl p-4">
+    <div className="shadow-card bg-surface rounded-2xl p-4">
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
           <span className="font-semibold text-dashboard-text">{title}</span>

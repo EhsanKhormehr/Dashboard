@@ -37,7 +37,7 @@ export default function AppTopBar() {
               <ChevronDown />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 shadow-[var(--shadow-card)] bg-surface mr-10 mt-2 border-none ">
+          <DropdownMenuContent className="w-56 shadow-card bg-surface mr-10 mt-2 border-none ">
             <DropdownMenuGroup>
               <DropdownMenuItem className="py-2 cursor-pointer" asChild>
                 <Link href={"dashboard/my-account"}>

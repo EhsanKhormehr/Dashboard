@@ -38,7 +38,7 @@ const months = [
 
 export default function DashboardDeals() {
   return (
-    <Card className="shadow-[var(--shadow-card)]">
+    <Card className="shadow-card">
       <CardHeader className="flex items-center gap-2 space-y-0 py-5 sm:flex-row">
         <CardTitle className="font-bold text-2xl">Deals Details</CardTitle>
 
