@@ -27,8 +27,8 @@ export const ROUTE_GROUPS : RouteGroup[] = [
         label: "Categories",
       },
       {
-        href: "/dashboard/new-categories",
-        label: "New Categories",
+        href: "/dashboard/new-category",
+        label: "New Categoy",
       },
       
     ],
