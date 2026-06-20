@@ -1,4 +1,3 @@
-
 import {
   Table,
   TableBody,
@@ -6,23 +5,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  FieldArrayWithId,
-  UseFieldArrayRemove,
-} from "react-hook-form";
+import { FieldArrayWithId, UseFieldArrayRemove } from "react-hook-form";
 import React from "react";
 import { CategoryFormValues } from "../types/schema";
-import NewCategoryAttributeRow from "./attribute-row";
+import CategoryAttributeRow from "@/features/dashboard/categories/components/category-attribute-row";
 
-type NewCategoryTableProps = {
+type CategoryTableProps = {
   fields: FieldArrayWithId<CategoryFormValues, "attributes", "id">[];
   remove: UseFieldArrayRemove;
 };
 
-export default function NewCategoryTable({
-  fields,
-  remove,
-}: NewCategoryTableProps) {
+export default function CategoryTable({ fields, remove }: CategoryTableProps) {
   return (
     <Table className="min-w-[900px]">
       <TableHeader>
@@ -37,7 +30,7 @@ export default function NewCategoryTable({
       </TableHeader>
       <TableBody>
         {fields.map((field, index) => (
-          <NewCategoryAttributeRow
+          <CategoryAttributeRow
             key={field.id}
             index={index}
             onRemove={() => remove(index)}

@@ -8,34 +8,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  TableCell,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  Controller,
-
-  useFormContext,
-} from "react-hook-form";
+import { TableCell, TableRow } from "@/components/ui/table";
+import { Controller, useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { CategoryFormValues } from "../types/schema";
-import DeleteAttributeDialog from "./delete-attribute-dialog";
 
-type NewCategoryAttributeRowProps = {
+import ConfirmDialog from "@/components/common/confirm-dialog";
+import { Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+type CategoryAttributeRowProps = {
   index: number;
   onRemove: () => void;
 };
-export default function NewCategoryAttributeRow({
+export default function CategoryAttributeRow({
   index,
   onRemove,
-}: NewCategoryAttributeRowProps) {
+}: CategoryAttributeRowProps) {
   const {
     control,
     setValue,
     formState: { errors },
-    watch
+    watch,
   } = useFormContext<CategoryFormValues>();
-
 
   const attributes = watch("attributes");
   const selectedType = attributes?.[index]?.type;
@@ -155,8 +150,24 @@ export default function NewCategoryAttributeRow({
         )}
       </TableCell>
       <TableCell>
-        <DeleteAttributeDialog onConfirm={onRemove}/> 
+        <ConfirmDialog
+          trigger={
+            <Button
+              type="button"
+              variant={"destructive"}
+              className="cursor-pointer"
+            >
+              <Trash2 />
+              Delete
+            </Button>
+          }
+          title="Are you sure to delete this field?"
+          cancelText="Cancel"
+          confirmText="Delete"
+          onConfirm={onRemove}
+          confirmVariant="destructive"
+        />
       </TableCell>
     </TableRow>
-  );    
+  );
 }
