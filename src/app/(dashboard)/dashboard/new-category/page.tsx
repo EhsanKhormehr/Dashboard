@@ -1,4 +1,3 @@
-"use client";
 
 import NewCategoryForm from "@/features/dashboard/new-category/components/form";
 
