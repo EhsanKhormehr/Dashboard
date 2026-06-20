@@ -11,3 +11,34 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Category {
+  id        String              @id @default(cuid())
+  name      String
+  slug      String
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+  attribute CategoryAttribute[]
+}
+
+model CategoryAttribute {
+  id         String        @id @default(cuid())
+  name       String
+  slug       String
+  type       AttributeType
+  required   Boolean       @default(false)
+  options    String[]      @default([])
+  categoryId String
+  category   Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@unique([categoryId, slug])
+}
+
+enum AttributeType {
+  TEXT
+  NUMBER
+  BOOLEAN
+  SELECT
+}
