@@ -22,6 +22,7 @@ type CategoryAttributeRowProps = {
   index: number;
   onRemove: () => void;
 };
+
 export default function CategoryAttributeRow({
   index,
   onRemove,
@@ -108,8 +109,9 @@ export default function CategoryAttributeRow({
           render={({ field }) => (
             <>
               <Checkbox
+              checked={field.value === true}
                 onCheckedChange={(value) => {
-                  field.onChange(value);
+                  field.onChange(value === true);
                 }}
               />
             </>

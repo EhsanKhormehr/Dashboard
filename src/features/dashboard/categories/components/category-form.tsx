@@ -47,7 +47,7 @@ export default function CategoryForm({
       name: "",
       slug: "",
       type: "TEXT",
-      required: "FALSE",
+      required: false,
       options: "",
     });
   };
