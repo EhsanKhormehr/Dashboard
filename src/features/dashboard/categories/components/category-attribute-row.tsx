@@ -16,6 +16,7 @@ import { CategoryFormValues } from "../types/schema";
 import ConfirmDialog from "@/components/common/confirm-dialog";
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type CategoryAttributeRowProps = {
   index: number;
@@ -105,22 +106,13 @@ export default function CategoryAttributeRow({
           control={control}
           name={`attributes.${index}.required`}
           render={({ field }) => (
-            <Select
-              value={field.value}
-              onValueChange={(value) => {
-                field.onChange(value);
-              }}
-            >
-              <SelectTrigger className="!bg-surface">
-                <SelectValue placeholder="Required"></SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="TRUE">True</SelectItem>
-                  <SelectItem value="FALSE">False</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <>
+              <Checkbox
+                onCheckedChange={(value) => {
+                  field.onChange(value);
+                }}
+              />
+            </>
           )}
         />
         {errors.attributes?.[index]?.required && (

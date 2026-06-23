@@ -15,7 +15,7 @@ export const createCategory = async (data: CategoryFormValues) => {
               name: attribute.name,
               slug: attribute.slug,
               type: attribute.type,
-              required: attribute.required === "TRUE",
+              required: attribute.required,
               options:
                 attribute.type === "SELECT"
                   ? (attribute.options ?? "")
@@ -74,7 +74,7 @@ export const editCategory = async (id: string, data: CategoryFormValues) => {
               name: attribute.name,
               slug: attribute.slug,
               type: attribute.type,
-              required: attribute.required === "TRUE",
+              required: attribute.required,
               options:
                 attribute.type === "SELECT"
                   ? (attribute.options ?? "")

@@ -1,7 +1,7 @@
-import z from "zod";
+import z, { boolean } from "zod";
 
 const attributeTypeSchema = z.enum(["TEXT", "NUMBER", "BOOLEAN", "SELECT"]);
-const requiredTypeSchema = z.enum(["TRUE", "FALSE"]);
+// const requiredTypeSchema = z.enum(["TRUE", "FALSE"]);
 
 export const categorySchema = z.object({
   name: z.string().min(1, "Category name is required"),
@@ -13,7 +13,7 @@ export const categorySchema = z.object({
           name: z.string().min(1, "Attribute name is required"),
           slug: z.string().min(1, "Attribute slug is required"),
           type: attributeTypeSchema,
-          required: requiredTypeSchema,
+          required: boolean(),
           options: z.string().optional(),
         })
         .superRefine((value, ctx) => {
@@ -38,8 +38,8 @@ export const categoryDefaultValues: CategoryFormValues = {
     {
       name: "",
       slug: "",
-      type: "SELECT",
-      required: "FALSE",
+      type: "TEXT",
+      required: false,
       options: "",
     },
   ],
