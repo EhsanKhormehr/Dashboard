@@ -32,7 +32,7 @@ export default async function CategoryEdit({ params }: CategoryEditProps) {
       name: attribute.name,
       slug: attribute.slug,
       type: attribute.type,
-      required:  attribute.required ? "TRUE" as const : "FALSE" as const,
+      required:  attribute.required,
       options: attribute.options.join(", ") ?? "",
     })),
   };

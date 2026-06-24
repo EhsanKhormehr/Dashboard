@@ -1,7 +1,7 @@
 
 import CategoryForm from "@/features/dashboard/categories/components/category-form";
 
-export default function page() {
+export default function NewCategory() {
   return (
     <div>
       <h1 className="font-bold text-3xl">New Category</h1>

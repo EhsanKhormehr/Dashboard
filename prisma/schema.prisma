@@ -13,27 +13,66 @@ datasource db {
 }
 
 model Category {
-  id        String              @id @default(cuid())
-  name      String
-  slug      String
-  createdAt DateTime            @default(now())
-  updatedAt DateTime            @updatedAt
+  id   String @id @default(cuid())
+  name String
+  slug String @unique
+
   attributes CategoryAttribute[]
+  products   Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model CategoryAttribute {
-  id         String        @id @default(cuid())
-  name       String
-  slug       String
-  type       AttributeType
-  required   Boolean       @default(false)
-  options    String[]      @default([])
-  categoryId String
-  category   Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
+  id       String        @id @default(cuid())
+  name     String
+  slug     String
+  type     AttributeType
+  required Boolean       @default(false)
+  options  String[]      @default([])
 
-  @@unique([categoryId, slug])
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  values ProductAttributeValue[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  description String?
+  price       Float
+  stock       Int     @default(0)
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  attributes ProductAttributeValue[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProductAttributeValue {
+  id String @id @default(cuid())
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  attributeId String
+  attribute   CategoryAttribute @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+
+  value String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([productId, attributeId])
 }
 
 enum AttributeType {
