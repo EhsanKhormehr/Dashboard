@@ -17,6 +17,7 @@ import ConfirmDialog from "@/components/common/confirm-dialog";
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import ErrorMessage from "@/components/common/error-message";
 
 type CategoryAttributeRowProps = {
   index: number;
@@ -48,9 +49,7 @@ export default function CategoryAttributeRow({
           )}
         />
         {errors.attributes?.[index]?.name && (
-          <p className="text-destructive text-sm">
-            {errors.attributes?.[index].name?.message}
-          </p>
+          <ErrorMessage text={errors.attributes?.[index].name?.message} />
         )}
       </TableCell>
       <TableCell className="min-w-[300px]">
@@ -62,9 +61,7 @@ export default function CategoryAttributeRow({
           )}
         />
         {errors.attributes?.[index]?.slug && (
-          <p className="text-destructive text-sm">
-            {errors.attributes?.[index].slug?.message}
-          </p>
+          <ErrorMessage text={errors.attributes?.[index].slug?.message} />
         )}
       </TableCell>
       <TableCell>
@@ -97,9 +94,7 @@ export default function CategoryAttributeRow({
           )}
         />
         {errors.attributes?.[index]?.type && (
-          <p className="text-destructive text-sm">
-            {errors.attributes?.[index].type?.message}
-          </p>
+          <ErrorMessage text={errors.attributes?.[index].type?.message} />
         )}
       </TableCell>
       <TableCell>
@@ -109,7 +104,7 @@ export default function CategoryAttributeRow({
           render={({ field }) => (
             <>
               <Checkbox
-              checked={field.value === true}
+                checked={field.value === true}
                 onCheckedChange={(value) => {
                   field.onChange(value === true);
                 }}
@@ -118,9 +113,7 @@ export default function CategoryAttributeRow({
           )}
         />
         {errors.attributes?.[index]?.required && (
-          <p className="text-destructive text-sm">
-            {errors.attributes?.[index].required?.message}
-          </p>
+          <ErrorMessage text={errors.attributes?.[index].required?.message} />
         )}
       </TableCell>
       <TableCell className="min-w-[300px]">
@@ -138,9 +131,7 @@ export default function CategoryAttributeRow({
           )}
         />
         {errors.attributes?.[index]?.options && (
-          <p className="text-destructive text-sm">
-            {errors.attributes?.[index].options?.message}
-          </p>
+          <ErrorMessage text={errors.attributes?.[index].options?.message} />
         )}
       </TableCell>
       <TableCell>

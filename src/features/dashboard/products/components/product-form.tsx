@@ -33,6 +33,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { useCreateNewProduct } from "../services/useMutation";
+import ErrorMessage from "@/components/common/error-message";
 
 export default function ProductForm() {
   const { data: categories } = useCategories();
@@ -80,11 +81,7 @@ export default function ProductForm() {
                   <FieldLabel>Name</FieldLabel>
                   <Input type="text" {...field} />
 
-                  {errors.name && (
-                    <p className="text-destructive text-sm">
-                      {errors.name.message}
-                    </p>
-                  )}
+                  {errors.name && <ErrorMessage text={errors.name.message} />}
                 </Field>
               )}
             />
@@ -95,11 +92,7 @@ export default function ProductForm() {
                 <Field>
                   <FieldLabel>Slug</FieldLabel>
                   <Input type="text" {...field} />
-                  {errors.slug && (
-                    <p className="text-destructive text-sm">
-                      {errors.slug.message}
-                    </p>
-                  )}
+                  {errors.slug && <ErrorMessage text={errors.slug.message} />}
                 </Field>
               )}
             />
@@ -111,9 +104,7 @@ export default function ProductForm() {
                   <FieldLabel>Description</FieldLabel>
                   <Textarea {...field} />
                   {errors.description && (
-                    <p className="text-destructive text-sm">
-                      {errors.description.message}
-                    </p>
+                    <ErrorMessage text={errors.description.message} />
                   )}
                 </Field>
               )}
@@ -126,11 +117,7 @@ export default function ProductForm() {
                   <FieldLabel>Price</FieldLabel>
                   <Input type="text" {...field} />
 
-                  {errors.price && (
-                    <p className="text-destructive text-sm">
-                      {errors.price.message}
-                    </p>
-                  )}
+                  {errors.price && <ErrorMessage text={errors.price.message} />}
                 </Field>
               )}
             />
@@ -141,11 +128,7 @@ export default function ProductForm() {
                 <Field>
                   <FieldLabel>Stock</FieldLabel>
                   <Input type="text" {...field} />
-                  {errors.stock && (
-                    <p className="text-destructive text-sm">
-                      {errors.stock.message}
-                    </p>
-                  )}
+                  {errors.stock && <ErrorMessage text={errors.stock.message} />}
                 </Field>
               )}
             />
@@ -212,7 +195,7 @@ export default function ProductForm() {
                             onBlur={field.onBlur}
                           />
                           {fieldState.error && (
-                            <p>{fieldState.error.message}</p>
+                            <ErrorMessage text={fieldState.error.message} />
                           )}
                         </>
                       )}
@@ -244,7 +227,7 @@ export default function ProductForm() {
                             </SelectContent>
                           </Select>
                           {fieldState.error && (
-                            <p>{fieldState.error.message}</p>
+                            <ErrorMessage text={fieldState.error.message} />
                           )}
                         </>
                       )}
@@ -271,7 +254,7 @@ export default function ProductForm() {
                             </SelectContent>
                           </Select>
                           {fieldState.error && (
-                            <p>{fieldState.error.message}</p>
+                            <ErrorMessage text={fieldState.error.message} />
                           )}
                         </>
                       )}
@@ -292,7 +275,7 @@ export default function ProductForm() {
                             onBlur={field.onBlur}
                           />
                           {fieldState.error && (
-                            <p>{fieldState.error.message}</p>
+                            <ErrorMessage text={fieldState.error.message} />
                           )}
                         </>
                       )}
