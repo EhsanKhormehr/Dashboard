@@ -1,3 +1,4 @@
+import PageHeader from "@/components/common/page-header";
 import CategoryForm from "@/features/dashboard/categories/components/category-form";
 import { useCategories } from "@/features/dashboard/categories/services/useQueries";
 import { prisma } from "@/lib/prisma";
@@ -39,8 +40,8 @@ export default async function CategoryEdit({ params }: CategoryEditProps) {
 
   return (
     <div>
-      <h1 className="font-bold text-3xl">Categories</h1>
-      <div className="mt-10">
+      <PageHeader title="Categories"/>
+      <div className="mt-6">
         <CategoryForm mode="edit" initialData={initialData} categoryId={category.id}/>
       </div>
     </div>

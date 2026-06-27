@@ -1,3 +1,4 @@
+import PageHeader from "@/components/common/page-header";
 import DashboardCard from "@/features/dashboard/home/components/dashboard-card";
 import DashboardChart from "@/features/dashboard/home/components/dashboard-chart";
 import DashboardDeals from "@/features/dashboard/home/components/dashboard-deals-table";
@@ -7,7 +8,7 @@ import React from "react";
 export default function Dashboard() {
   return (
     <div>
-      <h1 className="font-bold text-3xl">Dashboard</h1>
+      <PageHeader title="Dashboard"/> 
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 mt-6">
         <DashboardCard
           title="Total User"

@@ -1,3 +1,4 @@
+import PageHeader from "@/components/common/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ProductForm from "@/features/dashboard/products/components/product-form";
 import React from "react";
@@ -6,7 +7,7 @@ export default function NewProduct() {
 
   return (
     <div>
-      <h1 className="font-bold text-3xl">New Product</h1>
+      <PageHeader title="New Product"/> 
       <Card className="shadow-card mt-6">
         <CardHeader className="flex items-center justify-between gap-2 space-y-0 py-0 sm:flex-row">
           <CardTitle className="font-bold text-2xl">New Product</CardTitle>

@@ -30,6 +30,10 @@ export const ROUTE_GROUPS : RouteGroup[] = [
         href: "/dashboard/new-category",
         label: "New Categoy",
       },
+      {
+        href: "/dashboard/favorites",
+        label: "Favorites",
+      },
       
     ],
   },

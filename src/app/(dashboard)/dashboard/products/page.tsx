@@ -1,3 +1,4 @@
+import PageHeader from "@/components/common/page-header";
 import { Input } from "@/components/ui/input";
 import ProductsCard from "@/features/dashboard/products/components/products-card";
 import ProductsFilter from "@/features/dashboard/products/components/products-filter";
@@ -9,10 +10,10 @@ export default function Products() {
   return (
     <div>
       <div className="flex justify-between items-center">
-        <h1 className="font-bold text-3xl">Products</h1>
+        <PageHeader title="Products"/> 
         <ProductsFilter />
       </div>
-      <div className="relative w-full sm:w-[260px] md:w-[350px] mt-2">
+      <div className="relative w-full sm:w-[260px] md:w-[350px] mt-6">
         <Input
           type="text"
           placeholder="Search..."

@@ -1,3 +1,4 @@
+import PageHeader from "@/components/common/page-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import CategoriesTable from "@/features/dashboard/categories/components/categories-table";
@@ -8,7 +9,7 @@ import React from "react";
 export default function Categories() {
   return (
     <div>
-      <h1 className="font-bold text-3xl">Categories</h1>
+      <PageHeader title="Categories"/>
       <Card className="shadow-card mt-6">
         <CardHeader className="flex items-center justify-between gap-2 space-y-0 py-0 sm:flex-row">
           <CardTitle className="font-bold text-2xl">Categories</CardTitle>
