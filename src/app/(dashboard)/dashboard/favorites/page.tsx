@@ -2,7 +2,6 @@ import PageHeader from "@/components/common/page-header";
 import { Input } from "@/components/ui/input";
 import ProductsCard from "@/features/dashboard/products/components/products-card";
 import ProductsFilter from "@/features/dashboard/products/components/products-filter";
-import ProductsPagination from "@/features/dashboard/products/components/products-pagination";
 import { Search } from "lucide-react";
 import React from "react";
 
@@ -27,7 +26,6 @@ export default function Favorites() {
           <ProductsCard />
           <ProductsCard />
         </div>
-        <ProductsPagination />
       </div>
     </div>
   );

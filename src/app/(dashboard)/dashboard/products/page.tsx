@@ -3,11 +3,11 @@ import ProductSearch from "@/features/dashboard/products/components/products-sea
 import ProductSize from "@/features/dashboard/products/components/products-page-size";
 import ProductsCard from "@/features/dashboard/products/components/products-card";
 import ProductsFilter from "@/features/dashboard/products/components/products-filter";
-import ProductsPagination from "@/features/dashboard/products/components/products-pagination";
 import React from "react";
 import { getFilteredProducts } from "@/features/dashboard/products/services/actions";
 import { SearchX } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Pagination from "@/components/common/pagination";
 
 type ProductsProps = {
   searchParams: Promise<{
@@ -64,7 +64,7 @@ export default async function Products({ searchParams }: ProductsProps) {
             />
           ))}
         </div>
-        <ProductsPagination />
+        <Pagination baseHref="/dashboard/products" currentPage={filteredProducts.currentPage} pageSize={params.limit || "8"} totalItemsCount={filteredProducts.totalCount} /> 
       </div>
     </div>
   );
