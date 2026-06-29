@@ -7,12 +7,21 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function ProductsCard() {
+type ProductsCardProps = {
+  id : string
+  img : string
+  name : string
+  price : number
+  rate : string
+  rateCount : string
+}
+
+function ProductsCard(data:ProductsCardProps) {
   return (
     <div className="bg-surface shadow-card rounded-3xl overflow-hidden">
       <div className="relative h-[300px] w-full overflow-hidden bg-white">
         <Image
-          src={"/apple-watch1.png"}
+          src={data.img}
           alt={"/apple-watch1.png"}
           fill
           className="object-contain p-8"
@@ -23,9 +32,9 @@ function ProductsCard() {
         <div className="flex justify-between items-center">
           <div className="flex flex-col">
             <Link href={"/products"} className="font-bold text-[18px]">
-              Apple Watch Series 4
+              {data.name}
             </Link>
-            <span className="text-primary font-bold mt-1">$120.00</span>
+            <span className="text-primary font-bold mt-1">$ {data.price}</span>
           </div>
           <Heart className="size-7 cursor-pointer" />
         </div>
@@ -36,14 +45,16 @@ function ProductsCard() {
           <Star className="ml-[1px] fill-[#FF9500] text-[#FF9500] cursor-pointer" />
           <Star className="ml-[1px] text-black opacity-20 fill-black cursor-pointer" />
           <span className="text-dashboard-text font-semibold text-sm ">
-            (131)
+            ({data.rateCount})
           </span>
         </div>
         <Dialog>
           <form>
             <DialogTrigger asChild>
               <Button className="bg-[var(--soft)] text-surface-foreground text-sm font-bold py-5 px-7 cursor-pointer hover:text-primary-foreground hover:bg-primary hover:-translate-y-0.5">
+                <Link href={`/dashboard/products/${data.id}/edit`}>
                 Edit Product
+                </Link>
               </Button>
             </DialogTrigger>
             <DialogContent>

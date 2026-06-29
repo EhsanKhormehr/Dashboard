@@ -1,31 +1,68 @@
 import PageHeader from "@/components/common/page-header";
-import { Input } from "@/components/ui/input";
+import ProductSearch from "@/features/dashboard/products/components/products-search";
+import ProductSize from "@/features/dashboard/products/components/products-page-size";
 import ProductsCard from "@/features/dashboard/products/components/products-card";
 import ProductsFilter from "@/features/dashboard/products/components/products-filter";
 import ProductsPagination from "@/features/dashboard/products/components/products-pagination";
-import {  Search } from "lucide-react";
 import React from "react";
+import { getFilteredProducts } from "@/features/dashboard/products/services/actions";
+import { SearchX } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-export default function Products() {
+type ProductsProps = {
+  searchParams: Promise<{
+    q?: string;
+    sortBy?: string;
+    category?: string;
+    page?: string;
+    limit?: string;
+    minPrice?: string;
+    maxPrice?: string;
+  }>;
+};
+
+export default async function Products({ searchParams }: ProductsProps) {
+  const params = await searchParams;
+  const filteredProducts = await getFilteredProducts(params);
+
+
   return (
     <div>
       <div className="flex justify-between items-center">
-        <PageHeader title="Products"/> 
+        <PageHeader title="Products" />
         <ProductsFilter />
       </div>
-      <div className="relative w-full sm:w-[260px] md:w-[350px] mt-6">
-        <Input
-          type="text"
-          placeholder="Search..."
-          className="bg-surface rounded-3xl pl-10 text-sm text-foreground py-5"
-        />
-        <Search className="absolute top-1/2 text-foreground opacity-35 bottom-0 left-2 -translate-y-1/2"  />
+      <div className="flex items-center justify-between mt-6">
+        <div>
+          <ProductSearch />
+        </div>
+        <div>
+          <ProductSize />
+        </div>
       </div>
+      {filteredProducts.products.length === 0 && (
+        <div className="flex min-h-[320px] flex-col items-center justify-center text-center px-4">
+          <SearchX className="h-10 w-10 text-muted-foreground mb-3" />
+          <h3 className="text-lg font-semibold">No products found</h3>
+          <p className="mt-1 text-sm text-muted-foreground max-w-sm">
+            Try a different search term or clear the current filters.
+          </p>
+        </div>
+      )}
+
       <div className="mt-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-          <ProductsCard />
-          <ProductsCard />
-          <ProductsCard />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
+          {filteredProducts.products.map((product) => (
+            <ProductsCard
+              key={product.id}
+              id={product.id}
+              img="/apple-watch1.png"
+              name={product.name}
+              price={product.price}
+              rate="4"
+              rateCount="131"
+            />
+          ))}
         </div>
         <ProductsPagination />
       </div>

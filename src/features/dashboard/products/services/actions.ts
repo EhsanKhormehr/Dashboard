@@ -3,6 +3,16 @@ import { prisma } from "@/lib/prisma";
 import { ProductFormValues } from "../types/schema";
 import { executeAction } from "@/lib/executeAction";
 
+type getFilteredProductsParams = {
+  q?: string;
+  sortBy?: string;
+  category?: string;
+  page?: string;
+  limit?: string;
+  minPrice?: string;
+  maxPrice?: string;
+};
+
 export const getCategoryAttributes = async (id: string) => {
   return await prisma.category.findUnique({
     where: {
@@ -12,16 +22,6 @@ export const getCategoryAttributes = async (id: string) => {
       attributes: true,
     },
   });
-};
-
-type AddNewProductInput = {
-  name: string;
-  slug: string;
-  description?: string;
-  price: number;
-  stock: number;
-  categoryId: string;
-  attributes?: Record<string, string>;
 };
 
 export const createNewProduct = async (data: ProductFormValues) => {
@@ -58,13 +58,13 @@ export const createNewProduct = async (data: ProductFormValues) => {
         );
 
       const product = await prisma.product.create({
-        data : {
+        data: {
           name: data.name,
           description: data.description,
           price: data.price,
           stock: data.stock,
           categoryId: data.categoryId,
-          slug : data.slug,
+          slug: data.slug,
           attributes: {
             create: attributeValues,
           },
@@ -75,6 +75,65 @@ export const createNewProduct = async (data: ProductFormValues) => {
       });
 
       return product;
+    },
+  });
+};
+
+export const getFilteredProducts = async (
+  params: getFilteredProductsParams,
+) => {
+  return await executeAction({
+    actionFn: async () => {
+      const page = parseInt(params.page || "1", 10);
+      const limit = parseInt(params.limit || "8", 10);
+      const skip = (page - 1) * limit;
+
+      const where: any = {};
+
+      if (params.q) {
+        where.name = { contains: params.q, mode: "insensitive" };
+      }
+
+      if (params.category && params.category !== "default") {
+        where.categoryId = params.category;
+      }
+
+      if (params.minPrice || params.maxPrice) {
+        where.price = {
+          ...(params.minPrice && { gte: parseFloat(params.minPrice) }),
+          ...(params.maxPrice && { lte: parseFloat(params.maxPrice) }),
+        };
+      }
+
+      const orderBy: any = {};
+
+      switch (params.sortBy) {
+        case "price-asc":
+          orderBy.price = "asc";
+          break;
+        case "price-desc":
+          orderBy.price = "desc";
+          break;
+        default:
+          orderBy.createdAt = "desc";
+          break;
+      }
+
+      const [products, totalCount] = await prisma.$transaction([
+        prisma.product.findMany({
+          where,
+          orderBy,
+          skip,
+          take: limit,
+        }),
+        prisma.product.count({ where }),
+      ]);
+      return {
+        products,
+        totalCount,
+        totalPages : Math.ceil(totalCount / limit),
+        currentPage : page
+      }
     },
   });
 };

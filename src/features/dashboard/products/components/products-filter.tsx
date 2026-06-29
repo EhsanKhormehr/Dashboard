@@ -12,6 +12,7 @@ import {
 import {
   Sheet,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -19,10 +20,83 @@ import {
 import { Slider } from "@/components/ui/slider";
 import { Filter, Plus } from "lucide-react";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import { useCategories } from "../../categories/services/useQueries";
 
 export default function ProductsFilter() {
-  const [sliderValue, setSliderValue] = useState([0, 100]);
+  const [filters, setFilters] = useState({
+    sortBy: "default",
+    category: "default",
+    sortOrder: "default",
+    minPrice: 0,
+    maxPrice: 100,
+  });
+  const router = useRouter();
+  const pathName = usePathname();
+  const searchParams = useSearchParams();
+  const { data: categories } = useCategories();
+
+  const filterHandler = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (filters.sortBy && filters.sortBy !== "default") {
+      params.set("sortBy", filters.sortBy);
+    } else {
+      params.delete("sortBy");
+    }
+
+    if (filters.category && filters.category !== "default") {
+      params.set("category", filters.category);
+    } else {
+      params.delete("category");
+    }
+
+    if (filters.sortOrder && filters.sortOrder !== "default") {
+      params.set("sortOrder", filters.sortOrder);
+    } else {
+      params.delete("sortOrder");
+    }
+
+    if (filters.minPrice !== 0) {
+      params.set("minPrice", String(filters.minPrice));
+    } else {
+      params.delete("minPrice");
+    }
+
+    if (filters.maxPrice !== 100) {
+      params.set("maxPrice", String(filters.maxPrice));
+    } else {
+      params.delete("maxPrice");
+    }
+
+    params.set("page", "1");
+    router.replace(`${pathName}?${params}`);
+  };
+
+  const resetHandler = () => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    params.delete("sortBy");
+    params.delete("category");
+    params.delete("sortOrder");
+    params.delete("minPrice");
+    params.delete("maxPrice");
+
+    params.set("page", "1");
+
+    router.replace(`${pathName}?${params.toString()}`);
+
+    setFilters({
+      sortBy: "default",
+      category: "default",
+      sortOrder: "default",
+      minPrice: 0,
+      maxPrice: 100,
+    });
+  };
+
   return (
     <div className="flex items-center">
       <Sheet>
@@ -37,42 +111,66 @@ export default function ProductsFilter() {
               Filter Product
             </SheetTitle>
           </SheetHeader>
-          <div className="px-4 flex flex-col justify-between h-screen">
-            <div>
+          <form
+            onSubmit={(e) => filterHandler(e)}
+            className="flex flex-col justify-between h-screen"
+          >
+            <div className="px-4 ">
               <Field className="mb-3">
                 <FieldLabel className="font-semibold">Sort By</FieldLabel>
-                <Select>
+                <Select
+                  value={filters.sortBy}
+                  onValueChange={(value) => {
+                    setFilters((prev) => ({ ...prev, sortBy: value }));
+                  }}
+                >
                   <SelectTrigger className="py-5">
-                    <SelectValue placeholder="Name" />
+                    <SelectValue placeholder="Default" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="newset">Newset</SelectItem>
-                    <SelectItem value="oldset">Oldset</SelectItem>
-                    <SelectItem value="plth">Price:Low to High</SelectItem>
-                    <SelectItem value="phtl">Price:High to Low</SelectItem>
+                    <SelectItem value="default">Default</SelectItem>
+                    <SelectItem value="newest">Newset</SelectItem>
+                    <SelectItem value="oldest">Oldset</SelectItem>
+                    <SelectItem value="price-asc">Price:Low to High</SelectItem>
+                    <SelectItem value="price-desc">Price:High to Low</SelectItem>
                     <SelectItem value="rating">Best Rating</SelectItem>
                   </SelectContent>
                 </Select>
               </Field>
               <Field className="mb-3">
                 <FieldLabel className="font-semibold">Category</FieldLabel>
-                <Select>
+                <Select
+                  value={filters.category}
+                  onValueChange={(value) => {
+                    setFilters((prev) => ({ ...prev, category: value }));
+                  }}
+                >
                   <SelectTrigger className="py-5">
-                    <SelectValue placeholder="Name" />
+                    <SelectValue placeholder="Default" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="watch">Watch</SelectItem>
-                    <SelectItem value="laptop">Laptop</SelectItem>
+                    <SelectItem value="default">Default</SelectItem>
+                    {categories?.map((category) => (
+                      <SelectItem value={category.id} key={category.id}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </Field>
               <Field className="mb-3">
                 <FieldLabel className="font-semibold">Sort Order</FieldLabel>
-                <Select>
+                <Select
+                  value={filters.sortOrder}
+                  onValueChange={(value) => {
+                    setFilters((prev) => ({ ...prev, sortOrder: value }));
+                  }}
+                >
                   <SelectTrigger className="py-5">
-                    <SelectValue placeholder="Name" />
+                    <SelectValue placeholder="Default" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="default">Default</SelectItem>
                     <SelectItem value="des">Descending</SelectItem>
                     <SelectItem value="asc">Ascending</SelectItem>
                   </SelectContent>
@@ -84,40 +182,52 @@ export default function ProductsFilter() {
                 </CardHeader>
                 <CardContent>
                   <Slider
+                    value={[filters.minPrice, filters.maxPrice]}
                     defaultValue={[0, 100]}
                     max={100}
                     step={1}
                     className="w-full"
-                    onValueChange={setSliderValue}
+                    onValueChange={(value) => {
+                      setFilters((prev) => ({
+                        ...prev,
+                        minPrice: value[0],
+                        maxPrice: value[1],
+                      }));
+                    }}
                   />
                   <div className="grid grid-cols-2 mt-5 gap-4">
                     <div className="flex justify-between border-1 shadow-card rounded-md px-2 py-3">
                       <span>Min</span>
-                      <span>{sliderValue[0]}</span>
+                      <span>{filters.minPrice}</span>
                     </div>
                     <div className="flex justify-between border-1 shadow-card rounded-md px-2 py-3">
                       <span>Max</span>
-                      <span>{sliderValue[1]}</span>
+                      <span>{filters.maxPrice}</span>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
-            <div className="grid">
+            <SheetFooter>
               <Button
                 className="py-6 mb-4 cursor-pointer ring bg-surface text-surface-foreground hover:bg-surface"
                 type="reset"
+                onClick={resetHandler}
               >
                 Reset
               </Button>
-              <Button className="py-6 mb-4 cursor-pointer " type="button">
+              <Button className="py-6 mb-4 cursor-pointer" type="submit">
                 Apply Filters
               </Button>
-            </div>
-          </div>
+            </SheetFooter>
+          </form>
         </SheetContent>
       </Sheet>
-      <Button type="button" className="cursor-pointer py-4.5 font-semibold" asChild>
+      <Button
+        type="button"
+        className="cursor-pointer py-4.5 font-semibold"
+        asChild
+      >
         <Link href={"/dashboard/new-products"}>
           Add Product
           <Plus className="size-5" />
