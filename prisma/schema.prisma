@@ -75,6 +75,15 @@ model ProductAttributeValue {
   @@unique([productId, attributeId])
 }
 
+model Todo {
+  id          String   @id @default(cuid())
+  title       String
+  isCompleted Boolean  @default(false)
+  isFavorite  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 enum AttributeType {
   TEXT
   NUMBER

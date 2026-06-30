@@ -49,7 +49,7 @@ export const ROUTE_GROUPS : RouteGroup[] = [
         label: "Calender",
       },
       {
-        href: "/dashboard/to-do",
+        href: "/dashboard/todo",
         label: "To-Do",
       },
       {

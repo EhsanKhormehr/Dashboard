@@ -1,5 +1,5 @@
 import PageHeader from "@/components/common/page-header";
-import PricingCard from "@/features/dashboard/pricing/pricing-card";
+import PricingCard from "@/features/dashboard/pricing/components/pricing-card";
 import React from "react";
 
 const pricingPlans = [
