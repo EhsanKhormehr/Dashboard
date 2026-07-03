@@ -20,3 +20,7 @@ export const createTeamMember = async (data: NewTeamMemberFormValues) => {
     },
   });
 };
+
+export const getAllTeamMembers = async () => {
+  return await prisma.team.findMany({});
+};
