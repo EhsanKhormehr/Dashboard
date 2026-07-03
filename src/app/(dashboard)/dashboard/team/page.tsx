@@ -39,7 +39,7 @@ export default function Team() {
           className="cursor-pointer py-4.5 font-semibold"
           asChild
         >
-          <Link href={"/dashboard/new-team-member"}>
+          <Link href={"/dashboard/team/new-team-member"}>
             Add New Member
             <Plus className="size-5" />
           </Link>

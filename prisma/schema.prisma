@@ -84,9 +84,27 @@ model Todo {
   updatedAt   DateTime @updatedAt
 }
 
+model Team {
+  id          String   @id @default(cuid())
+  firstName   String
+  lastName    String
+  email       String   @unique
+  phoneNumber String      @unique
+  position    String
+  gender      Gender
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 enum AttributeType {
   TEXT
   NUMBER
   BOOLEAN
   SELECT
+}
+
+enum Gender {
+  MALE
+  FEMALE
 }
