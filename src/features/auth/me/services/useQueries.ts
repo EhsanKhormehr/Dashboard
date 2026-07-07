@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 export const useMeQuery = () => {
-  useQuery({
+  return useQuery({
     queryKey: ["me"],
     queryFn: async () => {
       const response = await fetch("/api/auth/me");
