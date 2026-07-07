@@ -21,7 +21,16 @@ export const useCategoryAttributes = (id?: string) => {
 
 export const useFilteredProducts = (params: getFilteredProductsParams) => {
   return useQuery({
-    queryKey: ["products"],
+    queryKey: [
+      "products",
+      params.q ?? "",
+      params.sortBy ?? "",
+      params.category ?? "",
+      params.page ?? "",
+      params.limit ?? "",
+      params.minPrice ?? "",
+      params.maxPrice ?? "",
+    ],
     queryFn: () => getFilteredProducts(params),
   });
 };

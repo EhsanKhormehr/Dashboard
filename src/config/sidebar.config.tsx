@@ -34,6 +34,11 @@ export const ROUTE_GROUPS : RouteGroup[] = [
         href: "/dashboard/favorites",
         label: "Favorites",
       },
+      {
+        href : "/dashboard/product-stock",
+        label : "Product Stock"
+      }
+
       
     ],
   },

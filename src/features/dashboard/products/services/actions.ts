@@ -125,15 +125,25 @@ export const getFilteredProducts = async (
           orderBy,
           skip,
           take: limit,
+          include: {
+            category: true,
+          },
         }),
         prisma.product.count({ where }),
       ]);
       return {
         products,
         totalCount,
-        totalPages : Math.ceil(totalCount / limit),
-        currentPage : page
-      }
+        totalPages: Math.ceil(totalCount / limit),
+        currentPage: page,
+      };
+    },
+  });
+};
+export const deleteProduct = async (id: string) => {
+  return await prisma.product.delete({
+    where: {
+      id,
     },
   });
 };

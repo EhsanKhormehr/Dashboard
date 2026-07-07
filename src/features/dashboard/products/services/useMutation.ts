@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ProductFormValues } from "../types/schema";
-import { createNewProduct } from "./actions";
+import { createNewProduct, deleteProduct } from "./actions";
 import { toast } from "sonner";
 
 export const useCreateNewProduct = () => {
@@ -10,9 +10,23 @@ export const useCreateNewProduct = () => {
     mutationFn: async (data: ProductFormValues) => {
       return createNewProduct(data);
     },
-    onSuccess: async() => {
-      await queryClient.invalidateQueries({ queryKey: ["products"] });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
       toast.success("New product created successfuly");
+    },
+  });
+};
+
+export const useDeleteProduct = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: string) => {
+      return deleteProduct(id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      toast.success("Product deleted successfuly");
     },
   });
 };
