@@ -2,6 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { ProductFormValues } from "../types/schema";
 import { executeAction } from "@/lib/executeAction";
+import { Prisma } from "../../../../../generated/prisma/browser";
 
 type getFilteredProductsParams = {
   q?: string;
@@ -14,18 +15,25 @@ type getFilteredProductsParams = {
 };
 
 export const getCategoryAttributes = async (id: string) => {
-  return await prisma.category.findUnique({
-    where: {
-      id,
-    },
-    include: {
-      attributes: true,
+  return executeAction({
+    actionFn: async () => {
+      if (!id) {
+        throw new Error("Category id is required");
+      }
+      return prisma.category.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          attributes: true,
+        },
+      });
     },
   });
 };
 
 export const createNewProduct = async (data: ProductFormValues) => {
-  await executeAction({
+  return executeAction({
     actionFn: async () => {
       const categoryAttributes = await prisma.categoryAttribute.findMany({
         where: {
@@ -57,7 +65,7 @@ export const createNewProduct = async (data: ProductFormValues) => {
             item !== null,
         );
 
-      const product = await prisma.product.create({
+      return prisma.product.create({
         data: {
           name: data.name,
           description: data.description,
@@ -73,8 +81,6 @@ export const createNewProduct = async (data: ProductFormValues) => {
           attributes: true,
         },
       });
-
-      return product;
     },
   });
 };
@@ -82,13 +88,13 @@ export const createNewProduct = async (data: ProductFormValues) => {
 export const getFilteredProducts = async (
   params: getFilteredProductsParams,
 ) => {
-  return await executeAction({
+  return executeAction({
     actionFn: async () => {
       const page = parseInt(params.page || "1", 10);
       const limit = parseInt(params.limit || "8", 10);
       const skip = (page - 1) * limit;
 
-      const where: any = {};
+      const where: Prisma.ProductWhereInput = {};
 
       if (params.q) {
         where.name = { contains: params.q, mode: "insensitive" };
@@ -105,7 +111,7 @@ export const getFilteredProducts = async (
         };
       }
 
-      const orderBy: any = {};
+      const orderBy: Prisma.ProductOrderByWithRelationInput = {};
 
       switch (params.sortBy) {
         case "price-asc":
@@ -140,10 +146,15 @@ export const getFilteredProducts = async (
     },
   });
 };
+
 export const deleteProduct = async (id: string) => {
-  return await prisma.product.delete({
-    where: {
-      id,
+  return executeAction({
+    actionFn: async () => {
+      return prisma.product.delete({
+        where: {
+          id,
+        },
+      });
     },
   });
 };

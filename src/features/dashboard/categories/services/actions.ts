@@ -4,9 +4,9 @@ import { prisma } from "@/lib/prisma";
 import { CategoryFormValues } from "../types/schema";
 
 export const createCategory = async (data: CategoryFormValues) => {
-  await executeAction({
-    actionFn: () => {
-      return prisma.category.create({
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.category.create({
         data: {
           name: data.name,
           slug: data.slug,
@@ -32,24 +32,28 @@ export const createCategory = async (data: CategoryFormValues) => {
 };
 
 export const getCategories = async () => {
-  return await prisma.category.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-    include: {
-      _count: {
-        select: {
-          attributes: true,
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.category.findMany({
+        orderBy: {
+          createdAt: "desc",
         },
-      },
+        include: {
+          _count: {
+            select: {
+              attributes: true,
+            },
+          },
+        },
+      });
     },
   });
 };
 
 export const deleteCategory = async (id: string) => {
-  await executeAction({
-    actionFn: () => {
-      return prisma.category.delete({
+  return executeAction({
+    actionFn: async() => {
+      return await prisma.category.delete({
         where: {
           id: id,
         },
@@ -59,9 +63,9 @@ export const deleteCategory = async (id: string) => {
 };
 
 export const editCategory = async (id: string, data: CategoryFormValues) => {
-  await executeAction({
-    actionFn: () => {
-      return prisma.category.update({
+  return executeAction({
+    actionFn: async() => {
+      return await prisma.category.update({
         where: {
           id,
         },

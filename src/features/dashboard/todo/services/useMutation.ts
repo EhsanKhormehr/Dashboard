@@ -1,15 +1,19 @@
+"use client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CreateTodoInput } from "../types/todo";
 import { createTodo, deleteTodo, toggleTodoFavorite } from "./actions";
 import { toast } from "sonner";
 
+type ToggleFavoriteTodoVariables = {
+  id: string;
+  isFavorite: boolean;
+};
+
 export const useCreateTodo = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: CreateTodoInput) => {
-      return createTodo(data);
-    },
+    mutationFn: createTodo,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["todos"] });
       toast.success("Todo created successfuly");
@@ -21,17 +25,14 @@ export const useToggleFavoriteTodo = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({
-      id,
-      isFavorite,
-    }: {
-      id: string;
-      isFavorite: boolean;
-    }) => {
-      toggleTodoFavorite(id, isFavorite);
+    mutationFn: ({ id, isFavorite }: ToggleFavoriteTodoVariables) => {
+      return toggleTodoFavorite(id, isFavorite);
     },
-    onSuccess: async () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+    onError: (err) => {
+      toast.error(err instanceof Error ? err.message : "Something went wrong");
     },
   });
 };
@@ -40,12 +41,13 @@ export const useDeleteTodo = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string) => {
-      return deleteTodo(id);
-    },
-    onSuccess: async () => {
+    mutationFn: deleteTodo,
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
-      toast.success("Todo deleted successfuly!");
+      toast.success("Todo deleted successfully!");
+    },
+    onError: (err) => {
+      toast.error(err instanceof Error ? err.message : "Something went wrong");
     },
   });
 };

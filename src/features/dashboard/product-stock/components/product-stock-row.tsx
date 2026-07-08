@@ -6,7 +6,7 @@ import { SquarePen, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { useDeleteProduct } from "../products/services/useMutation";
+import { useDeleteProduct } from "../../products/services/useMutation";
 
 type ProductStockRowProps = {
   id: string;

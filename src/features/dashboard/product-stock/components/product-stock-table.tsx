@@ -12,11 +12,11 @@ import { SquarePen, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { getFilteredProducts } from "../products/services/actions";
+import { getFilteredProducts } from "../../products/services/actions";
 import ConfirmDialog from "@/components/common/confirm-dialog";
-import { useDeleteProduct } from "../products/services/useMutation";
+import { useDeleteProduct } from "../../products/services/useMutation";
 import ProductStockRow from "./product-stock-row";
-import { useFilteredProducts } from "../products/services/useQueries";
+import { useFilteredProducts } from "../../products/services/useQueries";
 
 type ProductsProps = {
   searchParams: {

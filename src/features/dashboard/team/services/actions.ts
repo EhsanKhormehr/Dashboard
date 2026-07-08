@@ -5,9 +5,9 @@ import { NewTeamMemberFormValues } from "../types/schema";
 import { prisma } from "@/lib/prisma";
 
 export const createTeamMember = async (data: NewTeamMemberFormValues) => {
-  return await executeAction({
+  return executeAction({
     actionFn: async () => {
-      return await prisma.team.create({
+      return prisma.team.create({
         data: {
           firstName: data.firstName,
           lastName: data.lastName,
@@ -22,5 +22,13 @@ export const createTeamMember = async (data: NewTeamMemberFormValues) => {
 };
 
 export const getAllTeamMembers = async () => {
-  return await prisma.team.findMany({});
+  return executeAction({
+    actionFn: async () => {
+      return prisma.team.findMany({
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    },
+  });
 };

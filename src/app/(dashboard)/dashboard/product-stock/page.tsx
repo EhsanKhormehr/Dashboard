@@ -1,7 +1,7 @@
 import PageHeader from "@/components/common/page-header";
 import { Card, CardContent } from "@/components/ui/card";
-import ProductStockSearch from "@/features/dashboard/product-stock/product-stock-search";
-import ProductStockTable from "@/features/dashboard/product-stock/product-stock-table";
+import ProductStockSearch from "@/features/dashboard/product-stock/components/product-stock-search";
+import ProductStockTable from "@/features/dashboard/product-stock/components/product-stock-table";
 import Link from "next/link";
 import React from "react";
 

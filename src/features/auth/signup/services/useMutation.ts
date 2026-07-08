@@ -1,3 +1,4 @@
+"use client";
 import { useMutation } from "@tanstack/react-query";
 import { SignUpFormValues } from "../types/schema";
 import { toast } from "sonner";
@@ -5,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 export const useSignUp = () => {
   const router = useRouter();
-  
+
   return useMutation({
     mutationFn: async (data: SignUpFormValues) => {
       const res = await fetch("/api/auth/signup", {
@@ -19,7 +20,7 @@ export const useSignUp = () => {
       const result = await res.json();
 
       if (!res.ok) {
-        throw new Error(result.message || "Sign failed.");
+        throw new Error(result.message || "Sign up failed.");
       }
 
       return result;
@@ -31,7 +32,9 @@ export const useSignUp = () => {
     },
 
     onError: (error) => {
-      toast.error(error.message);
+      toast.error(
+        error instanceof Error ? error.message : "Something went wrong",
+      );
     },
   });
 };

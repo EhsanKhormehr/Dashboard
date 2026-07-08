@@ -1,7 +1,8 @@
+"use client";
 import { useQuery } from "@tanstack/react-query";
 import { getCategoryAttributes, getFilteredProducts } from "./actions";
 
-type getFilteredProductsParams = {
+type GetFilteredProductsParams = {
   q?: string;
   sortBy?: string;
   category?: string;
@@ -13,24 +14,15 @@ type getFilteredProductsParams = {
 
 export const useCategoryAttributes = (id?: string) => {
   return useQuery({
-    queryKey: ["category-attributes"],
+    queryKey: ["category-attributes", id],
     queryFn: () => getCategoryAttributes(id!),
     enabled: !!id,
   });
 };
 
-export const useFilteredProducts = (params: getFilteredProductsParams) => {
+export const useFilteredProducts = (params: GetFilteredProductsParams) => {
   return useQuery({
-    queryKey: [
-      "products",
-      params.q ?? "",
-      params.sortBy ?? "",
-      params.category ?? "",
-      params.page ?? "",
-      params.limit ?? "",
-      params.minPrice ?? "",
-      params.maxPrice ?? "",
-    ],
+    queryKey: ["products", params],
     queryFn: () => getFilteredProducts(params),
   });
 };

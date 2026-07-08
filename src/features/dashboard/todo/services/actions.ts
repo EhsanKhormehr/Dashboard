@@ -5,7 +5,7 @@ import { CreateTodoInput } from "../types/todo";
 import { prisma } from "@/lib/prisma";
 
 export const createTodo = async (data: CreateTodoInput) => {
-  return await executeAction({
+  return executeAction({
     actionFn: async () => {
       return prisma.todo.create({
         data: {
@@ -17,17 +17,21 @@ export const createTodo = async (data: CreateTodoInput) => {
 };
 
 export const getAllTodos = async () => {
-  return await prisma.todo.findMany({
-    orderBy : {
-        createdAt : "asc"
-    }
+  return executeAction({
+    actionFn: () => {
+      return prisma.todo.findMany({
+        orderBy: {
+          createdAt: "asc",
+        },
+      });
+    },
   });
 };
 
 export const toggleTodoFavorite = async (id: string, isFavorite: boolean) => {
-  return await executeAction({
-    actionFn: async () => {
-      const updatedTodo = prisma.todo.update({
+  return executeAction({
+    actionFn: () => {
+      return prisma.todo.update({
         where: {
           id,
         },
@@ -35,19 +39,18 @@ export const toggleTodoFavorite = async (id: string, isFavorite: boolean) => {
           isFavorite: !isFavorite,
         },
       });
-      return updatedTodo;
     },
   });
 };
 
-export const deleteTodo = async(id: string)=>{
-    return await executeAction({
-        actionFn: async()=>{
-            return await prisma.todo.delete({
-                where : {
-                    id
-                }
-            })
-        }
-    })
-}
+export const deleteTodo = async (id: string) => {
+  return executeAction({
+    actionFn: () => {
+      return prisma.todo.delete({
+        where: {
+          id,
+        },
+      });
+    },
+  });
+};
