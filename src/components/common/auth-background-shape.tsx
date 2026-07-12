@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function AuthBackgroundShape() {
+export default function BackgroundShape() {
   return (
     <div >
         <img src="/Oval.svg" className='-z-10 absolute -bottom-96 -left-40 pointer-events-none' />
