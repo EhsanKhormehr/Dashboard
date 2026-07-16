@@ -6,7 +6,7 @@ import { Providers } from "@/providers/app-provider";
 const nunitoSans = Nunito_Sans({
   subsets: ["latin"],
   variable: "--font-nunito-sans",
-  weight: ["400", "600", "700", "800"],
+  weight: ["400", "600", "700", "800" , "900" , "1000"],
 });
 
 export const metadata: Metadata = {
