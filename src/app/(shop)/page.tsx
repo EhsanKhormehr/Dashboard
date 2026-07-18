@@ -2,6 +2,7 @@ import MaxWidthWrapper from '@/components/common/max-width-wrapper'
 import ShopBanner from '@/features/shop/home/components/banner'
 import ShopCategoryBrowser from '@/features/shop/home/components/category-browser'
 import HomePageProducts from '@/features/shop/home/components/products'
+import HomePagePromoGrid from '@/features/shop/home/components/promo-grid'
 import React from 'react'
 
 const HomePage = () => {
@@ -10,6 +11,7 @@ const HomePage = () => {
         <ShopBanner />
         <ShopCategoryBrowser />
         <HomePageProducts />
+        <HomePagePromoGrid />
     </div>
   )
 }
