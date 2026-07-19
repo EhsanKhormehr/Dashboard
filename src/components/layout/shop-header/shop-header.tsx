@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 
 const ShopHeader = () => {
   return (
-    <div className="bg-surface py-7">
+    <div className="bg-surface py-7 border-b">
       <MaxWidthWrapper className="flex items-center justify-between">
         <div className="flex items-center ">
           <Image src={"/LogoLight.png"} width={96} height={32} alt="logo" />

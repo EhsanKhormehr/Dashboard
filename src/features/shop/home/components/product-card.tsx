@@ -6,7 +6,7 @@ import React from "react";
 
 const HomePageProductCard = () => {
   return (
-    <div className="bg-chart-1/50 rounded-sm px-4 py-6">
+    <div className="bg-chart-1/40 rounded-sm px-4 py-6">
       <div className="flex justify-end cursor-pointer">
         <Heart strokeWidth={1.5} />
       </div>
