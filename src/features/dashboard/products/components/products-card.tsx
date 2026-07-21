@@ -39,10 +39,10 @@ function ProductsCard(data:ProductsCardProps) {
           <Heart className="size-7 cursor-pointer" />
         </div>
         <div className="flex my-5 items-center">
-          <Star className="fill-[#FF9500] text-[#FF9500] cursor-pointer" />
-          <Star className="ml-[1px] fill-[#FF9500] text-[#FF9500] cursor-pointer" />
-          <Star className="ml-[1px] fill-[#FF9500] text-[#FF9500] cursor-pointer" />
-          <Star className="ml-[1px] fill-[#FF9500] text-[#FF9500] cursor-pointer" />
+          <Star className="fill-rating text-rating cursor-pointer" />
+          <Star className="ml-[1px] fill-rating text-rating cursor-pointer" />
+          <Star className="ml-[1px] fill-rating text-rating cursor-pointer" />
+          <Star className="ml-[1px] fill-rating text-rating cursor-pointer" />
           <Star className="ml-[1px] text-black opacity-20 fill-black cursor-pointer" />
           <span className="text-dashboard-text font-semibold text-sm ">
             ({data.rateCount})

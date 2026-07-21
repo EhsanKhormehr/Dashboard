@@ -50,7 +50,8 @@
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
   --color-soft: var(--soft);
-  --shadow-card : var(--shadow-card)
+  --shadow-card: var(--shadow-card);
+  --color-rating: var(--rating);
 }
 
 :root {
@@ -92,6 +93,7 @@
   --surface-foreground: oklch(0.2507 0.0048 248.02);
   --table-header-bg: oklch(0.9663 0.0074 260.73);
   --soft: oklch(0.9351 0.0208 261.77 / 85%);
+  --rating: oklch(0.8245 0.1486 73.35);
 }
 
 .dark {
@@ -132,6 +134,7 @@
   --surface-foreground: oklch(0.985 0 0);
   --table-header-bg: oklch(0.3574 0.0331 258.98);
   --soft: oklch(0.4506 0.0327 260.23 / 85%);
+  --rating: oklch(0.8245 0.1486 73.35);
 }
 
 @layer base {
