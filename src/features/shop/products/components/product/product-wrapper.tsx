@@ -7,6 +7,7 @@ import ProductVariantSelector from "@/features/shop/products/components/product/
 import MaxWidthWrapper from "@/components/common/max-width-wrapper";
 import ProductDetails from "./product-details";
 import ProductComments from "./product-comments";
+import RelatedProducts from "./related-products";
 
 const ProductWrapper = () => {
   return (
@@ -116,6 +117,7 @@ const ProductWrapper = () => {
       </MaxWidthWrapper>
       <ProductDetails />
       <ProductComments />
+      <RelatedProducts />
     </div>
   );
 };
