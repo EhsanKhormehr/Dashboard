@@ -119,6 +119,25 @@ model Session {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Menu {
+  id        String    @id @default(cuid())
+  name      String
+  href      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  subMenus  SubMenu[]
+}
+
+model SubMenu {
+  id        String   @id @default(cuid())
+  name      String
+  href      String   @unique
+  menu      Menu     @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  menuId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 enum UserRole {
   ADMIN
   USER

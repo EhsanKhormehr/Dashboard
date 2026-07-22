@@ -6,7 +6,7 @@ export type RouteGroup = {
   }[];
 };
 
-export const ROUTE_GROUPS : RouteGroup[] = [
+export const ROUTE_GROUPS: RouteGroup[] = [
   {
     group: "",
     items: [
@@ -35,11 +35,13 @@ export const ROUTE_GROUPS : RouteGroup[] = [
         label: "Favorites",
       },
       {
-        href : "/dashboard/product-stock",
-        label : "Product Stock"
-      }
-
-      
+        href: "/dashboard/product-stock",
+        label: "Product Stock",
+      },
+      {
+        href: "/dashboard/new-menu",
+        label: "New Menu",
+      },
     ],
   },
   {
