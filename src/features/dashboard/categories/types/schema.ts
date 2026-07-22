@@ -1,3 +1,4 @@
+import { categoryIconOptions } from "@/lib/categoryIcons";
 import z, { boolean } from "zod";
 
 const attributeTypeSchema = z.enum(["TEXT", "NUMBER", "BOOLEAN", "SELECT"]);
@@ -6,6 +7,7 @@ const attributeTypeSchema = z.enum(["TEXT", "NUMBER", "BOOLEAN", "SELECT"]);
 export const categorySchema = z.object({
   name: z.string().min(1, "Category name is required"),
   slug: z.string().min(1, "Category slug is required"),
+  icon: z.enum(categoryIconOptions, { message: "Enter Valid Icon Name" }),
   attributes: z
     .array(
       z
@@ -34,6 +36,7 @@ export type CategoryFormValues = z.infer<typeof categorySchema>;
 export const categoryDefaultValues: CategoryFormValues = {
   name: "",
   slug: "",
+  icon: "Home",
   attributes: [
     {
       name: "",

@@ -10,6 +10,7 @@ export const createCategory = async (data: CategoryFormValues) => {
         data: {
           name: data.name,
           slug: data.slug,
+          icon : data.icon,
           attributes: {
             create: data.attributes.map((attribute) => ({
               name: attribute.name,
