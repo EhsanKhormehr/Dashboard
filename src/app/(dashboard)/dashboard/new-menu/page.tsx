@@ -7,7 +7,7 @@ const NewMenu = () => {
     <div>
       <PageHeader title="New Menu" />
       <div className="mt-6">
-        <MenuForm />
+        <MenuForm mode="create" />
       </div>
     </div>
   );

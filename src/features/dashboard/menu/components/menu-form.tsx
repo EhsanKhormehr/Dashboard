@@ -21,12 +21,18 @@ import {
   MenuFormDefaultValue,
   MenuFormValue,
 } from "../types/schema";
-import { useCreateMenu } from "../services/useMutation";
+import { useCreateMenu, useUpdateMenu } from "../services/useMutation";
 
-const MenuForm = () => {
+type MenuFormProps = {
+  mode: "edit" | "create";
+  initialData?: MenuFormValue;
+  menuId: string;
+};
+
+const MenuForm = ({ mode, initialData, menuId }: MenuFormProps) => {
   const form = useForm<MenuFormValue>({
     resolver: zodResolver(menuSchema),
-    defaultValues: MenuFormDefaultValue,
+    defaultValues: initialData ?? MenuFormDefaultValue,
     mode: "onChange",
   });
 
@@ -44,10 +50,19 @@ const MenuForm = () => {
     });
   };
 
-  const { mutate } = useCreateMenu();
+  const { mutate: createMenu, isPending: isCreating } = useCreateMenu();
+  const { mutate: updateMenu, isPending: isUpdating } = useUpdateMenu();
 
+  const isPending = mode === "create" ? isCreating : isUpdating;
+  console.log(isPending);
   const menuSubmitHandler = (data: MenuFormValue) => {
-    mutate(data);
+    if (mode === "create") {
+      createMenu(data);
+    }
+
+    if (mode === "edit") {
+      updateMenu({ id: menuId, data });
+    }
   };
 
   return (
@@ -72,7 +87,13 @@ const MenuForm = () => {
               type="submit"
               className="cursor-pointer py-4.5 font-semibold mt-5"
             >
-              Create Menu
+              {isPending
+                ? mode === "create"
+                  ? "Creating..."
+                  : "Saving..."
+                : mode === "edit"
+                  ? "Save"
+                  : "Create"}
               <Plus className="size-5" />
             </Button>
           </CardContent>

@@ -47,3 +47,26 @@ export const deleteMenu = async (id: string) => {
     },
   });
 };
+
+export const updateMenu = async (id: string, data: MenuFormValue) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.menu.update({
+        where: {
+          id,
+        },
+        data: {
+          name: data.name,
+          href: data.href,
+          subMenus: {
+            deleteMany: {},
+            create: data.subMenus?.map((submenu) => ({
+              name: submenu.name,
+              href: submenu.href,
+            })),
+          },
+        },
+      });
+    },
+  });
+};
