@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createMenu } from "./actions";
+import { createMenu, deleteMenu } from "./actions";
 import { toast } from "sonner";
 
 export const useCreateMenu = () => {
@@ -10,7 +10,19 @@ export const useCreateMenu = () => {
     mutationFn: createMenu,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["menu"] });
-      toast.success("Menu created successfully")
+      toast.success("Menu created successfully");
+    },
+  });
+};
+
+export const useDeleteMenu = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteMenu,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["menu"] });
+      toast.success("Menu deleted successfully");
     },
   });
 };

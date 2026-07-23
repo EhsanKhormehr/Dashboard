@@ -42,6 +42,10 @@ export const ROUTE_GROUPS: RouteGroup[] = [
         href: "/dashboard/new-menu",
         label: "New Menu",
       },
+      {
+        href: "/dashboard/menus",
+        label: "Menus",
+      },
     ],
   },
   {

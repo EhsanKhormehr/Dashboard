@@ -23,3 +23,27 @@ export const createMenu = async (data: MenuFormValue) => {
     },
   });
 };
+
+export const getMenus = async () => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.menu.findMany({
+        include: {
+          subMenus: true,
+        },
+      });
+    },
+  });
+};
+
+export const deleteMenu = async (id: string) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.menu.delete({
+        where: {
+          id,
+        },
+      });
+    },
+  });
+};
