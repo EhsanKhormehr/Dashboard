@@ -54,7 +54,6 @@ const MenuForm = ({ mode, initialData, menuId }: MenuFormProps) => {
   const { mutate: updateMenu, isPending: isUpdating } = useUpdateMenu();
 
   const isPending = mode === "create" ? isCreating : isUpdating;
-  console.log(isPending);
   const menuSubmitHandler = (data: MenuFormValue) => {
     if (mode === "create") {
       createMenu(data);

@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
-import { SubMenu } from "../types/types";
+import { SubMenu } from "@/types/menu";
 
 type SubMenuTable = {
   subMenus: SubMenu[];

@@ -8,7 +8,7 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import Link from "next/link";
 import { useDeleteMenu } from "../services/useMutation";
 import SubMenuDialog from "./submenu-dialog";
-import { Menu } from "../types/types";
+import { Menu } from "@/types/menu";
 
 type MenusRowProps = {
   menu: Menu;

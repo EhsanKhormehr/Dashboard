@@ -1,37 +1,23 @@
+"use client";
 import React from "react";
 import MaxWidthWrapper from "../../common/max-width-wrapper";
 import Image from "next/image";
-import ShopHeaderForm from "./shop-header-form";
 import Link from "next/link";
-import { Heart, Menu, ShoppingCart, User } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+import { Heart, ShoppingCart, User } from "lucide-react";
+
+import ShopMenuDesktop from "./shop-menu-desktop";
+import { useGetMenus } from "@/features/dashboard/menu/services/useQueries";
+import ShopMenuMobile from "./shop-menu-mobile";
 
 const ShopHeader = () => {
+  const { data = [] } = useGetMenus();
+
   return (
     <div className="bg-surface py-7 border-b">
       <MaxWidthWrapper className="flex items-center justify-between">
         <div className="flex items-center ">
           <Image src={"/LogoLight.png"} width={96} height={32} alt="logo" />
-          <ul className=" items-center *:ml-10 hidden md:flex">
-            <li>
-              <Link href={"/"}>Home</Link>
-            </li>
-            <li>
-              <Link href={"/"}>About</Link>
-            </li>
-            <li>
-              <Link href={"/"}>Contact Us</Link>
-            </li>
-            <li>
-              <Link href={"/"}>Blog</Link>
-            </li>
-          </ul>
+          <ShopMenuDesktop data={data} />
         </div>
         <div className="flex items-center">
           <ul className="flex items-center *:ml-4">
@@ -51,44 +37,7 @@ const ShopHeader = () => {
               </Link>
             </li>
             <li className="md:hidden">
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Menu className="cursor-pointer" />
-                </SheetTrigger>
-                <SheetContent side="left">
-                  <SheetTitle></SheetTitle>
-                  <ul className="mt-10 px-6">
-                    <li>
-                      <Button variant={"ghost"}  asChild>
-                        <Link  className="py-6 w-full flex justify-start" href={"/"}>
-                          Home
-                        </Link>
-                      </Button>
-                    </li>
-                    <li>
-                      <Button variant={"ghost"}  asChild>
-                        <Link  className="py-6 w-full flex justify-start" href={"/"}>
-                          About
-                        </Link>
-                      </Button>
-                    </li>
-                    <li>
-                      <Button variant={"ghost"}  asChild>
-                        <Link  className="py-6 w-full flex justify-start" href={"/"}>
-                          Contact Us
-                        </Link>
-                      </Button>
-                    </li>
-                    <li>
-                      <Button variant={"ghost"}  asChild>
-                        <Link  className="py-6 w-full flex justify-start" href={"/"}>
-                          Blog
-                        </Link>
-                      </Button>
-                    </li>
-                  </ul>
-                </SheetContent>
-              </Sheet>
+              <ShopMenuMobile data={data} />
             </li>
           </ul>
         </div>

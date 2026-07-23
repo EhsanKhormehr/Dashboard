@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-import { SubMenu } from "../types/types";
+import { SubMenu } from "@/types/menu";
 import SubMenuTable from "./submenu-table";
 
 type SubMenuDialogProps = {
