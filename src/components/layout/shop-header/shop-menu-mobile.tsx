@@ -10,12 +10,6 @@ import { ChevronDown, Menu } from "lucide-react";
 import Link from "next/link";
 import { Menu as MenuType } from "@/types/menu";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
@@ -38,6 +32,7 @@ const ShopMenuMobile = ({ data }: ShopMenuMobileProps) => {
             if (menuItem.subMenus.length === 0) {
               return (
                 <Link
+                  key={menuItem.id}
                   href={menuItem.href}
                   className="block w-full py-3 hover:bg-muted-foreground/10 px-4 font-bold"
                 >
@@ -46,7 +41,7 @@ const ShopMenuMobile = ({ data }: ShopMenuMobileProps) => {
               );
             } else {
               return (
-                <Collapsible>
+                <Collapsible key={menuItem.id}>
                   <CollapsibleTrigger className="group flex items-center justify-between w-full py-3 font-bold hover:bg-muted-foreground/10 px-4">
                     {menuItem.name}
                     <ChevronDown className="group-data-[state=open]:rotate-180 transition duration-290" />
@@ -54,6 +49,7 @@ const ShopMenuMobile = ({ data }: ShopMenuMobileProps) => {
                   <CollapsibleContent className="px-6">
                     {menuItem.subMenus.map((subMenuItem) => (
                       <Link
+                        key={subMenuItem.id}
                         href={subMenuItem.href}
                         className="block py-3 rounded-sm pl-3 hover:bg-muted-foreground/10"
                       >
