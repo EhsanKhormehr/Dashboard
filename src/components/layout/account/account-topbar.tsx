@@ -9,7 +9,7 @@ const AccountTopbar = () => {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <div className="w-full h-15 bg-surface flex items-center justify-between px-4">
+    <div className="w-full h-[70px] bg-surface flex items-center justify-between px-4">
       <div>
         <Sidebar
           onClick={toggleSidebar}

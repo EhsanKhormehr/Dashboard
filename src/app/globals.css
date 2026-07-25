@@ -52,6 +52,8 @@
   --color-soft: var(--soft);
   --shadow-card: var(--shadow-card);
   --color-rating: var(--rating);
+  --shadow-section: var(--shadow-section);
+
 }
 
 :root {
@@ -94,6 +96,8 @@
   --table-header-bg: oklch(0.9663 0.0074 260.73);
   --soft: oklch(0.9351 0.0208 261.77 / 85%);
   --rating: oklch(0.8245 0.1486 73.35);
+  --shadow-section: 0 10px 30px rgba(0, 0, 0, 0.04);
+
 }
 
 .dark {
@@ -135,6 +139,8 @@
   --table-header-bg: oklch(0.3574 0.0331 258.98);
   --soft: oklch(0.4506 0.0327 260.23 / 85%);
   --rating: oklch(0.8245 0.1486 73.35);
+  --shadow-section: 0px 0px 10px rgba(0, 0, 0, 0.05);
+
 }
 
 @layer base {
