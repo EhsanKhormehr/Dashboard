@@ -5,7 +5,7 @@ import { Headphones, Package, ShoppingBag, Wallet } from "lucide-react";
 const stats: AccountStatsBoxProps[] = [
   {
     title: "Wallet Balance",
-    value: "2,500,000 Toman",
+    value: "$900",
     description: "Available for your next purchases",
     icon: Wallet,
     variant: "green",
@@ -35,7 +35,7 @@ const stats: AccountStatsBoxProps[] = [
 
 const AccountStatsSection = () => {
   return (
-    <div className="grid grid-cols-4 gap-8">
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-8">
       {stats.map((stat) => (
         <AccountStatsBox
           key={stat.title}

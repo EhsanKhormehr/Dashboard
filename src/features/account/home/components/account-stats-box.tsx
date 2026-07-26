@@ -26,13 +26,13 @@ const AccountStatsBox = ({
   description,
 }: AccountStatsBoxProps) => {
   return (
-    <div className="bg-surface shadow-card rounded-2xl p-4">
+    <div className="bg-surface shadow-card rounded-2xl p-4 min-w-0 flex flex-col justify-between">
       <div className="flex items-center justify-between ">
         <div className="flex flex-col ">
           <span className="text-muted-foreground font-semibold mb-4">{title}</span>
-          <span className="font-bold text-[25px]">{value}</span>
+          <span className="font-bold text-xl lg:text-[22px]">{value}</span>
         </div>
-        <div className={`p-4 rounded-3xl ${boxVariantStyles[variant]}`}>
+        <div className={`p-4 ml-2 rounded-3xl ${boxVariantStyles[variant]}`}>
           <Icon size={28} />
         </div>
       </div>

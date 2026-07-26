@@ -1,10 +1,12 @@
 import AccountStatsSection from "@/features/account/home/components/account-stats-section";
+import RecentlyPurchasedProducts from "@/features/account/home/components/recently-purchased-products";
 import React from "react";
 
 const Account = () => {
   return (
     <div>
-     <AccountStatsSection />
+      <AccountStatsSection />
+      <RecentlyPurchasedProducts />
     </div>
   );
 };
