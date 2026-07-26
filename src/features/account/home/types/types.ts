@@ -1,11 +1,13 @@
-import { TicketStatus } from "../lib/tickets-status";
-
 export type ProductStatus =
   | "delivered"
   | "processing"
   | "pending"
   | "shipped"
   | "cancelled";
+
+export type TicketStatus = "open" | "pending" | "answered" | "closed";
+
+export type StockStatus = "available" | "unavailable";
 
 export type PurchasedProduct = {
   id: number;
@@ -21,4 +23,13 @@ export type Ticket = {
   title: string;
   description: string;
   status: TicketStatus;
+};
+
+export type WishlistItem = {
+  id: string;
+  title: string;
+  price: number;
+  image: string;
+  slug: string;
+  stockStatus: StockStatus;
 };

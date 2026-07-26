@@ -1,4 +1,4 @@
-export type TicketStatus = "open" | "pending" | "answered" | "closed";
+import { TicketStatus } from "../types/types";
 
 export const ticketStatusVariants: Record<TicketStatus, string> = {
   open: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",

@@ -81,7 +81,7 @@ const RecentOrderTable = () => {
               </Badge>
             </TableCell>
             <TableCell>
-              <Button asChild>
+              <Button asChild variant={"outline"}>
                 <Link href={`/account/orders/${order.id}`}>View</Link>
               </Button>
             </TableCell>
