@@ -3,23 +3,8 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { ProductStatus, PurchasedProduct } from "../types/types";
-
-const productStatusClassName: Record<ProductStatus, string> = {
-  delivered: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  processing: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
-  pending: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-  shipped: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
-  cancelled: "bg-red-500/10 text-red-600 dark:text-red-400",
-};
-
-const productStatusLabel: Record<ProductStatus, string> = {
-  delivered: "Delivered",
-  processing: "Processing",
-  pending: "Pending",
-  shipped: "Shipped",
-  cancelled: "Cancelled",
-};
+import { PurchasedProduct } from "../types/types";
+import { productStatusClassName, productStatusLabel } from "../lib/product-status";
 
 type RecentlyPurchasedCardProps = {
   product: PurchasedProduct;
