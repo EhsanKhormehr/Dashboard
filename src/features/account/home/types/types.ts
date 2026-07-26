@@ -1,3 +1,5 @@
+import { TicketStatus } from "../lib/tickets-status";
+
 export type ProductStatus =
   | "delivered"
   | "processing"
@@ -12,4 +14,11 @@ export type PurchasedProduct = {
   price: number;
   status: ProductStatus;
   purchasedAt: string;
+};
+
+export type Ticket = {
+  id: string;
+  title: string;
+  description: string;
+  status: TicketStatus;
 };
