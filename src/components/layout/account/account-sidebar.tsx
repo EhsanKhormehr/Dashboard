@@ -12,31 +12,19 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { accountMenuItems } from "@/config/account-sidebar.config";
 import {
-  Heart,
-  LayoutDashboard,
   LogOut,
-  MapPin,
-  Menu,
-  Settings,
-  ShoppingBag,
-  Ticket,
-  User,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
-const menuItems = [
-  { title: "Dashboard", url: "/account", icon: LayoutDashboard },
-  { title: "Orders", url: "/account/orders", icon: ShoppingBag },
-  { title: "Wishlist", url: "/account/wishlist", icon: Heart },
-  { title: "Addresses", url: "/account/addresses", icon: MapPin },
-  { title: "Profile", url: "/account/profile", icon: User },
-  { title: "Tickets", url: "/account/tickets", icon: Ticket },
-  { title: "Settings", url: "/account/settings", icon: Settings },
-];
 
-const AccountSidebar = () => {
+
+const AccountSidebar =  () => {
+  const pathname = usePathname();
+  console.log(pathname);
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -61,19 +49,23 @@ const AccountSidebar = () => {
         <SidebarGroup>
           <SidebarGroupLabel>Account</SidebarGroupLabel>
           <SidebarMenu>
-            {menuItems.map((item) => (
-              <SidebarMenuItem
-                key={item.title}
-                className="group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center "
-              >
-                <SidebarMenuButton asChild>
-                  <Link href={item.url} className="flex items-center py-6">
-                    <item.icon />
-                    <span>{item.title}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
+            {accountMenuItems.map((item) => {
+              const isActive = item.href === pathname
+              
+              return (
+                <SidebarMenuItem
+                  key={item.title}
+                  className="group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center "
+                >
+                  <SidebarMenuButton asChild isActive={isActive}>
+                    <Link href={item.href} className="flex items-center py-6">
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            })}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
