@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import RecentWishlistCard from "./recent-wishlist-card";
-import { WishlistItem } from "../types/types";
+import { WishlistItem } from "../../shared/types/types";
 
 export const wishlistItems: WishlistItem[] = [
   {

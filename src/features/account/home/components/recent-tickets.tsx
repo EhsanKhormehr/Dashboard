@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import RecentTicketCard from "./recent-ticket-card";
-import { Ticket } from "../types/types";
+import { Ticket } from "../../shared/types/types";
 
 const tickets: Ticket[] = [
   {

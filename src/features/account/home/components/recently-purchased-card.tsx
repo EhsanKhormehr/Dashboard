@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { PurchasedProduct } from "../types/types";
-import { productStatusClassName, productStatusLabel } from "../lib/product-status";
+import { PurchasedProduct } from "../../shared/types/types";
+import { productStatusClassName, productStatusLabel } from "../../shared/lib/product-status";
 
 type RecentlyPurchasedCardProps = {
   product: PurchasedProduct;

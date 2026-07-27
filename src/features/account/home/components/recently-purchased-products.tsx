@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import RecentlyPurchasedCard from "./recently-purchased-card";
-import { ProductStatus, PurchasedProduct } from "../types/types";
+import { PurchasedProduct } from "../../shared/types/types";
 
 export const purchasedProducts: PurchasedProduct[] = [
   {

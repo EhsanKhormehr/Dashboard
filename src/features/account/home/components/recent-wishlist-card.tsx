@@ -3,9 +3,9 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { WishlistItem } from "../types/types";
+import { WishlistItem } from "../../shared/types/types";
 import { Badge } from "@/components/ui/badge";
-import { stockStatusLabels, stockStatusVariants } from "../lib/stock-status";
+import { stockStatusLabels, stockStatusVariants } from "../../shared/lib/stock-status";
 
 type RecentWishlistCardProps = {
   product: WishlistItem;

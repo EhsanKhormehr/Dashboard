@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -7,16 +6,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Link from "next/link";
 import React from "react";
 import { ProductStatus } from "../../shared/types/types";
+import { Badge } from "@/components/ui/badge";
 import {
   productStatusClassName,
   productStatusLabel,
 } from "../../shared/lib/product-status";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-type RecentOrder = {
+type Orders = {
   id: string;
   items: number;
   date: string;
@@ -24,7 +24,7 @@ type RecentOrder = {
   status: ProductStatus;
 };
 
-const recentOrders: RecentOrder[] = [
+const orders: Orders[] = [
   {
     id: "ORD-1024",
     items: 3,
@@ -55,12 +55,12 @@ const recentOrders: RecentOrder[] = [
   },
 ];
 
-const RecentOrderTable = () => {
+const OrdersTable = () => {
   return (
     <Table className="min-w-[900px]">
       <TableHeader>
         <TableRow>
-          <TableHead>Order Id</TableHead>
+          <TableHead>Order ID</TableHead>
           <TableHead>Items</TableHead>
           <TableHead>Date</TableHead>
           <TableHead>Total</TableHead>
@@ -69,7 +69,7 @@ const RecentOrderTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {recentOrders.map((order) => (
+        {orders.map((order) => (
           <TableRow key={order.id}>
             <TableCell>{order.id}</TableCell>
             <TableCell>{order.items} items</TableCell>
@@ -92,4 +92,4 @@ const RecentOrderTable = () => {
   );
 };
 
-export default RecentOrderTable;
+export default OrdersTable;

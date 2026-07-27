@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
-import { Ticket } from "../types/types";
+import { Ticket } from "../../shared/types/types";
 import { Badge } from "@/components/ui/badge";
 import {
   ticketStatusLabels,
   ticketStatusVariants,
-} from "../lib/tickets-status";
+} from "../../shared/lib/tickets-status";
 import { ArrowRight } from "lucide-react";
 
 type RecentTicketCardProps = {
