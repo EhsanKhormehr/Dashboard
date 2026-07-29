@@ -107,7 +107,26 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  sessions Session[]
+  addresses Address[]
+  sessions  Session[]
+}
+
+model Address {
+  id            String   @id @default(cuid())
+  province      String
+  city          String
+  street        String
+  buildingNo    String
+  unit          String?
+  postalCode    String
+  phoneNumber   String
+  recipientName String
+  addressLabel  String?
+  isDefault     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String?
 }
 
 model Session {

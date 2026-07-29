@@ -1,5 +1,6 @@
 import ShopTitle from "@/components/common/shop-title";
 import AddressesForm from "@/features/account/addresses/components/addresses-form";
+import AddressesWrapper from "@/features/account/addresses/components/addresses-wrapper";
 import React from "react";
 
 const Addresses = () => {
@@ -13,9 +14,10 @@ const Addresses = () => {
           </span>
         </div>
         <div>
-          <AddressesForm />
+          <AddressesForm mode="create" />
         </div>
       </div>
+      <AddressesWrapper />
     </div>
   );
 };

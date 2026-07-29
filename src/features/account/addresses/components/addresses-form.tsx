@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Plus } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { provinces } from "../data/provinces";
 import { Controller, useForm } from "react-hook-form";
 import {
@@ -31,39 +31,74 @@ import {
 } from "../types/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/components/common/error-message";
+import { useMeQuery } from "@/features/auth/me/services/useQueries";
+import { useCreateAddress, useUpdateAddress } from "../services/useMutation";
 
-const AddressesForm = () => {
+type AddressesFormProps = {
+  mode: "edit" | "create";
+  initialData?: AddressFormValue;
+  addressId: string;
+};
+
+const AddressesForm = ({
+  mode,
+  initialData,
+  addressId,
+}: AddressesFormProps) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<AddressFormValue>({
     resolver: zodResolver(addressSchema),
-    defaultValues: addressFormDefaultValue,
+    defaultValues: initialData ?? addressFormDefaultValue,
     mode: "onChange",
   });
 
+  const { mutate: createAddress } = useCreateAddress();
+  const { mutate: updateAddress } = useUpdateAddress();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const addressFormHandler = (data: AddressFormValue) => {
-    console.log(data);
+    if (mode === "create") {
+      createAddress(data);
+      setIsOpen(false);
+    }
+    if (mode === "edit") {
+      updateAddress({ id: addressId, data });
+      setIsOpen(false);
+    }
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button
-          className="flex items-center cursor-pointer py-4.5"
-          variant={"outline"}
-        >
-          <span>Add Address</span>
-          <Plus />
-        </Button>
+        {mode === "create" ? (
+          <Button
+            className="flex items-center cursor-pointer py-4.5"
+            variant={"outline"}
+          >
+            <span>Add Address</span>
+            <Plus />
+          </Button>
+        ) : (
+          <Button
+            className="mr-4 cursor-pointer"
+            variant={"outline"}
+            size={"sm"}
+          >
+            Edit
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[90vw] md:max-w-[80vw] lg:max-w-[900px]">
         <form onSubmit={handleSubmit(addressFormHandler)}>
           <DialogHeader className="py-2">
-            <DialogTitle>Add Address</DialogTitle>
+            <DialogTitle>
+              {mode === "create" ? "Add Address" : "Edit Address"}
+            </DialogTitle>
             <DialogDescription>
-              Add a shipping address for future orders.
+              Update your shipping address for future orders.
             </DialogDescription>
           </DialogHeader>
           <div className="overflow-y-auto max-h-[80dvh] overflow-x-hidden px-3 sm:px-0 sm:overflow-hidden">
