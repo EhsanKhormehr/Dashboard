@@ -24,7 +24,7 @@ import React from "react";
 
 const AccountSidebar =  () => {
   const pathname = usePathname();
-  console.log(pathname);
+  
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
