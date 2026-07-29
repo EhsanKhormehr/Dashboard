@@ -98,7 +98,9 @@ const AddressesForm = ({
               {mode === "create" ? "Add Address" : "Edit Address"}
             </DialogTitle>
             <DialogDescription>
-              Update your shipping address for future orders.
+              {mode === "create"
+                ? "Add your shipping address for future orders."
+                : "Update your shipping address for future orders."}
             </DialogDescription>
           </DialogHeader>
           <div className="overflow-y-auto max-h-[80dvh] overflow-x-hidden px-3 sm:px-0 sm:overflow-hidden">
