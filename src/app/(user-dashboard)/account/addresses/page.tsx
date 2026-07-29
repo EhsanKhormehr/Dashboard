@@ -14,7 +14,7 @@ const Addresses = () => {
           </span>
         </div>
         <div>
-          <AddressesForm mode="create" />
+          <AddressesForm mode="create"  />
         </div>
       </div>
       <AddressesWrapper />

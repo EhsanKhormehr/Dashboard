@@ -37,7 +37,7 @@ import { useCreateAddress, useUpdateAddress } from "../services/useMutation";
 type AddressesFormProps = {
   mode: "edit" | "create";
   initialData?: AddressFormValue;
-  addressId: string;
+  addressId?: string;
 };
 
 const AddressesForm = ({
@@ -65,7 +65,7 @@ const AddressesForm = ({
       setIsOpen(false);
     }
     if (mode === "edit") {
-      updateAddress({ id: addressId, data });
+      updateAddress({ id: addressId!, data });
       setIsOpen(false);
     }
   };
