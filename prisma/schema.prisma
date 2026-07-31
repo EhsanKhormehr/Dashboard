@@ -111,6 +111,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   addresses Address[]
+  tickets   Ticket[]
   sessions  Session[]
 }
 
@@ -130,6 +131,20 @@ model Address {
   updatedAt     DateTime @updatedAt
   user          User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId        String?
+}
+
+model Ticket {
+  id        String         @id @default(cuid())
+  subject   String
+  category  TicketCategory
+  message   String
+  status    TicketStatus   @default(OPEN)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  user      User           @relation(fields: [userId], references: [id])
+  userId    String
+
+  @@index([userId])
 }
 
 model Session {
@@ -175,4 +190,20 @@ enum AttributeType {
 enum Gender {
   MALE
   FEMALE
+}
+
+enum TicketCategory {
+  ORDER
+  PAYMENT
+  SHIPPING
+  RETURN
+  TECHNICAL
+  OTHER
+}
+
+enum TicketStatus {
+  OPEN
+  PENDING
+  RESOLVED
+  CLOSED
 }
