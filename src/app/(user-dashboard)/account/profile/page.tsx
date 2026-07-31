@@ -2,12 +2,12 @@ import ShopTitle from "@/components/common/shop-title";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProfileForm from "@/features/account/profile/components/profile-form";
 import SecurityForm from "@/features/account/profile/components/security-form";
-import { getUserInfo } from "@/features/account/profile/services/actions";
+import { getUserInfo, updatePassword } from "@/features/account/profile/services/actions";
 import React from "react";
 
 const Profile = async () => {
   const user = await getUserInfo();
-
+  
   const userObj = {
     firstName: user.firstName ?? "",
     lastName: user.lastName ?? "",
@@ -22,7 +22,7 @@ const Profile = async () => {
       <span className="text-xs text-muted-foreground">
         Manage your personal information.
       </span>
-      <Tabs defaultValue="personalinfo" className="mt-5">
+      <Tabs defaultValue="security" className="mt-5">
         <div className="flex justify-center">
           <TabsList>
             <TabsTrigger value="personalinfo">Personal Info</TabsTrigger>
