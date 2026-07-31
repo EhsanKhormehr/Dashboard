@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useMutation } from "@tanstack/react-query";
 import { LoginFormValues } from "../types/schema";
 import { useRouter } from "next/navigation";
@@ -26,11 +26,6 @@ export const useLogin = () => {
     },
     onSuccess: () => {
       router.push("/dashboard");
-    },
-    onError: (error) => {
-      toast.error(
-        error instanceof Error ? error.message : "Something went wrong",
-      );
     },
   });
 };

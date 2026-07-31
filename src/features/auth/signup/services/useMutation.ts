@@ -30,11 +30,5 @@ export const useSignUp = () => {
       router.push("/dashboard");
       router.refresh();
     },
-
-    onError: (error) => {
-      toast.error(
-        error instanceof Error ? error.message : "Something went wrong",
-      );
-    },
   });
 };

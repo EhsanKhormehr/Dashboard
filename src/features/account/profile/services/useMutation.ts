@@ -28,10 +28,5 @@ export const useUpdatePassword = () => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
       toast.success("Password updated successfully!");
     },
-    onError: (error) => {
-      const message =
-        error instanceof Error ? error.message : "Something went wrong";
-      toast.error(message);
-    },
   });
 };

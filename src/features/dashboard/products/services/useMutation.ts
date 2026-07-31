@@ -12,9 +12,6 @@ export const useCreateNewProduct = () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
       toast.success("New product created successfully");
     },
-    onError: (err) => {
-      toast.error(err instanceof Error ? err.message : "Something went wrong");
-    },
   });
 };
 
@@ -26,9 +23,6 @@ export const useDeleteProduct = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
       toast.success("Product deleted successfully");
-    },
-    onError: (err) => {
-      toast.error(err instanceof Error ? err.message : "Something went wrong");
     },
   });
 };

@@ -18,9 +18,6 @@ export const useCreateAddress = () => {
       queryClient.invalidateQueries({ queryKey: ["address"] });
       toast.success("Address created successfully!");
     },
-     onError: (err) => {
-      toast.error(err instanceof Error ? err.message : "Something went wrong.");
-    },
   });
 };
 
@@ -31,9 +28,6 @@ export const useMakeAddressDefault = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["address"] });
       toast.success("Default address updated successfully!");
-    },
-    onError: (err) => {
-      toast.error(err instanceof Error ? err.message : "Something went wrong.");
     },
   });
 };
@@ -46,9 +40,6 @@ export const useDeleteAddress = () => {
       queryClient.invalidateQueries({ queryKey: ["address"] });
       toast.success("Address deleted successfully!");
     },
-     onError: (err) => {
-      toast.error(err instanceof Error ? err.message : "Something went wrong.");
-    },
   });
 };
 
@@ -60,9 +51,6 @@ export const useUpdateAddress = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["address"] });
       toast.success("Address Updated successfully!");
-    },
-     onError: (err) => {
-      toast.error(err instanceof Error ? err.message : "Something went wrong.");
     },
   });
 };

@@ -12,8 +12,5 @@ export const useCreateTeamMember = () => {
       queryClient.invalidateQueries({ queryKey: ["team"] });
       toast.success("New Team Member Created Successfully!");
     },
-    onError: (err) => {
-      toast.error(err instanceof Error ? err.message : "Something went wrong");
-    },
   });
 };

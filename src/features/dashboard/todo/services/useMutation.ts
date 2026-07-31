@@ -31,9 +31,6 @@ export const useToggleFavoriteTodo = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
-    onError: (err) => {
-      toast.error(err instanceof Error ? err.message : "Something went wrong");
-    },
   });
 };
 
@@ -45,9 +42,6 @@ export const useDeleteTodo = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
       toast.success("Todo deleted successfully!");
-    },
-    onError: (err) => {
-      toast.error(err instanceof Error ? err.message : "Something went wrong");
     },
   });
 };

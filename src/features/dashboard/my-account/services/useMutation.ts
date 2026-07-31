@@ -12,8 +12,5 @@ export const useUpdateMyAccount = () => {
       queryClient.invalidateQueries({ queryKey: ["me"] });
       toast.success("User updated successfully!");
     },
-    onError: (err) => {
-      toast.error(err instanceof Error ? err.message : "Something went wrong");
-    },
   });
 };
