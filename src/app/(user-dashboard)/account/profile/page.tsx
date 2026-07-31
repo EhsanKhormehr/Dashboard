@@ -31,7 +31,7 @@ const Profile = async () => {
         </div>
 
         <TabsContent value="personalinfo">
-          <div className="mt-5 rounded-sm p-4 col-span-12 lg:col-span-8 border">
+          <div className="mt-5 rounded-sm p-4 border">
             <ShopTitle title="Profile Information" className="text-base" />
             <span className="text-xs text-muted-foreground block">
               Update your personal details and profile picture.
@@ -41,7 +41,7 @@ const Profile = async () => {
         </TabsContent>
 
         <TabsContent value="security">
-          <div className="mt-5 rounded-sm p-4 col-span-12 lg:col-span-8 border">
+          <div className="mt-5 rounded-sm p-4 border">
             <ShopTitle title="Account Security" className="text-base" />
             <span className="text-xs text-muted-foreground block">
               Change your password to keep your account secure.{" "}

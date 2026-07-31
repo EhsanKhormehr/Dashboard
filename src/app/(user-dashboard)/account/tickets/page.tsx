@@ -4,6 +4,7 @@ import TicketsFilter from "@/features/account/tickets/components/tickets-filter"
 import TicketsPagination from "@/features/account/tickets/components/tickets-pagination";
 import TicketsTable from "@/features/account/tickets/components/tickets-table";
 import { Plus } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 const Tickets = () => {
@@ -20,16 +21,19 @@ const Tickets = () => {
           <Button
             className="flex items-center cursor-pointer py-4.5"
             variant={"outline"}
+            asChild
           >
-            <span>New Ticket</span>
-            <Plus />
+            <Link href={"/account/tickets/new"}>
+              <span>New Ticket</span>
+              <Plus />
+            </Link>
           </Button>
         </div>
       </div>
       <div className="mt-5">
-          <TicketsFilter />
-          <TicketsTable />
-          <TicketsPagination />
+        <TicketsFilter />
+        <TicketsTable />
+        <TicketsPagination />
       </div>
     </div>
   );
