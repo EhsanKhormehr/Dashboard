@@ -7,6 +7,7 @@ type TicketDetailsMessageBoxProps = {
 };
 
 const TicketDetailsMessageBox = ({ message }: TicketDetailsMessageBoxProps) => {
+  
   return (
     <div className="mx-3">
       <div
@@ -17,12 +18,12 @@ const TicketDetailsMessageBox = ({ message }: TicketDetailsMessageBoxProps) => {
       >
         <div
           className={cn(
-            "shadow-sm my-3 rounded-md p-4 max-w-[100%] sm:max-w-[70%] lg:max-w-[60%]",
+            "shadow-sm min-w-0 my-3 rounded-md p-4 max-w-[100%] sm:max-w-[70%] lg:max-w-[60%]",
             message.isAdmin ? "bg-muted" : "bg-primary text-primary-foreground",
           )}
         >
-          <p>
-            {message.message}
+          <p className="break-all">
+           {message.message}
           </p>
         </div>
       </div>

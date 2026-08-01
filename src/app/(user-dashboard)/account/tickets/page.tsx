@@ -1,13 +1,30 @@
 import ShopTitle from "@/components/common/shop-title";
 import { Button } from "@/components/ui/button";
 import TicketsFilter from "@/features/account/tickets/components/tickets-filter";
-import TicketsPagination from "@/features/account/tickets/components/tickets-pagination";
 import TicketsTable from "@/features/account/tickets/components/tickets-table";
+import { getTickets } from "@/features/account/tickets/services/actions";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import {
+  TicketCategory,
+  TicketStatus,
+} from "../../../../../generated/prisma/enums";
+import Pagination from "@/components/common/pagination";
 
-const Tickets = () => {
+type TicketsProps = {
+  searchParams: Promise<{
+    search?: string;
+    status?: TicketStatus | "DEFAULT";
+    category?: TicketCategory | "DEFAULT";
+    perPage?: string;
+    page?: string;
+  }>;
+};
+
+const Tickets = async ({ searchParams }: TicketsProps) => {
+  const urlParams = await searchParams;
+  const tickets = await getTickets(urlParams);
   return (
     <div className="bg-surface shadow-card rounded-2xl w-full mt-5 px-4 py-8">
       <div className="flex items-center justify-between">
@@ -32,8 +49,13 @@ const Tickets = () => {
       </div>
       <div className="mt-5">
         <TicketsFilter />
-        <TicketsTable />
-        <TicketsPagination />
+        <TicketsTable tickets={tickets.tickets} />
+        <Pagination
+          baseHref="/account/tickets"
+          currentPage={1}
+          totalItemsCount={tickets.totalCount}
+          pageSize={String(tickets.perPage)}
+        />
       </div>
     </div>
   );

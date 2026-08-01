@@ -4,10 +4,23 @@ import { getCurrentUser } from "@/features/auth/utils/getCurrentUser";
 import { TicketFormValues } from "../types/schema";
 import { prisma } from "@/lib/prisma";
 import { executeAction } from "@/lib/executeAction";
+import {
+  Prisma,
+  TicketCategory,
+  TicketStatus,
+} from "../../../../../generated/prisma/client";
 
 type ReplyTicketInput = {
   message: string;
   ticketId: string;
+};
+
+type getTicketsParams = {
+  search?: string;
+  status?: TicketStatus | "DEFAULT";
+  category?: TicketCategory | "DEFAULT";
+  perPage?: string;
+  page?: string;
 };
 
 export const createTicket = async (data: TicketFormValues) => {
@@ -39,22 +52,47 @@ export const createTicket = async (data: TicketFormValues) => {
   });
 };
 
-export const getTickets = async () => {
+export const getTickets = async (params: getTicketsParams) => {
   return executeAction({
     actionFn: async () => {
       const currentUser = await getCurrentUser();
       if (!currentUser) {
         throw new Error("Unauthorized!");
       }
+      const page = Math.max(1, parseInt(params.page || "1", 10) || 1);
+      const perPage = Math.max(1, parseInt(params.perPage || "12", 10) || 12);
+      const skip = (page - 1) * perPage;
 
-      return await prisma.ticket.findMany({
-        where: {
-          userId: currentUser.id,
-        },
-        orderBy: {
-          updatedAt: "desc",
-        },
-      });
+      const where: Prisma.TicketWhereInput = { userId: currentUser.id };
+      if (params.category && params.category !== "DEFAULT") {
+        where.category = params.category;
+      }
+
+      if (params.search) {
+        where.subject = { contains: params.search, mode: "insensitive" };
+      }
+
+      if (params.status && params.status !== "DEFAULT") {
+        where.status = params.status;
+      }
+      const [tickets, totalCount] = await Promise.all([
+        prisma.ticket.findMany({
+          where: where,
+          orderBy: {
+            updatedAt: "desc",
+          },
+          skip: skip,
+          take: perPage,
+        }),
+        prisma.ticket.count({ where }),
+      ]);
+      return {
+        tickets,
+        totalCount,
+        page,
+        perPage,
+        totalPages: Math.ceil(totalCount / perPage),
+      };
     },
   });
 };

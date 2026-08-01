@@ -2,10 +2,19 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { getTicketById, getTickets } from "./actions";
+import { TicketCategory, TicketStatus } from "../../shared/types/types";
 
-export const useGetTickets = () => {
+type useGetTicketsVaribles = {
+  search?: string;
+  status?: TicketStatus | "DEFAULT";
+  category?: TicketCategory | "DEFAULT";
+  perPage?: string;
+  page?: string;
+};
+
+export const useGetTickets = (params: useGetTicketsVaribles) => {
   return useQuery({
-    queryFn: getTickets,
+    queryFn: () => getTickets(params),
     queryKey: ["tickets"],
   });
 };
@@ -13,6 +22,6 @@ export const useGetTickets = () => {
 export const useGetTicketById = (id: string) => {
   return useQuery({
     queryFn: () => getTicketById(id),
-    queryKey: ["tickets" , id],
+    queryKey: ["tickets", id],
   });
 };

@@ -17,9 +17,13 @@ import {
   ticketStatusVariants,
 } from "../../shared/lib/tickets-status";
 import { useGetTickets } from "../services/useQueries";
+import { Ticket as TicketDb } from "../../../../../generated/prisma/client";
 
-const TicketsTable = () => {
-  const { data } = useGetTickets();
+type TicketsTableProps = {
+  tickets : TicketDb[]
+}
+
+const TicketsTable = ({tickets}:TicketsTableProps) => {
   return (
     <Table className="min-w-[900px]">
       <TableHeader>
@@ -33,7 +37,7 @@ const TicketsTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data?.map((ticket) => (
+        {tickets.map((ticket) => (
           <TableRow key={ticket.id}>
             <TableCell>{ticket.id}</TableCell>
             <TableCell>{ticket.subject}</TableCell>

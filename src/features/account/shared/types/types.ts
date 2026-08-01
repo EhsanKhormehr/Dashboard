@@ -16,6 +16,14 @@ export type PurchasedProduct = {
 
 export type TicketStatus = "OPEN" | "PENDING" | "ANSWERED" | "CLOSED";
 
+export type TicketCategory =
+  | "ORDER"
+  | "PAYMENT"
+  | "SHIPPING"
+  | "RETURN"
+  | "TECHNICAL"
+  | "OTHER";
+
 export type StockStatus = "available" | "unavailable";
 
 export type Ticket = {
