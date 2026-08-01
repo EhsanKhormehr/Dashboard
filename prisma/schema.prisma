@@ -110,9 +110,10 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  addresses Address[]
-  tickets   Ticket[]
-  sessions  Session[]
+  addresses      Address[]
+  tickets        Ticket[]
+  sessions       Session[]
+  ticketMessages TicketMessage[]
 }
 
 model Address {
@@ -134,17 +135,31 @@ model Address {
 }
 
 model Ticket {
-  id        String         @id @default(cuid())
+  id        String          @id @default(cuid())
   subject   String
   category  TicketCategory
-  message   String
-  status    TicketStatus   @default(OPEN)
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
-  user      User           @relation(fields: [userId], references: [id])
+  status    TicketStatus    @default(OPEN)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  user      User            @relation(fields: [userId], references: [id])
   userId    String
+  messages  TicketMessage[]
 
   @@index([userId])
+}
+
+model TicketMessage {
+  id        String   @id @default(cuid())
+  message   String
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ticket    Ticket  @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  ticketId  String
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+
+  @@index([ticketId])
 }
 
 model Session {
