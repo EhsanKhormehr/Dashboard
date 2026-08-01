@@ -219,6 +219,6 @@ enum TicketCategory {
 enum TicketStatus {
   OPEN
   PENDING
-  RESOLVED
+  ANSWERED
   CLOSED
 }

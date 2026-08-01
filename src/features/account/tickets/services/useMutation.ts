@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createTicket } from "./actions";
+import { createTicket, replyTicket } from "./actions";
 import { toast } from "sonner";
 
 export const useCreateTicket = () => {
@@ -11,7 +11,25 @@ export const useCreateTicket = () => {
     mutationFn: createTicket,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tickets"] });
-      toast.success("Ticket send successfully!")
+      toast.success("Ticket send successfully!");
+    },
+  });
+};
+
+export const useReplyTicket = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      message,
+      ticketId,
+    }: {
+      message: string;
+      ticketId: string;
+    }) => replyTicket({ message, ticketId }),
+    onSuccess: (_,variables) => {
+      queryClient.invalidateQueries({ queryKey: ["tickets"] });
+      queryClient.invalidateQueries({ queryKey: ["tickets"] });
+      toast.success("Ticket send successfully!");
     },
   });
 };
