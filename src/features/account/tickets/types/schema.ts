@@ -15,7 +15,7 @@ export const ticketSchema = z.object({
   message: z
     .string()
     .trim()
-    .min(20, "Message must be at least 20 characters")
+    .min(5, "Message must be at least 5 characters")
     .max(2000, "Message must be less than 2000 characters"),
 });
 
@@ -31,7 +31,7 @@ export const detailsTicketSchema = z.object({
   message: z
     .string()
     .trim()
-    .min(20, "Message must be at least 20 characters")
+    .min(5, "Message must be at least 5 characters")
     .max(2000, "Message must be less than 2000 characters"),
 });
 

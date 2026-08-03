@@ -1,6 +1,6 @@
 import ShopTitle from "@/components/common/shop-title";
 import { Button } from "@/components/ui/button";
-import TicketsFilter from "@/components/shared/tickets-filter";
+import TicketsFilter from "@/components/shared/tickets/tickets-filter";
 import TicketsTable from "@/features/account/tickets/components/tickets-table";
 import { getTickets } from "@/features/account/tickets/services/actions";
 import { Plus } from "lucide-react";

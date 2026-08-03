@@ -16,7 +16,16 @@ type TicketDetailsHeaderProps = {
   status: TicketStatus;
   category: string;
   createdAt: Date;
+  updatedAt: Date;
   id: string;
+  role: "ADMIN" | "USER";
+  user?: {
+    id: string;
+    userName: string | null;
+    firstName: string | null;
+    lastName: string | null;
+    email: string | null;
+  };
 };
 
 const TicketDetailsHeader = ({
@@ -24,7 +33,10 @@ const TicketDetailsHeader = ({
   status,
   category,
   createdAt,
+  updatedAt,
   id,
+  role,
+  user,
 }: TicketDetailsHeaderProps) => {
   const router = useRouter();
 
@@ -43,9 +55,26 @@ const TicketDetailsHeader = ({
             {category} Category
           </span>
         </div>
-        <span className="text-xs text-muted-foreground">
-          Created at : {new Date(createdAt).toLocaleDateString()}
-        </span>
+
+        {role === "ADMIN" && (
+          <div className="flex flex-col sm:flex-row sm:items-center my-1">
+            <span className="font-medium text-sm text-dashboard-text/75">
+              User : {user?.firstName} {user?.lastName}
+            </span>
+            <span className="font-medium text-sm text-dashboard-text/75 sm:ml-5 ml-0">
+              Email : {user?.email}
+            </span>
+          </div>
+        )}
+
+        <div className="flex flex-col sm:flex-row sm:items-center my-3">
+          <span className="text-xs text-muted-foreground">
+            Created at : {new Date(createdAt).toLocaleDateString()}
+          </span>
+          <span className="text-xs text-muted-foreground sm:ml-5">
+            Updated at : {new Date(updatedAt).toLocaleDateString()}
+          </span>
+        </div>
       </div>
       <Button
         variant={"secondary"}

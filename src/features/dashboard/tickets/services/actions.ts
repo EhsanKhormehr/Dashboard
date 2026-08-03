@@ -7,6 +7,7 @@ import {
   TicketStatus,
 } from "../../../../../generated/prisma/enums";
 import { Prisma } from "../../../../../generated/prisma/client";
+import { getCurrentUser } from "@/features/auth/utils/getCurrentUser";
 
 type getTicketsParams = {
   search?: string;
@@ -16,9 +17,19 @@ type getTicketsParams = {
   page?: string;
 };
 
+type ReplyTicketInput = {
+  message: string;
+  ticketId: string;
+};
+
 export const getAllTickets = async (params: getTicketsParams) => {
   return executeAction({
     actionFn: async () => {
+      const user = await getCurrentUser();
+
+      if (!user || user.role !== "ADMIN") {
+        throw new Error("Unauthorized");
+      }
       const page = Math.max(1, parseInt(params.page || "1", 10) || 1);
       const perPage = Math.max(1, parseInt(params.perPage || "12", 10) || 12);
       const skip = (page - 1) * perPage;
@@ -65,6 +76,118 @@ export const getAllTickets = async (params: getTicketsParams) => {
         perPage,
         totalPages: Math.ceil(totalCount / perPage),
       };
+    },
+  });
+};
+
+export const getTicketById = async (id: string) => {
+  return executeAction({
+    actionFn: async () => {
+      const user = await getCurrentUser();
+
+      if (!user || user.role !== "ADMIN") {
+        throw new Error("Unauthorized");
+      }
+      return prisma.ticket.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          user: {
+            select: {
+              id: true,
+              userName: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
+          messages: true,
+        },
+      });
+    },
+  });
+};
+
+export const adminReplyTicket = async ({
+  message,
+  ticketId,
+}: ReplyTicketInput) => {
+  return executeAction({
+    actionFn: async () => {
+      const user = await getCurrentUser();
+
+      if (!user || user.role !== "ADMIN") {
+        throw new Error("Unauthorized");
+      }
+      const ticket = await prisma.ticket.findUnique({
+        where: {
+          id: ticketId,
+        },
+      });
+      if (!ticket) {
+        throw new Error("Ticket not found");
+      }
+      const [newMessage] = await prisma.$transaction([
+        prisma.ticketMessage.create({
+          data: {
+            ticketId,
+            message,
+            isAdmin: true,
+          },
+        }),
+        prisma.ticket.update({
+          where: {
+            id: ticket.id,
+          },
+          data: {
+            updatedAt: new Date(),
+          },
+        }),
+      ]);
+      return newMessage;
+    },
+  });
+};
+
+export const closeTicket = async (ticketId: string) => {
+  return executeAction({
+    actionFn: async () => {
+      const user = await getCurrentUser();
+
+      if (!user || user.role !== "ADMIN") {
+        throw new Error("Unauthorized");
+      }
+
+      return await prisma.ticket.update({
+        where: {
+          id: ticketId,
+        },
+        data: {
+          status: "CLOSED",
+        },
+      });
+    },
+  });
+};
+
+export const openTicket = async (ticketId: string) => {
+  return executeAction({
+    actionFn: async () => {
+      const user = await getCurrentUser();
+
+      if (!user || user.role !== "ADMIN") {
+        throw new Error("Unauthorized");
+      }
+
+      return await prisma.ticket.update({
+        where: {
+          id: ticketId,
+        },
+        data: {
+          status: "OPEN",
+        },
+      });
     },
   });
 };

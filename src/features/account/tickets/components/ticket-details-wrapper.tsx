@@ -6,26 +6,65 @@ import TicketDetailsForm from "./ticket-details-form";
 import { Prisma } from "../../../../../generated/prisma/browser";
 import { useGetTicketById } from "../services/useQueries";
 
-type TicketDetailsWrapperProps = {
-  ticketId: string;
-};
+type UserTicketDetails = Prisma.TicketGetPayload<{
+  include: {
+    messages: true;
+  };
+}>;
 
-const TicketDetailsWrapper = ({ ticketId }: TicketDetailsWrapperProps) => {
-  const { data: ticket } = useGetTicketById(ticketId);
-  if (!ticket) {
-    return <div>Ticket Not Found!</div>;
-  }
+type AdminTicketDetails = Prisma.TicketGetPayload<{
+  include: {
+    user: {
+      select: {
+        id: true;
+        userName: true;
+        firstName: true;
+        lastName: true;
+        email: true;
+      };
+    };
+    messages: true;
+  };
+}>;
+
+type TicketDetailsWrapperProps =
+  | {
+      role: "USER";
+      ticket: UserTicketDetails;
+    }
+  | {
+      role: "ADMIN";
+      ticket: AdminTicketDetails;
+    };
+
+const TicketDetailsWrapper = ({ ticket, role }: TicketDetailsWrapperProps) => {
   return (
     <div>
-      <TicketDetailsHeader
-        subject={ticket.subject}
-        status={ticket.status}
-        category={ticket.category}
-        createdAt={ticket.createdAt}
-        id={ticket.id}
-      />
-      <TicketDetailsMessages messages={ticket.messages} />
-      <TicketDetailsForm ticketId={ticket.id} />
+      {role === "USER" ? (
+        <TicketDetailsHeader
+          subject={ticket.subject}
+          status={ticket.status}
+          category={ticket.category}
+          createdAt={ticket.createdAt}
+          updatedAt={ticket.updatedAt}
+          id={ticket.id}
+          role="USER"
+        />
+      ) : (
+        <TicketDetailsHeader
+          subject={ticket.subject}
+          status={ticket.status}
+          category={ticket.category}
+          createdAt={ticket.createdAt}
+          updatedAt={ticket.updatedAt}
+          id={ticket.id}
+          role="ADMIN"
+          user={ticket.user}
+        />
+      )}
+
+      <TicketDetailsMessages messages={ticket.messages} role={role} />
+      <TicketDetailsForm ticketId={ticket.id} role={role} status={ticket.status} />
     </div>
   );
 };

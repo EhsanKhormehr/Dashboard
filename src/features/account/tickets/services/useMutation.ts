@@ -26,8 +26,7 @@ export const useReplyTicket = () => {
       message: string;
       ticketId: string;
     }) => replyTicket({ message, ticketId }),
-    onSuccess: (_,variables) => {
-      queryClient.invalidateQueries({ queryKey: ["tickets"] });
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tickets"] });
       toast.success("Ticket send successfully!");
     },

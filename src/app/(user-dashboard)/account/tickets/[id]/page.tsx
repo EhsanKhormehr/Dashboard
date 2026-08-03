@@ -1,4 +1,4 @@
-import TicketDetailsWrapper from "@/features/account/tickets/components/ticket-details-wrapper";
+import TicketUserDetailsWrapper from "@/features/account/tickets/components/ticket-user-details";
 import { getTicketById } from "@/features/account/tickets/services/actions";
 import React from "react";
 
@@ -20,7 +20,7 @@ const TicketDetailsPage = async ({ params }: TicketDetailsPageProps) => {
 
   return (
     <div className="bg-surface shadow-card rounded-2xl w-full mt-5 px-4 py-8">
-      <TicketDetailsWrapper ticketId={ticketId} />
+      <TicketUserDetailsWrapper ticketId={ticketId} />
     </div>
   );
 };

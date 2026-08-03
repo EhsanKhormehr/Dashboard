@@ -11,12 +11,24 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/components/common/error-message";
 import { useReplyTicket } from "../services/useMutation";
+import {
+  useAdminReplyTicket,
+  useCloseTicket,
+  useOpenTicket,
+} from "@/features/dashboard/tickets/services/useMutation";
+import { TicketStatus } from "../../../../../generated/prisma/enums";
 
 type TicketDetailsFormProps = {
   ticketId: string;
+  role: "ADMIN" | "USER";
+  status: TicketStatus;
 };
 
-const TicketDetailsForm = ({ ticketId }: TicketDetailsFormProps) => {
+const TicketDetailsForm = ({
+  ticketId,
+  role,
+  status,
+}: TicketDetailsFormProps) => {
   const {
     control,
     formState: { errors },
@@ -25,11 +37,30 @@ const TicketDetailsForm = ({ ticketId }: TicketDetailsFormProps) => {
     resolver: zodResolver(detailsTicketSchema),
     defaultValues: detailsTicketDefaultValues,
   });
-  const { mutate } = useReplyTicket();
+  const { mutate: replyUser } = useReplyTicket();
+  const { mutate: replyAdmin } = useAdminReplyTicket();
+  const { mutate: closeTicket } = useCloseTicket();
+  const { mutate: openTicket } = useOpenTicket();
 
   const sendTicketSubmitHandler = (data: DetailsTicketFormValues) => {
-    mutate({ message: data.message, ticketId });
+    if (role === "USER") {
+      replyUser({ message: data.message, ticketId });
+    }
+    if (role === "ADMIN") {
+      replyAdmin({ message: data.message, ticketId });
+    }
   };
+  const toggleTicketStatusHandler = () => {
+    if (status === "OPEN") {
+      closeTicket(ticketId);
+    }
+    if (status === "CLOSED") {
+      openTicket(ticketId);
+    }
+  };
+  if (status === "CLOSED" && role === "USER") {
+    return null;
+  }
   return (
     <form className="py-5" onSubmit={handleSubmit(sendTicketSubmitHandler)}>
       <Controller
@@ -46,6 +77,16 @@ const TicketDetailsForm = ({ ticketId }: TicketDetailsFormProps) => {
       />
       {errors.message && <ErrorMessage text={errors.message.message} />}
       <div className="flex justify-end">
+        {role === "ADMIN" && (
+          <Button
+            type="button"
+            variant={status === "OPEN" ? "destructive" : "outline"}
+            className="mt-5 px-10 py-5 cursor-pointer mr-3"
+            onClick={toggleTicketStatusHandler}
+          >
+            {status === "OPEN" ? "Close Ticket" : "Open Ticket"}
+          </Button>
+        )}
         <Button type="submit" className="mt-5 px-10 py-5 cursor-pointer">
           Send
         </Button>
