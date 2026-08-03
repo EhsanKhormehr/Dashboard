@@ -1,17 +1,30 @@
 import PageHeader from "@/components/common/page-header";
 import Pagination from "@/components/common/pagination";
 import TicketsFilter from "@/components/shared/tickets-filter";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getTickets } from "@/features/account/tickets/services/actions";
-import MenusTable from "@/features/dashboard/menu/components/menus-table";
 import TicketsStat from "@/features/dashboard/tickets/components/tickets-stat";
 import TicketsTable from "@/features/dashboard/tickets/components/tickets-table";
-import { Plus } from "lucide-react";
-import Link from "next/link";
 import React from "react";
+import {
+  TicketCategory,
+  TicketStatus,
+} from "../../../../../generated/prisma/enums";
+import { getAllTickets } from "@/features/dashboard/tickets/services/actions";
 
-const DashboardTickets = () => {
+type TicketsProps = {
+  searchParams: Promise<{
+    search?: string;
+    status?: TicketStatus | "DEFAULT";
+    category?: TicketCategory | "DEFAULT";
+    perPage?: string;
+    page?: string;
+  }>;
+};
+
+const DashboardTickets = async ({ searchParams }: TicketsProps) => {
+  const urlParams = await searchParams;
+  const tickets = await getAllTickets(urlParams);
+
   return (
     <div>
       <PageHeader title="Tickets" />
@@ -27,10 +40,15 @@ const DashboardTickets = () => {
           <CardHeader>
             <CardTitle className="font-bold text-2xl">Tickets</CardTitle>
           </CardHeader>
-          <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
+          <CardContent className="p-4">
             <TicketsFilter />
-            <TicketsTable />
-            <Pagination baseHref="/" currentPage={1} pageSize="10" totalItemsCount={50} />
+            <TicketsTable tickets={tickets.tickets} />
+            <Pagination
+              baseHref="/dashboard/tickets"
+              currentPage={tickets.page}
+              pageSize={String(tickets.perPage)}
+              totalItemsCount={tickets.totalCount}
+            />
           </CardContent>
         </Card>
       </div>

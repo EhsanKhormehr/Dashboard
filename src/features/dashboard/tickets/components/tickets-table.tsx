@@ -1,11 +1,22 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ticketStatusLabels, ticketStatusVariants } from "@/features/account/shared/lib/tickets-status";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  ticketStatusLabels,
+  ticketStatusVariants,
+} from "@/features/account/shared/lib/tickets-status";
 import React from "react";
+import { TicketsTableProps } from "../types/types";
+import Link from "next/link";
 
-const TicketsTable = () => {
-    
+const TicketsTable = ({ tickets }: TicketsTableProps) => {
   return (
     <Table className="min-w-[900px]">
       <TableHeader>
@@ -21,24 +32,26 @@ const TicketsTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow>
-            <TableCell>23</TableCell>
-            <TableCell>Ehsan</TableCell>
-            <TableCell>Payment problem</TableCell>
-            <TableCell>PAYMENT</TableCell>
+        {tickets.map((ticket) => (
+          <TableRow key={ticket.id}>
+            <TableCell>{ticket.id}</TableCell>
+            <TableCell>{ticket.user.firstName} {ticket.user.lastName}</TableCell>
+            <TableCell>{ticket.subject}</TableCell>
+            <TableCell>{ticket.category}</TableCell>
             <TableCell>
-                <Badge className={ticketStatusVariants["OPEN"]}>{ticketStatusLabels["OPEN"]}</Badge>
+              <Badge className={ticketStatusVariants[ticket.status]}>
+                {ticketStatusLabels[ticket.status]}
+              </Badge>
             </TableCell>
+            <TableCell>{new Date(ticket.createdAt).toLocaleDateString()}</TableCell>
+            <TableCell>{new Date(ticket.updatedAt).toLocaleDateString()}</TableCell>
             <TableCell>
-                10/10/2026
+              <Button asChild>
+                <Link href={`/dashboard/tickets/${ticket.id}`}>View</Link>
+              </Button>
             </TableCell>
-            <TableCell>
-                12/10/2026
-            </TableCell>
-            <TableCell>
-                <Button>View</Button>
-            </TableCell>
-        </TableRow>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );
