@@ -48,7 +48,7 @@ const TicketDetailsForm = ({
     }
   };
   const toggleTicketStatusHandler = () => {
-    if (status === "OPEN") {
+    if (status === "OPEN" || status === "ANSWERED" || status === "PENDING") {
       closeTicket(ticketId);
     }
     if (status === "CLOSED") {
@@ -77,11 +77,11 @@ const TicketDetailsForm = ({
         {role === "ADMIN" && (
           <Button
             type="button"
-            variant={status === "OPEN" ? "destructive" : "outline"}
+            variant={status === "OPEN" || status === "ANSWERED" || status === "PENDING" ? "destructive" : "outline"}
             className="mt-5 px-10 py-5 cursor-pointer mr-3"
             onClick={toggleTicketStatusHandler}
           >
-            {status === "OPEN" ? "Close Ticket" : "Open Ticket"}
+            {status === "OPEN" || status === "ANSWERED" || status === "PENDING" ? "Close Ticket" : "Open Ticket"}
           </Button>
         )}
         <Button type="submit" className="mt-5 px-10 py-5 cursor-pointer">

@@ -13,10 +13,17 @@ import {
   ticketStatusVariants,
 } from "@/features/account/shared/lib/tickets-status";
 import React from "react";
-import { TicketsTableProps } from "../types/types";
+import { TicketsWithUser } from "../types/types";
 import Link from "next/link";
 
+type TicketsTableProps = {
+  tickets: TicketsWithUser[];
+};
+
 const TicketsTable = ({ tickets }: TicketsTableProps) => {
+  if (tickets.length === 0) {
+    return <p>Ticket not found!</p>
+  }
   return (
     <Table className="min-w-[900px]">
       <TableHeader>

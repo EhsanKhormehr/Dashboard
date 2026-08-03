@@ -15,14 +15,16 @@ import {
   ticketStatusLabels,
   ticketStatusVariants,
 } from "../../shared/lib/tickets-status";
-import { useGetTickets } from "../services/useQueries";
 import { Ticket as TicketDb } from "../../../../../generated/prisma/client";
 
 type TicketsTableProps = {
-  tickets : TicketDb[]
-}
+  tickets: TicketDb[];
+};
 
-const TicketsTable = ({tickets}:TicketsTableProps) => {
+const TicketsTable = ({ tickets }: TicketsTableProps) => {
+  if (tickets.length === 0) {
+    return <p>Ticket not found!</p>;
+  }
   return (
     <Table className="min-w-[900px]">
       <TableHeader>

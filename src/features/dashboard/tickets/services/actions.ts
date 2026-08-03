@@ -69,6 +69,7 @@ export const getAllTickets = async (params: getTicketsParams) => {
         }),
         prisma.ticket.count({ where }),
       ]);
+
       return {
         tickets,
         totalCount,
@@ -142,6 +143,7 @@ export const adminReplyTicket = async ({
           },
           data: {
             updatedAt: new Date(),
+            status: "ANSWERED",
           },
         }),
       ]);

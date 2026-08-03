@@ -1,7 +1,6 @@
 import PageHeader from "@/components/common/page-header";
 import { Card, CardContent } from "@/components/ui/card";
 import TicketAdminDetailsWrapper from "@/features/dashboard/tickets/components/tickets-admin-details";
-import Link from "next/link";
 import React from "react";
 
 type DashboardTicketDetailsPageProps = {

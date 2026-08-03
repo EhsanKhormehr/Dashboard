@@ -13,7 +13,3 @@ export type TicketsWithUser = Prisma.TicketGetPayload<{
     };
   };
 }>;
-
-export type TicketsTableProps = {
-  tickets: TicketsWithUser[];
-};

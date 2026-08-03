@@ -25,6 +25,7 @@ type TicketsProps = {
 const Tickets = async ({ searchParams }: TicketsProps) => {
   const urlParams = await searchParams;
   const tickets = await getTickets(urlParams);
+
   return (
     <div className="bg-surface shadow-card rounded-2xl w-full mt-5 px-4 py-8">
       <div className="flex items-center justify-between">
@@ -50,12 +51,14 @@ const Tickets = async ({ searchParams }: TicketsProps) => {
       <div className="mt-5">
         <TicketsFilter />
         <TicketsTable tickets={tickets.tickets} />
-        <Pagination
-          baseHref="/account/tickets"
-          currentPage={1}
-          totalItemsCount={tickets.totalCount}
-          pageSize={String(tickets.perPage)}
-        />
+        {tickets.tickets.length > 0 && (
+          <Pagination
+            baseHref="/account/tickets"
+            currentPage={tickets.page}
+            totalItemsCount={tickets.totalCount}
+            pageSize={String(tickets.perPage)}
+          />
+        )}
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ type TicketAdminDetailsWrapperProps = {
 const TicketAdminDetailsWrapper =  ({
   ticketId,
 }: TicketAdminDetailsWrapperProps) => {
-  const {data:ticket} =  useGetTicketById(ticketId);
+  const {data:ticket,isLoading} =  useGetTicketById(ticketId);
   if (!ticket) {
     return <div>Ticket Not Found!</div>;
   }

@@ -29,26 +29,28 @@ const DashboardTickets = async ({ searchParams }: TicketsProps) => {
     <div>
       <PageHeader title="Tickets" />
       <div className="mt-6">
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        {/* <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-5 gap-8">
           <TicketsStat />
           <TicketsStat />
           <TicketsStat />
           <TicketsStat />
           <TicketsStat />
-        </div>
-        <Card className="shadow-card mt-6">
+        </div> */}
+        <Card className="shadow-card mt-6 py-8">
           <CardHeader>
             <CardTitle className="font-bold text-2xl">Tickets</CardTitle>
           </CardHeader>
-          <CardContent className="p-4">
+          <CardContent>
             <TicketsFilter />
             <TicketsTable tickets={tickets.tickets} />
-            <Pagination
-              baseHref="/dashboard/tickets"
-              currentPage={tickets.page}
-              pageSize={String(tickets.perPage)}
-              totalItemsCount={tickets.totalCount}
-            />
+            {tickets.tickets.length > 0 && (
+              <Pagination
+                baseHref="/dashboard/tickets"
+                currentPage={tickets.page}
+                pageSize={String(tickets.perPage)}
+                totalItemsCount={tickets.totalCount}
+              />
+            )}
           </CardContent>
         </Card>
       </div>

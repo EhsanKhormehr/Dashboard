@@ -160,6 +160,7 @@ export const replyTicket = async ({ message, ticketId }: ReplyTicketInput) => {
           },
           data: {
             updatedAt: new Date(),
+            status: "PENDING",
           },
         }),
       ]);
