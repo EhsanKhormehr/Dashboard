@@ -3,8 +3,7 @@ import React from "react";
 import TicketDetailsHeader from "./ticket-details-header";
 import TicketDetailsMessages from "./ticket-details-messages";
 import TicketDetailsForm from "./ticket-details-form";
-import { Prisma } from "../../../../../generated/prisma/browser";
-import { useGetTicketById } from "../services/useQueries";
+import { Prisma } from "../../../../../generated/prisma/client";
 
 type UserTicketDetails = Prisma.TicketGetPayload<{
   include: {

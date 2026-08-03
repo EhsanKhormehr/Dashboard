@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { getTicketById, getTickets } from "./actions";
-import { TicketCategory, TicketStatus } from "../../shared/types/types";
+import { TicketCategory, TicketStatus } from "../../../../../generated/prisma/enums";
 
 type useGetTicketsVaribles = {
   search?: string;

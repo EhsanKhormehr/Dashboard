@@ -14,24 +14,7 @@ export type PurchasedProduct = {
   purchasedAt: string;
 };
 
-export type TicketStatus = "OPEN" | "PENDING" | "ANSWERED" | "CLOSED";
-
-export type TicketCategory =
-  | "ORDER"
-  | "PAYMENT"
-  | "SHIPPING"
-  | "RETURN"
-  | "TECHNICAL"
-  | "OTHER";
-
 export type StockStatus = "available" | "unavailable";
-
-export type Ticket = {
-  id: string;
-  title: string;
-  description: string;
-  status: TicketStatus;
-};
 
 export type WishlistItem = {
   id: string;

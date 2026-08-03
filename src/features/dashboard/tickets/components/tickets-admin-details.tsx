@@ -1,8 +1,8 @@
 "use client"
 import React from "react";
 import { getTicketById } from "../services/actions";
-import TicketDetailsWrapper from "@/features/account/tickets/components/ticket-details-wrapper";
 import { useGetTicketById } from "../services/useQueries";
+import TicketDetailsWrapper from "@/features/shared/tickets/components/ticket-details-wrapper";
 
 type TicketAdminDetailsWrapperProps = {
   ticketId: string;

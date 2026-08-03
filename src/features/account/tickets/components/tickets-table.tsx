@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import React from "react";
-import { Ticket } from "../types/types";
 import { Badge } from "@/components/ui/badge";
 import {
   ticketStatusLabels,

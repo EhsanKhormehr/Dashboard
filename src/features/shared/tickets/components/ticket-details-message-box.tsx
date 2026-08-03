@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
-import { TicketMessage } from "../../../../../generated/prisma/client";
 import React from "react";
+import { TicketMessage } from "../../../../../generated/prisma/browser";
 
 type TicketDetailsMessageBoxProps = {
   message: TicketMessage;

@@ -2,14 +2,12 @@
 import ShopTitle from "@/components/common/shop-title";
 import { Badge } from "@/components/ui/badge";
 import React from "react";
-import {
-  ticketStatusLabels,
-  ticketStatusVariants,
-} from "../../shared/lib/tickets-status";
+
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { TicketStatus } from "../../shared/types/types";
 import { useRouter } from "next/navigation";
+import { ticketStatusLabels, ticketStatusVariants } from "@/features/account/shared/lib/tickets-status";
+import { TicketStatus } from "../../../../../generated/prisma/enums";
 
 type TicketDetailsHeaderProps = {
   subject: string;

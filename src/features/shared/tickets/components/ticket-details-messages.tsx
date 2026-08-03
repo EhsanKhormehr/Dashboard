@@ -1,6 +1,6 @@
 import React from "react";
-import TicketDetailsMessageBox from "./ticket-details-message-box";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import TicketDetailsMessageBox from "./ticket-details-message-box";
 import { TicketMessage } from "../../../../../generated/prisma/client";
 
 type TicketDetailsMessagesProps = {

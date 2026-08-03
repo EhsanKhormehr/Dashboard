@@ -3,20 +3,17 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Controller, useForm } from "react-hook-form";
 import React from "react";
-import {
-  detailsTicketDefaultValues,
-  DetailsTicketFormValues,
-  detailsTicketSchema,
-} from "../types/schema";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/components/common/error-message";
-import { useReplyTicket } from "../services/useMutation";
 import {
   useAdminReplyTicket,
   useCloseTicket,
   useOpenTicket,
 } from "@/features/dashboard/tickets/services/useMutation";
+import { useReplyTicket } from "@/features/account/tickets/services/useMutation";
 import { TicketStatus } from "../../../../../generated/prisma/enums";
+import { detailsTicketDefaultValues, DetailsTicketFormValues, detailsTicketSchema } from "../types/schema";
 
 type TicketDetailsFormProps = {
   ticketId: string;

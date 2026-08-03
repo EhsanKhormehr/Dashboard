@@ -1,6 +1,5 @@
 import PageHeader from "@/components/common/page-header";
 import Pagination from "@/components/common/pagination";
-import TicketsFilter from "@/components/shared/tickets/tickets-filter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import TicketsStat from "@/features/dashboard/tickets/components/tickets-stat";
 import TicketsTable from "@/features/dashboard/tickets/components/tickets-table";
@@ -10,6 +9,7 @@ import {
   TicketStatus,
 } from "../../../../../generated/prisma/enums";
 import { getAllTickets } from "@/features/dashboard/tickets/services/actions";
+import TicketsFilter from "@/features/shared/tickets/components/tickets-filter";
 
 type TicketsProps = {
   searchParams: Promise<{

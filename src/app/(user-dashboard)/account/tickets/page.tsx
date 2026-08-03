@@ -1,6 +1,5 @@
 import ShopTitle from "@/components/common/shop-title";
 import { Button } from "@/components/ui/button";
-import TicketsFilter from "@/components/shared/tickets/tickets-filter";
 import TicketsTable from "@/features/account/tickets/components/tickets-table";
 import { getTickets } from "@/features/account/tickets/services/actions";
 import { Plus } from "lucide-react";
@@ -11,6 +10,7 @@ import {
   TicketStatus,
 } from "../../../../../generated/prisma/enums";
 import Pagination from "@/components/common/pagination";
+import TicketsFilter from "@/features/shared/tickets/components/tickets-filter";
 
 type TicketsProps = {
   searchParams: Promise<{
