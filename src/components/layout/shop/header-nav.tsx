@@ -13,12 +13,12 @@ import React from "react";
 
 const HeaderNav = () => {
   return (
-    <div className="px-2 md:px-4 xl:px-14 py-4 bg-surface flex items-center justify-between">
+    <div className="px-2 md:px-4 xl:px-14 py-4 bg-surface hidden lg:flex items-center justify-between">
       <NavigationMenu viewport={false} className="hidden lg:flex">
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>
-              <LayoutGrid />
+              <LayoutGrid className="mr-3"/>
               Product Category
             </NavigationMenuTrigger>
             <NavigationMenuContent>
