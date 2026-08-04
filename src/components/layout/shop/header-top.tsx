@@ -7,7 +7,7 @@ import React from "react";
 
 const HeaderTop = () => {
   return (
-    <div className="px-2 md:px-4 xl:px-14 py-4 flex items-center justify-between shadow-sm bg-surface">
+    <div className="px-2 md:px-4 xl:px-14 py-4 flex items-center justify-between border-b bg-surface">
       <div className="flex items-center justify-between">
         <Image src={"/LogoLight.png"} width={127} height={30} alt="logo" />
         <form className=" hidden lg:flex">
