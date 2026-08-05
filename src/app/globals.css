@@ -53,7 +53,6 @@
   --shadow-card: var(--shadow-card);
   --color-rating: var(--rating);
   --shadow-section: var(--shadow-section);
-
 }
 
 :root {
@@ -97,7 +96,6 @@
   --soft: oklch(0.9351 0.0208 261.77 / 85%);
   --rating: oklch(0.8245 0.1486 73.35);
   --shadow-section: 0 10px 30px rgba(0, 0, 0, 0.04);
-
 }
 
 .dark {
@@ -140,7 +138,6 @@
   --soft: oklch(0.4506 0.0327 260.23 / 85%);
   --rating: oklch(0.8245 0.1486 73.35);
   --shadow-section: 0px 0px 10px rgba(0, 0, 0, 0.05);
-
 }
 
 @layer base {
@@ -155,6 +152,15 @@
   }
 }
 
-nextjs-portal {
-  display: none !important;
+.home-banner-swiper .swiper-pagination-bullet {
+  transition: all 400ms ease;
+  background-color: white;
+  opacity: 0.5;
+}
+
+.home-banner-swiper .swiper-pagination-bullet-active {
+  background-color: white;
+  width: 24px;
+  opacity: 1;
+  border-radius: 9999px;
 }
