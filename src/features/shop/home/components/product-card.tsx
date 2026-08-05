@@ -10,11 +10,12 @@ type HomeDiscountedCardProps = {
   category: string;
   image: string;
   price: number;
-  oldPrice: number;
-  discount: number;
+  oldPrice?: number;
+  discount?: number;
+  badge?: string;
 };
 
-const HomeDiscountedCard = ({
+const ProductCard = ({
   title,
   category,
   image,
@@ -42,10 +43,12 @@ const HomeDiscountedCard = ({
       <div className="flex justify-between items-center mt-auto">
         <div className="flex items-center gap-4">
           <span className="font-bold">${price}</span>
-          <span className="text-sm text-muted-foreground line-through">
-            ${oldPrice}
-          </span>
-          <Badge variant={"destructive"}>{discount}%</Badge>
+          {oldPrice && (
+            <span className="text-sm text-muted-foreground line-through">
+              ${oldPrice}
+            </span>
+          )}
+          {discount && <Badge variant={"destructive"}>{discount}%</Badge>}
         </div>
         <Button className="cursor-pointer">
           <ShoppingCart className="size-[22px]" strokeWidth={1.3} />
@@ -55,4 +58,4 @@ const HomeDiscountedCard = ({
   );
 };
 
-export default HomeDiscountedCard;
+export default ProductCard;
