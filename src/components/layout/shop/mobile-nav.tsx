@@ -25,7 +25,7 @@ const MobileNav = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <div className="fixed left-0 right-0 bg-surface/60 backdrop-blur-[4px] shadow-card bottom-4 mx-2 md:mx-4  rounded-full lg:hidden">
+    <div className="fixed left-0 right-0 bg-surface/60 backdrop-blur-[4px] shadow-card bottom-4 mx-2 md:mx-4  rounded-full lg:hidden z-10">
       <div className="grid grid-cols-5">
         <Button asChild variant={"ghost"}>
           <Link href={"/"} className="py-8">

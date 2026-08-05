@@ -53,6 +53,7 @@
   --shadow-card: var(--shadow-card);
   --color-rating: var(--rating);
   --shadow-section: var(--shadow-section);
+  --shadow-soft-card: var(--shadow-soft-card);
 }
 
 :root {
@@ -96,6 +97,7 @@
   --soft: oklch(0.9351 0.0208 261.77 / 85%);
   --rating: oklch(0.8245 0.1486 73.35);
   --shadow-section: 0 10px 30px rgba(0, 0, 0, 0.04);
+  --shadow-soft-card: 0 0 8px rgba(0, 0, 0, 0.12);
 }
 
 .dark {
@@ -138,6 +140,7 @@
   --soft: oklch(0.4506 0.0327 260.23 / 85%);
   --rating: oklch(0.8245 0.1486 73.35);
   --shadow-section: 0px 0px 10px rgba(0, 0, 0, 0.05);
+  --shadow-soft-card: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
 @layer base {
@@ -163,4 +166,7 @@
   width: 24px;
   opacity: 1;
   border-radius: 9999px;
+}
+.discounted-slider .swiper-wrapper {
+  margin: 20px 0;
 }
