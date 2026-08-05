@@ -28,7 +28,6 @@ const ProductCard = ({
       <div>
         <Heart
           className="size-[26px] hover:stroke-destructive hover:fill-destructive cursor-pointer"
-          strokeWidth={1.3}
         />
       </div>
       <Link href={"/"} className="w-full flex justify-center py-7">
@@ -51,7 +50,7 @@ const ProductCard = ({
           {discount && <Badge variant={"destructive"}>{discount}%</Badge>}
         </div>
         <Button className="cursor-pointer">
-          <ShoppingCart className="size-[22px]" strokeWidth={1.3} />
+          <ShoppingCart className="size-[22px]" />
         </Button>
       </div>
     </div>

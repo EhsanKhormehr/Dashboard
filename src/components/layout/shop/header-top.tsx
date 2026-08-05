@@ -26,7 +26,7 @@ const HeaderTop = () => {
           className="bg-surface hover:bg-primary hover:text-primary-foreground rounded-full size-[45px] hover:dark:bg-primary hover:dark:text-primary-foreground hover:border-none hidden lg:flex"
         >
           <Link href={"/"}>
-            <ShoppingBag className="size-[26px]" strokeWidth={1.3} />
+            <ShoppingBag className="size-[26px]" />
           </Link>
         </Button>
         <div className="flex items-center">
@@ -35,13 +35,13 @@ const HeaderTop = () => {
             asChild
             className="size-[45px] rounded-full bg-surface cursor-pointer border-none shadow-sm lg:hidden"
           >
-            <Moon className="size-[26px]" strokeWidth={1.3} />
+            <Moon className="size-[26px]"/>
           </Button>
           <Link
             href={"/"}
             className="flex items-center bg-primary ml-3 size-[45px] lg:w-auto lg:h-[45px] px-3 rounded-full lg:rounded-3xl text-white hover:bg-primary/90 transition-colors"
           >
-            <UserRound strokeWidth={1.3} />
+            <UserRound />
             <span className="text-sm font-semibold hidden lg:flex">
               Ehsan Khormehr
             </span>

@@ -10,7 +10,7 @@ const MobielNavForm = () => {
           <SheetTrigger asChild>
             <Button asChild variant={"ghost"} className="cursor-pointer">
               <div className="py-8">
-                <Search strokeWidth={1.3} className="size-[25px]" />
+                <Search className="size-[25px]" />
               </div>
             </Button>
           </SheetTrigger>

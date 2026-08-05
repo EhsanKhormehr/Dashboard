@@ -29,7 +29,7 @@ const MobileNav = () => {
       <div className="grid grid-cols-5">
         <Button asChild variant={"ghost"}>
           <Link href={"/"} className="py-8">
-            <House strokeWidth={1.3} className="size-[25px]" />
+            <House className="size-[25px]" />
           </Link>
         </Button>
 
@@ -39,13 +39,13 @@ const MobileNav = () => {
         
         <Button asChild variant={"ghost"}>
           <Link href={"/profile"} className="py-8">
-            <UserRound strokeWidth={1.3} className="size-[25px]" />
+            <UserRound  className="size-[25px]" />
           </Link>
         </Button>
 
         <Button asChild variant={"ghost"}>
           <Link href={"/cart"} className="py-8">
-            <ShoppingBag strokeWidth={1.3} className="size-[25px]" />
+            <ShoppingBag  className="size-[25px]" />
           </Link>
         </Button>
       </div>

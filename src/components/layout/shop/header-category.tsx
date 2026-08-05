@@ -32,7 +32,7 @@ const HeaderCategory = ({
         >
           <div className={`${!isHeader && "py-8"}`}>
             <LayoutGrid
-              strokeWidth={1.3}
+              
               className={`${isHeader ? "size-[26px]" : "size-[25px]"}`}
             />
           </div>

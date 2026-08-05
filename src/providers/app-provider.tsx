@@ -2,6 +2,7 @@
 
 import { Toaster } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { LucideProvider } from "lucide-react";
 import { ThemeProvider } from "next-themes";
 import { ReactNode } from "react";
 import { toast } from "sonner";
@@ -30,7 +31,9 @@ export const Providers = ({ children }: ProvidersProps) => {
       enableSystem
       disableTransitionOnChange
     >
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <LucideProvider strokeWidth={1.3}>{children}</LucideProvider>
+      </QueryClientProvider>
       <Toaster position="bottom-right" richColors closeButton />
     </ThemeProvider>
   );

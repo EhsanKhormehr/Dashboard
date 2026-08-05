@@ -55,11 +55,11 @@ const HeaderNav = () => {
         </NavigationMenuList>
       </NavigationMenu>
       <Button variant={"outline"} asChild className="size-[45px] rounded-full bg-surface cursor-pointer border-none shadow-sm lg:hidden">
-          <LayoutGrid className="size-[26px]"  strokeWidth={1.3}/>
+          <LayoutGrid className="size-[26px]"  />
         </Button>
       <div>
         <Button variant={"outline"} asChild className="size-[45px] rounded-full bg-surface cursor-pointer border-none shadow-sm">
-          <Moon className="size-[26px]"  strokeWidth={1.3}/>
+          <Moon className="size-[26px]"  />
         </Button>
       </div>
     </div>
