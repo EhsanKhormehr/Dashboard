@@ -4,7 +4,7 @@ import ShopTitle from "@/components/common/shop-title";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-import ProductCard from "./product-card";
+import ProductCard from "../../products/components/product-card";
 import "swiper/css";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";

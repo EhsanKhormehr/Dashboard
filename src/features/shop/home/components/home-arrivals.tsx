@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 
 import "swiper/css";
-import ProductCard from "./product-card";
+import ProductCard from "../../products/components/product-card";
 
 export const arrivals = [
   {
