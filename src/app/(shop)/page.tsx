@@ -1,3 +1,4 @@
+import HomeArrivals from "@/features/shop/home/components/home-arrivals";
 import HomeBanner from "@/features/shop/home/components/home-banner";
 import HomeBenefits from "@/features/shop/home/components/home-benefits";
 import HomeBestProducts from "@/features/shop/home/components/home-best-products";
@@ -16,7 +17,8 @@ const HomePage = () => {
       <HomeBestProducts />
       <HomeBenefits />
       <HomePromoBanners />
-      <HomeFeaturedBrands /> 
+      <HomeFeaturedBrands />
+      <HomeArrivals /> 
     </div>
   );
 };
