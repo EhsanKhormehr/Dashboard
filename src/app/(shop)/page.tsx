@@ -3,6 +3,7 @@ import HomeBenefits from "@/features/shop/home/components/home-benefits";
 import HomeBestProducts from "@/features/shop/home/components/home-best-products";
 import HomeCategory from "@/features/shop/home/components/home-category";
 import HomeDiscountedProducts from "@/features/shop/home/components/home-discounted";
+import HomeFeaturedBrands from "@/features/shop/home/components/home-featured-brands";
 import HomePromoBanners from "@/features/shop/home/components/home-promo-banners";
 import React from "react";
 
@@ -15,6 +16,7 @@ const HomePage = () => {
       <HomeBestProducts />
       <HomeBenefits />
       <HomePromoBanners />
+      <HomeFeaturedBrands /> 
     </div>
   );
 };
