@@ -14,21 +14,38 @@ import ProductsSwitchButton from "./products-switch-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-const ProductsFiltering = () => {
- const [min, setMin] = useState<number>(0);
+type ProductsFilteringProps = {
+  isMobile?: boolean;
+};
+
+const ProductsFiltering = ({ isMobile }: ProductsFilteringProps) => {
+  const [min, setMin] = useState<number>(0);
   const [max, setMax] = useState<number>(100);
 
   return (
     <div>
-       <Accordion type="multiple">
+      <Accordion type="multiple">
         <AccordionItem value="category" className=" !border-b-0">
           <AccordionTrigger className="border border-gray-200 px-2 py-3 hover:no-underline shadow-soft-card">
             Category
           </AccordionTrigger>
           <AccordionContent className="overflow-hidden pt-3 pb-0">
-            <div className="mt-3 border rounded-lg px-3 py-3">
-              <FieldGroup>
+            <ScrollArea className="mt-3 border rounded-lg px-3 py-3 h-[250px]">
+              <FieldGroup className="my-2">
+                <Field orientation={"horizontal"}>
+                  <Checkbox id="Laptop" name="Laptop" />
+                  <Label htmlFor="Laptop">Laptop</Label>
+                </Field>
+                <Field orientation={"horizontal"}>
+                  <Checkbox id="Laptop" name="Laptop" />
+                  <Label htmlFor="Laptop">Laptop</Label>
+                </Field>
+                <Field orientation={"horizontal"}>
+                  <Checkbox id="Laptop" name="Laptop" />
+                  <Label htmlFor="Laptop">Laptop</Label>
+                </Field>
                 <Field orientation={"horizontal"}>
                   <Checkbox id="Laptop" name="Laptop" />
                   <Label htmlFor="Laptop">Laptop</Label>
@@ -54,7 +71,7 @@ const ProductsFiltering = () => {
                   <Label htmlFor="Laptop">Laptop</Label>
                 </Field>
               </FieldGroup>
-            </div>
+            </ScrollArea>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="brand" className="mt-4 !border-b-0">
@@ -62,8 +79,8 @@ const ProductsFiltering = () => {
             Brand
           </AccordionTrigger>
           <AccordionContent className="overflow-hidden pt-3 pb-0">
-            <div className="mt-3 border rounded-lg px-3 py-3">
-              <FieldGroup>
+            <ScrollArea className="mt-3 border rounded-lg px-3 py-3 h-[250px]">
+              <FieldGroup className="my-2">
                 <Field orientation={"horizontal"}>
                   <Checkbox id="Laptop" name="Laptop" />
                   <Label htmlFor="Laptop">Asus</Label>
@@ -89,7 +106,7 @@ const ProductsFiltering = () => {
                   <Label htmlFor="Laptop">Msi</Label>
                 </Field>
               </FieldGroup>
-            </div>
+            </ScrollArea>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
@@ -122,9 +139,14 @@ const ProductsFiltering = () => {
       </Card>
       <ProductsSwitchButton idValue="discount" labelValue="Discount Only" />
       <ProductsSwitchButton idValue="available" labelValue="In Stock Only" />
-      <Button variant={"secondary"} className="mt-5 w-full py-5 cursor-pointer">Clear All Filters</Button>
+      <Button
+        variant={"secondary"}
+        className="mt-5 w-full py-5 cursor-pointer sticky"
+      >
+        Clear All Filters
+      </Button>
     </div>
-  )
-}
+  );
+};
 
-export default ProductsFiltering
+export default ProductsFiltering;

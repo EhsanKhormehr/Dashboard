@@ -8,8 +8,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Filter, Search } from "lucide-react";
 import React from "react";
+import ProductsFiltering from "./products-filtering";
 
 const ProductsTopbarFilter = () => {
   return (
@@ -45,12 +53,24 @@ const ProductsTopbarFilter = () => {
             </SelectContent>
           </Select>
         </div>
-        <Button
-          variant={"outline"}
-          className="bg-surface py-6 px-4 text-muted-foreground lg:hidden"
-        >
-          Filters <Filter />
-        </Button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant={"outline"}
+              className="bg-surface py-6 px-4 text-muted-foreground lg:hidden"
+            >
+              Filters <Filter />
+            </Button>
+          </SheetTrigger>
+          <SheetContent className="overflow-y-auto">
+            <SheetHeader>
+              <SheetTitle>Filters</SheetTitle>
+            </SheetHeader>
+            <div className="px-4 ">
+              <ProductsFiltering isMobile={true} />
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </div>
   );
