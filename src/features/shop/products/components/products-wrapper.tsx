@@ -63,7 +63,7 @@ export const products = [
 
 const ProductsWrapper = () => {
   return (
-    <div>
+    <div className="mt-7">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
         {products.map((product) => (
           <ProductCard
