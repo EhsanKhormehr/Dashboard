@@ -1,9 +1,9 @@
 import MaxWidthWrapper from "@/components/common/max-width-wrapper";
-import CartSummary from "@/features/shop/cart/components/cart-summary";
 import CheckoutAddresses from "@/features/shop/checkout/components/checkout-addresses";
 import CheckoutDelivery from "@/features/shop/checkout/components/checkout-delivery";
 import CheckoutDiscount from "@/features/shop/checkout/components/checkout-discount";
 import CheckoutPayment from "@/features/shop/checkout/components/checkout-payment";
+import OrderSummery from "@/features/shop/shared/components/order-summery";
 import React from "react";
 
 const Checkout = () => {
@@ -15,7 +15,7 @@ const Checkout = () => {
         <CheckoutPayment />
       </div>
       <div className="col-span-12 lg:col-span-4 ">
-        <CartSummary />
+        <OrderSummery isCart={false} />
         <CheckoutDiscount/>
       </div>
     </MaxWidthWrapper>
