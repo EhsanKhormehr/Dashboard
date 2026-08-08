@@ -15,7 +15,7 @@ const CheckoutPayment = () => {
       <div className="px-4 py-3 border-b">
         <div className="flex items-center">
           <CreditCard className="size-[20px]" />
-          <span className="font-bold ml-2">Delivery Method</span>
+          <span className="font-bold ml-2">Payment Method</span>
         </div>
       </div>
       <div className="p-4">
