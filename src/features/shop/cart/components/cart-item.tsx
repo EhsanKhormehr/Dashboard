@@ -10,30 +10,30 @@ const CartItem = () => {
   const [value, setValue] = useState(1);
   console.log(value);
   return (
-    <div className="flex justify-between items-center last:border-0 border-b p-4">
-      <div className="flex">
-        <Link href={"/"} className="bg-background p-3 rounded-xl">
+    <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center last:border-0 border-b p-4">
+      <div className="flex lg:justify-between">
+        <Link href={"/"} className="bg-background p-3 rounded-xl flex items-center justify-center shrink-0">
           <Image
             src={"/shop/iphone-14.png"}
-            width={60}
-            height={60}
+            width={50}
+            height={50}
             alt="iphone"
           />
         </Link>
-        <div className="ml-4 flex flex-col justify-around">
-          <span className="font-semibold text-sm">Iphone 14 Pro Max</span>
+        <div className="ml-4 flex flex-col justify-around items-start">
+          <span className="font-semibold text-xs md:text-sm">Iphone 14 Pro Max Iphone 14 Pro Max Iphone 14 Pro Max Iphone 14 Pro Max Iphone 14 Pro Max Iphone 14 Pro Max</span>
           <Button
             variant={"destructive"}
             size={"sm"}
-            className="cursor-pointer"
+            className="cursor-pointer mt-2"
           >
             Remove
           </Button>
         </div>
       </div>
-      <div className="flex flex-col items-center">
+      <div className="flex lg:flex-col justify-between items-center mt-5 lg:mt-0">
         <span className="text-sm font-bold">$1,300</span>
-        <div className="flex justify-around h-9 items-center rounded-full bg-background p-1 mt-3">
+        <div className="flex justify-around h-9 items-center rounded-full bg-background p-1 lg:mt-3">
           <Button
             variant={"ghost"}
             className="flex size-7 items-center justify-center rounded-full bg-white hover:!bg-white hover:text-black text-black shadow-sm cursor-pointer"

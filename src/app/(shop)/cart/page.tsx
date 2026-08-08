@@ -5,7 +5,7 @@ import React from "react";
 
 const Cart = () => {
   return (
-    <MaxWidthWrapper className="grid grid-cols-12 my-15 gap-8">
+    <MaxWidthWrapper className="grid grid-cols-12 my-15 lg:gap-8 gap-y-8">
       <CartWrapper />
       <CartSummary />
     </MaxWidthWrapper>
