@@ -4,7 +4,7 @@ import React from "react";
 
 const CartSummary = () => {
   return (
-    <div className="col-span-4 bg-surface rounded-xl shadow-card self-start">
+    <div className="col-span-12 lg:col-span-4 bg-surface rounded-xl shadow-card self-start">
       <div className="px-4 py-3 border-b">
         <h3 className="font-bold text-center">Cart Summary</h3>
       </div>
