@@ -21,7 +21,7 @@ const ProductExpertReview = () => {
       <div
         className={cn(
           "overflow-hidden relative mt-5 transition-all duration-300 ease-in-out",
-          expanded ? "max-h-[2000px]" : "max-h-[320px]",
+          expanded ? "max-h-[4500px] lg:max-h-[2500px]" : "max-h-[320px]",
         )}
       >
         <div
