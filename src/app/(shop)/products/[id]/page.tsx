@@ -3,6 +3,7 @@ import ProductBreadcrumb from "@/features/shop/products/components/product-bread
 import ProductInfoWrapper from "@/features/shop/products/components/product-info-wrapper";
 import ProductPurchasePanel from "@/features/shop/products/components/product-purchase-panel";
 import ProductSectionsNav from "@/features/shop/products/components/product-sections-nav";
+import ProductSpecifications from "@/features/shop/products/components/product-specifications";
 import React from "react";
 
 const Product = () => {
@@ -14,6 +15,7 @@ const Product = () => {
         <ProductPurchasePanel />
       </div>
       <ProductSectionsNav />
+      <ProductSpecifications/> 
     </MaxWidthWrapper>
   );
 };
