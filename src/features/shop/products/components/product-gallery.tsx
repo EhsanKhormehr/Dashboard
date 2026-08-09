@@ -18,26 +18,42 @@ export const productImages: ProductImage[] = [
   { id: 2, src: "/shop/macbook.png", alt: "آیفون ۱۴ - نمای پشت" },
   { id: 3, src: "/shop/iphone-14.png", alt: "آیفون ۱۴ - نمای کناری" },
   { id: 4, src: "/shop/macbook.png", alt: "آیفون ۱۴ - در جعبه" },
-  { id: 3, src: "/shop/iphone-14.png", alt: "آیفون ۱۴ - نمای کناری" },
-  { id: 4, src: "/shop/macbook.png", alt: "آیفون ۱۴ - در جعبه" },
+  { id: 5, src: "/shop/iphone-14.png", alt: "آیفون ۱۴ - نمای کناری" },
+  { id: 6, src: "/shop/macbook.png", alt: "آیفون ۱۴ - در جعبه" },
 ];
 
 const ProductGallery = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="col-span-6 bg-surface rounded-2xl relative shadow-soft-card">
-      <div className="relative flex justify-center py-10 border-b h-[400px]">
-        <Image src={productImages[activeIndex].src} width={300} height={300} alt={productImages[activeIndex].alt} className="object-contain" priority />
+    <div className="col-span-12 xl:col-span-6 bg-surface rounded-2xl relative shadow-soft-card">
+      <div className="relative flex justify-center py-10 border-b h-[400px] px-12 lg:px-5">
+        <Image
+          src={productImages[activeIndex].src}
+          width={300}
+          height={300}
+          alt={productImages[activeIndex].alt}
+          className="object-contain"
+          priority
+        />
       </div>
       <div className="p-5">
         <Swiper
-          slidesPerView={5}
+          slidesPerView={3}
           spaceBetween={10}
+          breakpoints={{
+            500: {
+              slidesPerView: 4,
+            },
+            640: {
+              slidesPerView: 5,
+            },
+          }}
           className="product-gallery-slider"
         >
           {productImages.map((image, index) => (
             <SwiperSlide
+              key={image.id}
               className={`p-2.5 rounded-2xl bg-background border-2 border-transparent transition-all shadow-soft-card cursor-pointer !h-[90px] ${activeIndex === index && "!border-primary border-2"}`}
               onClick={() => setActiveIndex(index)}
             >

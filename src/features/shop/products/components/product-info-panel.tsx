@@ -49,7 +49,7 @@ const ProductInfoPanel = () => {
       <span className="block text-xs text-muted-foreground font-medium">
         ASUS ROG
       </span>
-      <h1 className="text-2xl font-black">ROG Strix G16 Gaming Laptop</h1>
+      <h1 className="text-lg sm:text-2xl font-black">ROG Strix G16 Gaming Laptop</h1>
       <div className="mt-4 flex justify-between items-center">
         <div className="flex items-center">
           <Star className="fill-rating stroke-rating" />
@@ -58,11 +58,11 @@ const ProductInfoPanel = () => {
           <Star className="fill-rating stroke-rating" />
           <Star className="stroke-muted-foreground/20 fill-muted-foreground/20" />
         </div>
-        <span className="text-sm text-muted-foreground font-semibold">
+        <span className="text-xs sm:text-sm text-muted-foreground font-semibold">
           (124 Reviews)
         </span>
       </div>
-      <div className="grid grid-cols-3 gap-2 mt-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-5 mt-5">
         {productSpecs.map((spec) => (
           <ProductInfoPanelBox
             key={spec.label}
