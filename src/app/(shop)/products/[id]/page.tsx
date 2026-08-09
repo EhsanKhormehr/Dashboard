@@ -2,6 +2,7 @@ import MaxWidthWrapper from "@/components/common/max-width-wrapper";
 import ProductBreadcrumb from "@/features/shop/products/components/product-breadcrumb";
 import ProductInfoWrapper from "@/features/shop/products/components/product-info-wrapper";
 import ProductPurchasePanel from "@/features/shop/products/components/product-purchase-panel";
+import ProductSectionsNav from "@/features/shop/products/components/product-sections-nav";
 import React from "react";
 
 const Product = () => {
@@ -12,6 +13,7 @@ const Product = () => {
         <ProductInfoWrapper />
         <ProductPurchasePanel />
       </div>
+      <ProductSectionsNav />
     </MaxWidthWrapper>
   );
 };
