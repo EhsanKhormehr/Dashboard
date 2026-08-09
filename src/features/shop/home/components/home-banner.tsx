@@ -24,9 +24,9 @@ const HomeBanner = () => {
             <Image
               src={"/shop/banner-1.png"}
               width={1900}
-              height={300}
+              height={600}
               alt="banner"
-              className=" w-full h-[200px] sm:h-[300px] lg:h-[400px]"
+              className=" w-full h-auto object-contain"
             />
           </Link>
         </SwiperSlide>
@@ -35,35 +35,12 @@ const HomeBanner = () => {
             <Image
               src={"/shop/banner-2.png"}
               width={1900}
-              height={300}
+              height={600}
               alt="banner"
-              className=" w-full h-[200px] sm:h-[300px] lg:h-[400px]"
+              className=" w-full h-auto object-contain"
             />
           </Link>
         </SwiperSlide>
-        <SwiperSlide>
-          <Link href={"/"}>
-            <Image
-              src={"/shop/banner-1.png"}
-              width={1900}
-              height={300}
-              alt="banner"
-              className=" w-full h-[200px] sm:h-[300px] lg:h-[400px]"
-            />
-          </Link>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Link href={"/"}>
-            <Image
-              src={"/shop/banner-2.png"}
-              width={1900}
-              height={300}
-              alt="banner"
-              className=" w-full h-[200px] sm:h-[300px] lg:h-[400px]"
-            />
-          </Link>
-        </SwiperSlide>
-       
       </Swiper>
     </div>
   );
