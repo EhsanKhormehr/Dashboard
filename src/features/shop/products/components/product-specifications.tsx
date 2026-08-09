@@ -25,7 +25,7 @@ const specifications = [
 
 const ProductSpecifications = () => {
   return (
-    <div className="mt-5 bg-surface shadow-soft-card rounded-xl p-5">
+    <div className="mt-5 bg-surface shadow-soft-card rounded-xl p-5 col-span-12 lg:col-span-9" id="specifications">
       <div className="flex items-center">
         <SlidersHorizontal className="text-primary size-[25px]" />
         <ShopTitle

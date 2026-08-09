@@ -9,7 +9,7 @@ const ProductExpertReview = () => {
   const [expanded, setExpanded] = useState<boolean>(false);
 
   return (
-    <div className="mt-5 bg-surface shadow-soft-card rounded-xl p-5">
+    <div className="mt-5 bg-surface shadow-soft-card rounded-xl p-5 col-span-12 lg:col-span-9" id="expert-review">
       <div className="flex items-center">
         <PenTool className="text-primary size-[25px]" />
         <ShopTitle

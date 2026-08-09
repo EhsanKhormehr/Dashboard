@@ -14,10 +14,10 @@ const Product = () => {
       <div className="grid grid-cols-12 mt-10 gap-5 relative">
         <ProductInfoWrapper />
         <ProductPurchasePanel />
+        <ProductSectionsNav />
+        <ProductSpecifications />
+        <ProductExpertReview />
       </div>
-      <ProductSectionsNav />
-      <ProductSpecifications/> 
-      <ProductExpertReview />
     </MaxWidthWrapper>
   );
 };
