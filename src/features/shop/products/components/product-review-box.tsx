@@ -2,6 +2,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
 import React from "react";
+import ProductReviewAnswer from "./product-review-answer";
 
 const ProductReviewBox = () => {
   return (
@@ -43,6 +44,7 @@ const ProductReviewBox = () => {
         it’s a very good choice and I would definitely recommend it to anyone
         looking for something dependable and well-made.
       </p>
+      <ProductReviewAnswer />
     </div>
   );
 };
