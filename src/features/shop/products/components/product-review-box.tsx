@@ -6,7 +6,7 @@ import ProductReviewAnswer from "./product-review-answer";
 
 const ProductReviewBox = () => {
   return (
-    <div className="border mt-5 p-5 rounded-xl">
+    <div className="shadow-soft-card border mt-5 p-5 rounded-xl">
       <div className="flex justify-between items-center border-b py-3 flex-wrap gap-2">
         <div className="flex items-center">
           <Avatar className="size-[40px]">
