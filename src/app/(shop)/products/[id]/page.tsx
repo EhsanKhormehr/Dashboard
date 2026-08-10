@@ -4,6 +4,7 @@ import ProductExpertReview from "@/features/shop/products/components/product-exp
 import ProductInfoWrapper from "@/features/shop/products/components/product-info-wrapper";
 import ProductPurchasePanel from "@/features/shop/products/components/product-purchase-panel";
 import ProductRelated from "@/features/shop/products/components/product-related";
+import ProductReviews from "@/features/shop/products/components/product-reviews";
 import ProductSectionsNav from "@/features/shop/products/components/product-sections-nav";
 import ProductSpecifications from "@/features/shop/products/components/product-specifications";
 import React from "react";
@@ -19,6 +20,7 @@ const Product = () => {
         <ProductSpecifications />
         <ProductExpertReview />
         <ProductRelated />
+        <ProductReviews />
       </div>
     </MaxWidthWrapper>
   );
