@@ -3,6 +3,7 @@ import ProductBreadcrumb from "@/features/shop/products/components/product-bread
 import ProductExpertReview from "@/features/shop/products/components/product-expert-review";
 import ProductInfoWrapper from "@/features/shop/products/components/product-info-wrapper";
 import ProductPurchasePanel from "@/features/shop/products/components/product-purchase-panel";
+import ProductRelated from "@/features/shop/products/components/product-related";
 import ProductSectionsNav from "@/features/shop/products/components/product-sections-nav";
 import ProductSpecifications from "@/features/shop/products/components/product-specifications";
 import React from "react";
@@ -17,6 +18,7 @@ const Product = () => {
         <ProductSectionsNav />
         <ProductSpecifications />
         <ProductExpertReview />
+        <ProductRelated />
       </div>
     </MaxWidthWrapper>
   );
