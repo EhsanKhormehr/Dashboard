@@ -43,7 +43,7 @@ const ProductSpecifications = () => {
         </TableHeader>
         <TableBody>
           {specifications.map((specific) => (
-            <TableRow>
+            <TableRow key={specific.feature}>
               <TableCell className="font-bold py-4">{specific.feature}</TableCell>
               <TableCell className="py-4">{specific.details}</TableCell>
             </TableRow>
