@@ -12,7 +12,7 @@ type RecentlyPurchasedCardProps = {
 
 const RecentlyPurchasedCard = ({ product }: RecentlyPurchasedCardProps) => {
   return (
-    <div className="shadow-card rounded-xl flex flex-col justify-between">
+    <div className="shadow-soft-card rounded-xl flex flex-col justify-between bg-background dark:bg-background/40">
       <div className="flex justify-center items-center py-8 border-b">
         <Link href={"/"}>
           <Image

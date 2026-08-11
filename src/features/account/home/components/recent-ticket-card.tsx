@@ -15,7 +15,7 @@ type RecentTicketCardProps = {
 
 const RecentTicketCard = ({ ticket }: RecentTicketCardProps) => {
   return (
-    <div className="border rounded-xl p-4 bg-background">
+    <div className="border rounded-xl p-4 bg-background dark:bg-background/40">
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
           <span className="text-sm font-semibold text-foreground">

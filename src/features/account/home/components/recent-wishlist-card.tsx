@@ -13,7 +13,7 @@ type RecentWishlistCardProps = {
 
 const RecentWishlistCard = ({ product }: RecentWishlistCardProps) => {
   return (
-    <div className="flex items-center justify-between p-4 border rounded-xl">
+    <div className="flex items-center justify-between p-4 border rounded-xl bg-background dark:bg-background/40">
       <div>
         <Image
           src={"/shop/iphone-14.png"}
