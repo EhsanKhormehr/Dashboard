@@ -32,12 +32,12 @@ const AddressCard = ({ data }: AddressCardProps) => {
   };
 
   return (
-    <div className="shadow-sm rounded-xl">
+    <div className="shadow-soft-card rounded-xl bg-background">
       <div className="p-4">
         <div className="flex items-center justify-between">
           <span className="font-bold">{data.addressLabel}</span>
           {data.isDefault === true && (
-            <Badge variant={"secondary"} className="text-xs font-semibold">
+            <Badge className="text-xs font-semibold">
               Default
             </Badge>
           )}
