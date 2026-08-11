@@ -22,7 +22,7 @@ const Profile = async () => {
       <span className="text-xs text-muted-foreground">
         Manage your personal information.
       </span>
-      <Tabs defaultValue="security" className="mt-5">
+      <Tabs defaultValue="personalinfo" className="mt-5">
         <div className="flex justify-center">
           <TabsList>
             <TabsTrigger value="personalinfo">Personal Info</TabsTrigger>
