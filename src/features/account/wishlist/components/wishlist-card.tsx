@@ -11,7 +11,7 @@ import {
 
 const WishlistCard = () => {
   return (
-    <div className="shadow-card rounded-xl flex flex-col justify-between">
+    <div className="shadow-soft-card rounded-xl flex flex-col justify-between bg-background dark:bg-background/40">
       <div className="p-4 flex justify-end">
         <Heart className="cursor-pointer text-muted-foreground transition hover:scale-125  fill-transparent hover:fill-destructive hover:text-destructive size-6" />
       </div>
