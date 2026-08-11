@@ -1,6 +1,7 @@
 import ShopTitle from "@/components/common/shop-title";
 import { Button } from "@/components/ui/button";
 import OrderAddress from "@/features/account/orders/components/order-address";
+import OrderItems from "@/features/account/orders/components/order-items";
 import OrderPayment from "@/features/account/orders/components/order-payment";
 import OrderStatus from "@/features/account/orders/components/order-status";
 import OrderSupport from "@/features/account/orders/components/order-support";
@@ -28,8 +29,9 @@ const OrderDetails = () => {
         </Button>
       </div>
       <div className="grid grid-cols-12 gap-5 mt-5">
-        <div className="col-span-8">
+        <div className="col-span-8 space-y-5">
           <OrderStatus />
+          <OrderItems />
         </div>
         <div className="col-span-4 space-y-5">
           <OrderPayment />
