@@ -1,13 +1,19 @@
 import AccountSidebar from "@/components/layout/account/account-sidebar";
 import AccountTopbar from "@/components/layout/account/account-topbar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { getCurrentUser } from "@/features/auth/utils/getCurrentUser";
+import { redirect } from "next/navigation";
 import React from "react";
 
 type LayoutProps = {
   children: React.ReactNode;
 };
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = async({ children }: LayoutProps) => {
+  const currentUser= await getCurrentUser()
+  if (currentUser?.role === "ADMIN") {
+    redirect("/dashboard")
+  }
   return (
     <SidebarProvider
       style={
