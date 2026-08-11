@@ -10,9 +10,6 @@ const OrderPayment = () => {
           title="Payment Summary"
           className="text-base"
         />
-        <p className="text-xs text-muted-foreground">
-          Track the current progress of your order
-        </p>
       </div>
       <div className="mt-5 border-b pb-3 flex flex-col gap-2">
         <div className="flex justify-between items-center">

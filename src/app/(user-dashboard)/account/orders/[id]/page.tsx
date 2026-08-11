@@ -1,5 +1,6 @@
 import ShopTitle from "@/components/common/shop-title";
 import { Button } from "@/components/ui/button";
+import OrderAddress from "@/features/account/orders/components/order-address";
 import OrderPayment from "@/features/account/orders/components/order-payment";
 import { ArrowLeft, ShoppingBag } from "lucide-react";
 import React from "react";
@@ -39,6 +40,7 @@ const OrderDetails = () => {
         </div>
         <div className="col-span-4">
           <OrderPayment />
+          <OrderAddress />
         </div>
       </div>
     </div>
