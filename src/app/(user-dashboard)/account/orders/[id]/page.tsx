@@ -2,8 +2,9 @@ import ShopTitle from "@/components/common/shop-title";
 import { Button } from "@/components/ui/button";
 import OrderAddress from "@/features/account/orders/components/order-address";
 import OrderPayment from "@/features/account/orders/components/order-payment";
+import OrderStatus from "@/features/account/orders/components/order-status";
 import OrderSupport from "@/features/account/orders/components/order-support";
-import { ArrowLeft, ShoppingBag } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import React from "react";
 
 const OrderDetails = () => {
@@ -28,16 +29,7 @@ const OrderDetails = () => {
       </div>
       <div className="grid grid-cols-12 gap-5 mt-5">
         <div className="col-span-8">
-          <div>
-            <ShopTitle
-              isShape={false}
-              title="Order Status"
-              className="text-base"
-            />
-            <p className="text-xs text-muted-foreground">
-              Track the current progress of your order
-            </p>
-          </div>
+          <OrderStatus />
         </div>
         <div className="col-span-4 space-y-5">
           <OrderPayment />
