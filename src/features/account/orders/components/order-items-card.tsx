@@ -19,7 +19,7 @@ const OrderItemsCard = () => {
             <div className="min-w-0">
               <Link
                 href="/"
-                className="block text-sm font-medium text-surface-foreground"
+                className="block text-xs sm:text-sm font-medium text-surface-foreground"
               >
                 iPhone 14 Pro Max
               </Link>

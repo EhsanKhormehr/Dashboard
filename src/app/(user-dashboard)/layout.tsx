@@ -20,7 +20,7 @@ const Layout = ({ children }: LayoutProps) => {
       <AccountSidebar />
       <div className="min-w-0 flex-1 min-h-screen">
         <AccountTopbar />
-        <main className="p-5">{children}</main>
+        <main className="p-2 md:p-4">{children}</main>
       </div>
     </SidebarProvider>
   );

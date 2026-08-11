@@ -51,7 +51,7 @@ const OrderStatus = () => {
               </div>
 
               <div className="mt-2">
-                <p className="text-sm font-medium text-foreground">
+                <p className="text-xs sm:text-sm font-medium text-foreground">
                   {step.label}
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">

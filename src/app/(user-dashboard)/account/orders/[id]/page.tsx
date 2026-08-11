@@ -10,30 +10,30 @@ import React from "react";
 
 const OrderDetails = () => {
   return (
-    <div className="bg-surface shadow-card rounded-2xl w-full mt-5 px-4 py-8">
-      <div className="flex items-center justify-between border-b">
+    <div className="bg-surface shadow-card rounded-2xl w-full mt-5 px-4 pb-4">
+      <div className="flex items-center justify-between border-b py-4">
         <div>
-          <ShopTitle title="Order Details" />
+          <ShopTitle title="Order Details" className="text-base sm:text-xl" />
           <span className="text-xs text-muted-foreground">
             View and manage your orders
           </span>
+          <div>
+            <span className="text-sm text-muted-foreground font-bold">
+              #ORD-1024
+            </span>
+          </div>
         </div>
-        <div>
-          <span className="text-sm text-muted-foreground font-bold">
-            #ORD-1024
-          </span>
-        </div>
-        <Button variant={"secondary"} className="cursor-pointer">
+        <Button variant={"secondary"} className="cursor-pointer py-4.5 px-4">
           <ArrowLeft />
           Back
         </Button>
       </div>
       <div className="grid grid-cols-12 gap-5 mt-5">
-        <div className="col-span-8 space-y-5">
+        <div className="col-span-12 lg:col-span-8 space-y-5">
           <OrderStatus />
           <OrderItems />
         </div>
-        <div className="col-span-4 space-y-5">
+        <div className="col-span-12 lg:col-span-4 space-y-5">
           <OrderPayment />
           <OrderAddress />
           <OrderSupport />

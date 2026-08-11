@@ -14,7 +14,7 @@ const OrderSupport = () => {
           Need help with your order?
         </p>
 
-        <Button asChild size="sm" className="mt-3">
+        <Button asChild size="sm" className="mt-3 py-4.5 px-4">
           <Link href="/account/tickets/new">Open Ticket</Link>
         </Button>
       </div>
