@@ -5,8 +5,18 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { getCurrentUser } from "@/features/auth/utils/getCurrentUser";
+import { redirect } from "next/navigation";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const currentUser = await getCurrentUser();
+  if (currentUser?.role === "USER") {
+    redirect("/account");
+  }
   return (
     <SidebarProvider>
       <AppSidebar />
