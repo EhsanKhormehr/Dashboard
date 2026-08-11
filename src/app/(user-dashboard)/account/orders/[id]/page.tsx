@@ -2,12 +2,13 @@ import ShopTitle from "@/components/common/shop-title";
 import { Button } from "@/components/ui/button";
 import OrderAddress from "@/features/account/orders/components/order-address";
 import OrderPayment from "@/features/account/orders/components/order-payment";
+import OrderSupport from "@/features/account/orders/components/order-support";
 import { ArrowLeft, ShoppingBag } from "lucide-react";
 import React from "react";
 
 const OrderDetails = () => {
   return (
-    <div className="bg-surface shadow-card rounded-2xl w-full mt-5 px-4 py-8 h-[800px]">
+    <div className="bg-surface shadow-card rounded-2xl w-full mt-5 px-4 py-8">
       <div className="flex items-center justify-between border-b">
         <div>
           <ShopTitle title="Order Details" />
@@ -38,9 +39,10 @@ const OrderDetails = () => {
             </p>
           </div>
         </div>
-        <div className="col-span-4">
+        <div className="col-span-4 space-y-5">
           <OrderPayment />
           <OrderAddress />
+          <OrderSupport />
         </div>
       </div>
     </div>

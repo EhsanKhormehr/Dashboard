@@ -3,7 +3,7 @@ import React from "react";
 
 const OrderAddress = () => {
   return (
-    <div className="mt-5 bg-background rounded-2xl p-4 shadow-soft-card">
+    <div className="bg-background rounded-2xl p-4 shadow-soft-card">
       <div>
         <ShopTitle
           isShape={false}
