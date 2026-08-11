@@ -91,7 +91,7 @@ const AddressesForm = ({
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[90vw] md:max-w-[80vw] lg:max-w-[900px] bg-background">
+      <DialogContent className="sm:max-w-[90vw] md:max-w-[80vw] lg:max-w-[900px] bg-surface">
         <form onSubmit={handleSubmit(addressFormHandler)}>
           <DialogHeader className="py-2">
             <DialogTitle>
@@ -286,7 +286,7 @@ const AddressesForm = ({
                   />
                 </Field>
               </FieldGroup>
-              <DialogFooter className="flex justify-end bg-background">
+              <DialogFooter className="flex justify-end bg-surface">
                 <DialogClose asChild>
                   <Button
                     type="button"
