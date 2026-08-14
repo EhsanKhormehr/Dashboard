@@ -2,15 +2,17 @@
 import { executeAction } from "@/lib/executeAction";
 import { prisma } from "@/lib/prisma";
 import { CategoryFormValues } from "../types/schema";
+import { requireAdmin } from "@/features/auth/utils/requireAdmin";
 
 export const createCategory = async (data: CategoryFormValues) => {
   return executeAction({
     actionFn: async () => {
+      await requireAdmin();
       return await prisma.category.create({
         data: {
           name: data.name,
           slug: data.slug,
-          icon : data.icon,
+          icon: data.icon,
           attributes: {
             create: data.attributes.map((attribute) => ({
               name: attribute.name,
@@ -35,6 +37,7 @@ export const createCategory = async (data: CategoryFormValues) => {
 export const getCategories = async () => {
   return executeAction({
     actionFn: async () => {
+      await requireAdmin();
       return await prisma.category.findMany({
         orderBy: {
           createdAt: "desc",
@@ -53,7 +56,8 @@ export const getCategories = async () => {
 
 export const deleteCategory = async (id: string) => {
   return executeAction({
-    actionFn: async() => {
+    actionFn: async () => {
+      await requireAdmin()
       return await prisma.category.delete({
         where: {
           id: id,
@@ -65,7 +69,8 @@ export const deleteCategory = async (id: string) => {
 
 export const editCategory = async (id: string, data: CategoryFormValues) => {
   return executeAction({
-    actionFn: async() => {
+    actionFn: async () => {
+      await requireAdmin()
       return await prisma.category.update({
         where: {
           id,
