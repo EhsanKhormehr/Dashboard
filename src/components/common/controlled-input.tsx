@@ -34,6 +34,8 @@ const ControlledInput = <T extends FieldValues>({
                 className={className}
                 {...field}
                 {...props}
+                value={field.value ?? ""}
+                disabled={props.disabled}
               />
             ) : (
               <Input
@@ -43,6 +45,7 @@ const ControlledInput = <T extends FieldValues>({
                 {...field}
                 {...props}
                 value={field.value ?? ""}
+                disabled={props.disabled}
               />
             )}
             {error && <ErrorMessage text={error.message} />}
