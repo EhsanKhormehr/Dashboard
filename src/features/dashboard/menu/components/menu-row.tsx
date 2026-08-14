@@ -8,6 +8,7 @@ import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { MenuFormValue, SubMenuFormValue } from "../types/schema";
 import ErrorMessage from "@/components/common/error-message";
+import ControlledInput from "@/components/common/controlled-input";
 
 type MenuRowProps = {
   onRemove: () => void;
@@ -23,28 +24,20 @@ const MenuRow = ({ onRemove, index }: MenuRowProps) => {
   return (
     <TableRow>
       <TableCell>
-        <Controller
-          control={control}
+        <ControlledInput<MenuFormValue>
           name={`subMenus.${index}.name`}
-          render={({ field }) => (
-            <Input placeholder="Name" className="!bg-surface" {...field} />
-          )}
+          type="text"
+          placeholder="Name"
+          className="!bg-surface"
         />
-        {errors.subMenus?.[index]?.name && (
-          <ErrorMessage text={errors.subMenus[index].name.message} />
-        )}  
       </TableCell>
       <TableCell>
-        <Controller
-          control={control}
+        <ControlledInput<MenuFormValue>
           name={`subMenus.${index}.href`}
-          render={({ field }) => (
-            <Input placeholder="Href" className="!bg-surface" {...field} />
-          )}
+          type="text"
+          placeholder="Href"
+          className="!bg-surface"
         />
-        {errors.subMenus?.[index]?.href && (
-          <ErrorMessage text={errors.subMenus[index].href.message} />
-        )}
       </TableCell>
       <TableCell>
         <ConfirmDialog
