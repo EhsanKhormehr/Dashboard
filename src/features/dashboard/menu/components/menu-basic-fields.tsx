@@ -1,48 +1,26 @@
 "use client";
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import { FieldGroup } from "@/components/ui/field";
 import React from "react";
-import { Controller, useFormContext } from "react-hook-form";
 import { MenuFormValue } from "../types/schema";
-import ErrorMessage from "@/components/common/error-message";
+import ControlledInput from "@/components/common/controlled-input";
 
 const MenuBasicFields = () => {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext<MenuFormValue>();
   return (
     <FieldGroup>
-      <Field>
-        <FieldLabel>Name</FieldLabel>
-        <Controller
-          control={control}
-          name="name"
-          render={({ field }) => (
-            <Input
-              className="bg-surface rounded-3xl text-sm text-foreground py-5 sm:max-w-[300px]"
-              placeholder="Name"
-              type="text"
-              {...field}
-            />
-          )}
-        />
-        {errors.name && <ErrorMessage text={errors.name.message} />}
-        <FieldLabel>Href</FieldLabel>
-        <Controller
-          control={control}
-          name="href"
-          render={({ field }) => (
-            <Input
-              className="bg-surface rounded-3xl text-sm text-foreground py-5 sm:max-w-[300px]"
-              placeholder="Href"
-              type="text"
-              {...field}
-            />
-          )}
-        />
-        {errors.href && <ErrorMessage text={errors.href.message} />}
-      </Field>
+      <ControlledInput<MenuFormValue>
+        name="name"
+        type="text"
+        placeholder="Name"
+        className="bg-surface rounded-3xl text-sm text-foreground py-5 sm:max-w-[300px]"
+        label="Name"
+      />
+      <ControlledInput<MenuFormValue>
+        name="href"
+        type="text"
+        placeholder="Href"
+        className="bg-surface rounded-3xl text-sm text-foreground py-5 sm:max-w-[300px]"
+        label="Href"
+      />
     </FieldGroup>
   );
 };
