@@ -18,6 +18,7 @@ import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import ErrorMessage from "@/components/common/error-message";
+import ControlledInput from "@/components/common/controlled-input";
 
 type CategoryAttributeRowProps = {
   index: number;
@@ -41,28 +42,20 @@ export default function CategoryAttributeRow({
   return (
     <TableRow>
       <TableCell className="h-18 min-w-[300px]">
-        <Controller
-          control={control}
+        <ControlledInput<CategoryFormValues>
           name={`attributes.${index}.name`}
-          render={({ field }) => (
-            <Input placeholder="Name" className="!bg-surface" {...field} />
-          )}
+          type="text"
+          placeholder="Name"
+          className="!bg-surface"
         />
-        {errors.attributes?.[index]?.name && (
-          <ErrorMessage text={errors.attributes?.[index].name?.message} />
-        )}
       </TableCell>
       <TableCell className="min-w-[300px]">
-        <Controller
-          control={control}
+        <ControlledInput<CategoryFormValues>
           name={`attributes.${index}.slug`}
-          render={({ field }) => (
-            <Input placeholder="Slug" className="!bg-surface" {...field} />
-          )}
+          type="text"
+          placeholder="Slug"
+          className="!bg-surface"
         />
-        {errors.attributes?.[index]?.slug && (
-          <ErrorMessage text={errors.attributes?.[index].slug?.message} />
-        )}
       </TableCell>
       <TableCell>
         <Controller
@@ -117,22 +110,13 @@ export default function CategoryAttributeRow({
         )}
       </TableCell>
       <TableCell className="min-w-[300px]">
-        <Controller
-          control={control}
+        <ControlledInput<CategoryFormValues>
           name={`attributes.${index}.options`}
-          render={({ field }) => (
-            <Input
-              placeholder="Options"
-              className="!bg-surface"
-              {...field}
-              value={field.value ?? ""}
-              disabled={selectedType !== "SELECT"}
-            />
-          )}
+          type="text"
+          className="!bg-surface"
+          placeholder="Options"
+          disabled={selectedType !== "SELECT"}
         />
-        {errors.attributes?.[index]?.options && (
-          <ErrorMessage text={errors.attributes?.[index].options?.message} />
-        )}
       </TableCell>
       <TableCell>
         <ConfirmDialog
