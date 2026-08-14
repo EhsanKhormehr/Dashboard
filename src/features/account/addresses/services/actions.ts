@@ -3,15 +3,12 @@ import { executeAction } from "@/lib/executeAction";
 import { AddressFormValue } from "../types/schema";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/features/auth/utils/getCurrentUser";
+import { requireUser } from "@/features/auth/utils/requireUser";
 
 export const createAddress = async (data: AddressFormValue) => {
   return executeAction({
     actionFn: async () => {
-      const currentUser = await getCurrentUser();
-
-      if (!currentUser) {
-        throw new Error("Unauthorized");
-      }
+      const currentUser = await requireUser();
 
       await prisma.address.create({
         data: {
@@ -34,10 +31,8 @@ export const createAddress = async (data: AddressFormValue) => {
 export const getAddresses = async () => {
   return executeAction({
     actionFn: async () => {
-      const currentUser = await getCurrentUser();
-      if (!currentUser) {
-        throw new Error("Unauthorized");
-      }
+      const currentUser = await requireUser();
+      
       return await prisma.address.findMany({
         where: {
           userId: currentUser.id,
@@ -58,10 +53,8 @@ export const getAddresses = async () => {
 export const makeAddressDefault = async (addressId: string) => {
   return executeAction({
     actionFn: async () => {
-      const currentUser = await getCurrentUser();
-      if (!currentUser) {
-        throw new Error("Unauthorized");
-      }
+      const currentUser = await requireUser();
+      
       const address = await prisma.address.findFirst({
         where: {
           id: addressId,
@@ -103,10 +96,8 @@ export const makeAddressDefault = async (addressId: string) => {
 export const deleteAddress = async (id: string) => {
   return executeAction({
     actionFn: async () => {
-      const currentUser = await getCurrentUser();
-      if (!currentUser) {
-        throw new Error("Unauthorized");
-      }
+      const currentUser = await requireUser();
+      
       return await prisma.address.deleteMany({
         where: {
           id,
@@ -120,10 +111,8 @@ export const deleteAddress = async (id: string) => {
 export const updateAddress = async (id: string, data: AddressFormValue) => {
   return executeAction({
     actionFn: async () => {
-      const currentUser = await getCurrentUser();
-      if (!currentUser) {
-        throw new Error("Unauthorized");
-      }
+      const currentUser = await requireUser();
+      
       const address = await prisma.address.findFirst({
         where: {
           id,
