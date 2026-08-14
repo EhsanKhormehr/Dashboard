@@ -3,10 +3,13 @@
 import { executeAction } from "@/lib/executeAction";
 import { CreateTodoInput } from "../types/todo";
 import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/features/auth/utils/requireAdmin";
 
 export const createTodo = async (data: CreateTodoInput) => {
   return executeAction({
     actionFn: async () => {
+      await requireAdmin();
+
       return prisma.todo.create({
         data: {
           title: data.title,
@@ -18,7 +21,9 @@ export const createTodo = async (data: CreateTodoInput) => {
 
 export const getAllTodos = async () => {
   return executeAction({
-    actionFn: () => {
+    actionFn: async () => {
+      await requireAdmin();
+
       return prisma.todo.findMany({
         orderBy: {
           createdAt: "asc",
@@ -30,7 +35,9 @@ export const getAllTodos = async () => {
 
 export const toggleTodoFavorite = async (id: string, isFavorite: boolean) => {
   return executeAction({
-    actionFn: () => {
+    actionFn: async () => {
+      await requireAdmin();
+
       return prisma.todo.update({
         where: {
           id,
@@ -45,7 +52,9 @@ export const toggleTodoFavorite = async (id: string, isFavorite: boolean) => {
 
 export const deleteTodo = async (id: string) => {
   return executeAction({
-    actionFn: () => {
+    actionFn: async () => {
+      await requireAdmin();
+
       return prisma.todo.delete({
         where: {
           id,
