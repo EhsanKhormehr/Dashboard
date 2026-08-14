@@ -13,10 +13,10 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const currentUser = await getCurrentUser();
-  if (currentUser?.role === "USER") {
-    redirect("/account");
-  }
+  // const currentUser = await getCurrentUser();
+  // if (currentUser?.role === "USER") {
+  //   redirect("/account");
+  // }
   return (
     <SidebarProvider>
       <AppSidebar />
