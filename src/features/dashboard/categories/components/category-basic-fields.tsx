@@ -17,6 +17,7 @@ import {
   categoryIconOptions,
   categoryIcons,
 } from "@/lib/categoryIcons";
+import ControlledInput from "@/components/common/controlled-input";
 
 export default function CategoryBasicFields() {
   const {
@@ -25,38 +26,20 @@ export default function CategoryBasicFields() {
   } = useFormContext<CategoryFormValues>();
   return (
     <FieldGroup>
-      <Field>
-        <FieldLabel>Name</FieldLabel>
-        <Controller
-          control={control}
-          name="name"
-          render={({ field }) => (
-            <Input
-              type="text"
-              placeholder="Name"
-              className="bg-surface rounded-3xl text-sm text-foreground py-5 sm:max-w-[300px]"
-              {...field}
-            />
-          )}
-        />
-        {errors.name && <ErrorMessage text={errors.name.message} />}
-      </Field>
-      <Field>
-        <FieldLabel>Slug</FieldLabel>
-        <Controller
-          control={control}
-          name="slug"
-          render={({ field }) => (
-            <Input
-              type="text"
-              placeholder="Slug"
-              className="bg-surface rounded-3xl text-sm text-foreground py-5 sm:max-w-[300px]"
-              {...field}
-            />
-          )}
-        />
-        {errors.slug && <ErrorMessage text={errors.slug.message} />}
-      </Field>
+      <ControlledInput<CategoryFormValues>
+        name={"name"}
+        label="Name"
+        type="text"
+        className="bg-surface rounded-3xl text-sm text-foreground py-5 sm:max-w-[300px]"
+        placeholder="Name"
+      />
+      <ControlledInput<CategoryFormValues>
+        name="slug"
+        label="Slug"
+        type="text"
+        placeholder="Slug"
+        className="bg-surface rounded-3xl text-sm text-foreground py-5 sm:max-w-[300px]"
+      />
       <Field>
         <FieldLabel>Icon</FieldLabel>
         <Controller
@@ -80,9 +63,13 @@ export default function CategoryBasicFields() {
                     const Icon = categoryIcons[iconName];
 
                     return (
-                      <ComboboxItem key={icon} value={icon} className="flex justify-between">
+                      <ComboboxItem
+                        key={icon}
+                        value={icon}
+                        className="flex justify-between"
+                      >
                         <span>{icon}</span>
-                        <Icon /> 
+                        <Icon />
                       </ComboboxItem>
                     );
                   }}
