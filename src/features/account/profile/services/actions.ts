@@ -5,14 +5,12 @@ import { executeAction } from "@/lib/executeAction";
 import { prisma } from "@/lib/prisma";
 import { ProfileFormValue, profileSchema } from "../types/schema";
 import { hashPassword, verifyPassword } from "@/features/auth/utils/password";
+import { requireUser } from "@/features/auth/utils/requireUser";
 
 export const getUserInfo = async () => {
   return executeAction({
     actionFn: async () => {
-      const currentUser = await getCurrentUser();
-      if (!currentUser) {
-        throw new Error("Unauthorized!");
-      }
+      const currentUser = await requireUser();
 
       const user = await prisma.user.findUnique({
         where: {
@@ -37,10 +35,8 @@ export const getUserInfo = async () => {
 export const updateUserInfo = async (data: ProfileFormValue) => {
   return executeAction({
     actionFn: async () => {
-      const currentUser = await getCurrentUser();
-      if (!currentUser) {
-        throw new Error("Unauthorized!");
-      }
+      const currentUser = await requireUser();
+
       const validatedData = profileSchema.parse(data);
 
       return await prisma.user.update({
@@ -65,11 +61,7 @@ export const updatePassword = async (
 ) => {
   return executeAction({
     actionFn: async () => {
-      const currentUser = await getCurrentUser();
-
-      if (!currentUser) {
-        throw new Error("Unauthorized!");
-      }
+      const currentUser = await requireUser();
 
       const user = await prisma.user.findUnique({
         where: {
