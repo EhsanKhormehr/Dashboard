@@ -8,6 +8,7 @@ import {
 } from "../../../../../generated/prisma/enums";
 import { Prisma } from "../../../../../generated/prisma/client";
 import { getCurrentUser } from "@/features/auth/utils/getCurrentUser";
+import { requireAdmin } from "@/features/auth/utils/requireAdmin";
 
 type getTicketsParams = {
   search?: string;
@@ -25,11 +26,8 @@ type ReplyTicketInput = {
 export const getAllTickets = async (params: getTicketsParams) => {
   return executeAction({
     actionFn: async () => {
-      const user = await getCurrentUser();
+      await requireAdmin();
 
-      if (!user || user.role !== "ADMIN") {
-        throw new Error("Unauthorized");
-      }
       const page = Math.max(1, parseInt(params.page || "1", 10) || 1);
       const perPage = Math.max(1, parseInt(params.perPage || "12", 10) || 12);
       const skip = (page - 1) * perPage;
@@ -84,11 +82,8 @@ export const getAllTickets = async (params: getTicketsParams) => {
 export const getTicketById = async (id: string) => {
   return executeAction({
     actionFn: async () => {
-      const user = await getCurrentUser();
+      await requireAdmin();
 
-      if (!user || user.role !== "ADMIN") {
-        throw new Error("Unauthorized");
-      }
       return prisma.ticket.findUnique({
         where: {
           id,
@@ -116,11 +111,7 @@ export const adminReplyTicket = async ({
 }: ReplyTicketInput) => {
   return executeAction({
     actionFn: async () => {
-      const user = await getCurrentUser();
-
-      if (!user || user.role !== "ADMIN") {
-        throw new Error("Unauthorized");
-      }
+      await requireAdmin();
       const ticket = await prisma.ticket.findUnique({
         where: {
           id: ticketId,
@@ -155,11 +146,7 @@ export const adminReplyTicket = async ({
 export const closeTicket = async (ticketId: string) => {
   return executeAction({
     actionFn: async () => {
-      const user = await getCurrentUser();
-
-      if (!user || user.role !== "ADMIN") {
-        throw new Error("Unauthorized");
-      }
+      await requireAdmin();
 
       return await prisma.ticket.update({
         where: {
@@ -176,11 +163,7 @@ export const closeTicket = async (ticketId: string) => {
 export const openTicket = async (ticketId: string) => {
   return executeAction({
     actionFn: async () => {
-      const user = await getCurrentUser();
-
-      if (!user || user.role !== "ADMIN") {
-        throw new Error("Unauthorized");
-      }
+      await requireAdmin();
 
       return await prisma.ticket.update({
         where: {
