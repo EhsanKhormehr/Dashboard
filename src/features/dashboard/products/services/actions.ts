@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { ProductFormValues } from "../types/schema";
 import { executeAction } from "@/lib/executeAction";
 import { Prisma } from "../../../../../generated/prisma/browser";
+import { requireAdmin } from "@/features/auth/utils/requireAdmin";
 
 type getFilteredProductsParams = {
   q?: string;
@@ -17,6 +18,7 @@ type getFilteredProductsParams = {
 export const getCategoryAttributes = async (id: string) => {
   return executeAction({
     actionFn: async () => {
+      await requireAdmin()
       if (!id) {
         throw new Error("Category id is required");
       }
@@ -35,6 +37,8 @@ export const getCategoryAttributes = async (id: string) => {
 export const createNewProduct = async (data: ProductFormValues) => {
   return executeAction({
     actionFn: async () => {
+      await requireAdmin()
+
       const categoryAttributes = await prisma.categoryAttribute.findMany({
         where: {
           categoryId: data.categoryId,
@@ -90,6 +94,8 @@ export const getFilteredProducts = async (
 ) => {
   return executeAction({
     actionFn: async () => {
+      await requireAdmin()
+
       const page = parseInt(params.page || "1", 10);
       const limit = parseInt(params.limit || "8", 10);
       const skip = (page - 1) * limit;
@@ -150,6 +156,7 @@ export const getFilteredProducts = async (
 export const deleteProduct = async (id: string) => {
   return executeAction({
     actionFn: async () => {
+      await requireAdmin()
       return prisma.product.delete({
         where: {
           id,
