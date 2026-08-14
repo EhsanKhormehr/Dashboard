@@ -4,6 +4,8 @@ import { Controller, FieldValues, Path, useFormContext } from "react-hook-form";
 import { Input } from "../ui/input";
 import ErrorMessage from "./error-message";
 import { ComponentProps } from "react";
+import PasswordInput from "./password-input";
+import { cn } from "@/lib/utils";
 
 type ControlledInputProps<T extends FieldValues> = {
   label?: string;
@@ -20,19 +22,23 @@ const ControlledInput = <T extends FieldValues>({
   const { control } = useFormContext<T>();
   return (
     <Field>
-      {label && <FieldLabel>{label}</FieldLabel>}
+      {label && <FieldLabel htmlFor={name}>{label}</FieldLabel>}
       <Controller
         name={name}
         control={control}
         render={({ field, fieldState: { error } }) => (
           <>
-            <Input
-              type={type}
-              id={name}
-              className={className}
-              {...field}
-              {...props}
-            />
+            {type === "password" ? (
+              <PasswordInput id={name} className={className} {...field} {...props} />
+            ) : (
+              <Input
+                type={type}
+                id={name}
+                className={cn(className , "")}
+                {...field}
+                {...props}
+              />
+            )}
             {error && <ErrorMessage text={error.message} />}
           </>
         )}
