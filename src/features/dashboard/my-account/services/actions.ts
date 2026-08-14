@@ -3,16 +3,12 @@ import { executeAction } from "@/lib/executeAction";
 import { UpdateMyAccountData } from "../types/schema";
 import { prisma } from "@/lib/prisma";
 import { hashPassword } from "@/features/auth/utils/password";
-import { getCurrentUser } from "@/features/auth/utils/getCurrentUser";
+import { requireAdmin } from "@/features/auth/utils/requireAdmin";
 
 export const updateMyAccount = async (data: UpdateMyAccountData) => {
   return executeAction({
     actionFn: async () => {
-      const currentUser = await getCurrentUser();
-
-      if (!currentUser) {
-        throw new Error("Unauthorized!");
-      }
+      const currentUser = await requireAdmin();
 
       const updateData: UpdateMyAccountData = {
         email: data.email,
