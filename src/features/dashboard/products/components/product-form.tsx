@@ -8,7 +8,6 @@ import {
   FieldSeparator,
   FieldSet,
 } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -24,8 +23,6 @@ import { useCategoryAttributes } from "../services/useQueries";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import {
   basicInfoDefaultValues,
-  BasicInfoFormValues,
-  basicInfoSchema,
   buildProductSchema,
   ProductFormValues,
 } from "../types/schema";
@@ -61,7 +58,7 @@ export default function ProductForm() {
     formState: { errors },
   } = form;
 
-  const { mutate, isPending } = useCreateNewProduct();
+  const { mutate } = useCreateNewProduct();
 
   const submitProductForm = (data: ProductFormValues) => {
     mutate(data);
