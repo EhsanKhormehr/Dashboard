@@ -9,6 +9,7 @@ import {
   TicketCategory,
   TicketStatus,
 } from "../../../../../generated/prisma/client";
+import { requireUser } from "@/features/auth/utils/requireUser";
 
 type ReplyTicketInput = {
   message: string;
@@ -26,10 +27,7 @@ type getTicketsParams = {
 export const createTicket = async (data: TicketFormValues) => {
   return executeAction({
     actionFn: async () => {
-      const currentUser = await getCurrentUser();
-      if (!currentUser) {
-        throw new Error("Unauthorized!");
-      }
+      const currentUser = await requireUser();
 
       return await prisma.ticket.create({
         data: {
@@ -55,10 +53,8 @@ export const createTicket = async (data: TicketFormValues) => {
 export const getTickets = async (params: getTicketsParams) => {
   return executeAction({
     actionFn: async () => {
-      const currentUser = await getCurrentUser();
-      if (!currentUser) {
-        throw new Error("Unauthorized!");
-      }
+      const currentUser = await requireUser();
+
       const page = Math.max(1, parseInt(params.page || "1", 10) || 1);
       const perPage = Math.max(1, parseInt(params.perPage || "12", 10) || 12);
       const skip = (page - 1) * perPage;
@@ -100,11 +96,8 @@ export const getTickets = async (params: getTicketsParams) => {
 export const getTicketById = async (id: string) => {
   return executeAction({
     actionFn: async () => {
-      const currentUser = await getCurrentUser();
+      const currentUser = await requireUser();
 
-      if (!currentUser) {
-        throw new Error("Unauthorized!");
-      }
       return await prisma.ticket.findFirst({
         where: {
           id,
@@ -121,11 +114,7 @@ export const getTicketById = async (id: string) => {
 export const replyTicket = async ({ message, ticketId }: ReplyTicketInput) => {
   return executeAction({
     actionFn: async () => {
-      const currentUser = await getCurrentUser();
-
-      if (!currentUser) {
-        throw new Error("Unauthorized!");
-      }
+      const currentUser = await requireUser();
 
       const ticket = await prisma.ticket.findFirst({
         where: {
