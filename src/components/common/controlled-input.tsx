@@ -29,14 +29,20 @@ const ControlledInput = <T extends FieldValues>({
         render={({ field, fieldState: { error } }) => (
           <>
             {type === "password" ? (
-              <PasswordInput id={name} className={className} {...field} {...props} />
+              <PasswordInput
+                id={name}
+                className={className}
+                {...field}
+                {...props}
+              />
             ) : (
               <Input
                 type={type}
                 id={name}
-                className={cn(className , "")}
+                className={cn(className, "")}
                 {...field}
                 {...props}
+                value={field.value ?? ""}
               />
             )}
             {error && <ErrorMessage text={error.message} />}
