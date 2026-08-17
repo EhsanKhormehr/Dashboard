@@ -7,9 +7,13 @@ import Link from "next/link";
 import React, { useState } from "react";
 import HeaderCategory from "./header-category";
 import HeaderForm from "./header-form";
+import { useMeQuery } from "@/features/auth/me/services/useQueries";
 
 const HeaderTop = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const { data } = useMeQuery();
+  const user = data?.user;
+  
   return (
     <div className="px-2 md:px-4 xl:px-14 py-4 flex items-center justify-between border-b bg-surface">
       <div className="lg:hidden">
@@ -25,7 +29,7 @@ const HeaderTop = () => {
           asChild
           className="bg-surface hover:bg-primary hover:text-primary-foreground rounded-full size-[45px] hover:dark:bg-primary hover:dark:text-primary-foreground hover:border-none hidden lg:flex"
         >
-          <Link href={"/"}>
+          <Link href={"/cart"}>
             <ShoppingBag className="size-[26px]" />
           </Link>
         </Button>
@@ -35,15 +39,15 @@ const HeaderTop = () => {
             asChild
             className="size-[45px] rounded-full bg-surface cursor-pointer border-none shadow-sm lg:hidden"
           >
-            <Moon className="size-[26px]"/>
+            <Moon className="size-[26px]" />
           </Button>
           <Link
-            href={"/"}
+            href={user ? "/account" : "/login"}
             className="flex items-center bg-primary ml-3 size-[45px] lg:w-auto lg:h-[45px] px-3 rounded-full lg:rounded-3xl text-white hover:bg-primary/90 transition-colors"
           >
             <UserRound />
             <span className="text-sm font-semibold hidden lg:flex">
-              Ehsan Khormehr
+              {user ? data?.user?.userName : "Login/Register"}
             </span>
           </Link>
         </div>
