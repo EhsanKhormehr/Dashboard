@@ -32,6 +32,7 @@ import { Plus } from "lucide-react";
 import { useCreateNewProduct } from "../services/useMutation";
 import ErrorMessage from "@/components/common/error-message";
 import ControlledInput from "@/components/common/controlled-input";
+import ControlledTextarea from "@/components/common/controlled-textarea";
 
 export default function ProductForm() {
   const { data: categories } = useCategories();
@@ -83,19 +84,13 @@ export default function ProductForm() {
                 placeholder="Slug"
                 label="Slug"
               />
-              <Controller
-                name="description"
-                control={control}
-                render={({ field }) => (
-                  <Field className="col-span-2">
-                    <FieldLabel>Description</FieldLabel>
-                    <Textarea {...field} />
-                    {errors.description && (
-                      <ErrorMessage text={errors.description.message} />
-                    )}
-                  </Field>
-                )}
-              />
+              <div className="col-span-2">
+                <ControlledTextarea<ProductFormValues>
+                  name="description"
+                  label="Description"
+                  placeholder="Description"
+                />
+              </div>
               <ControlledInput<ProductFormValues>
                 name="price"
                 type="text"
