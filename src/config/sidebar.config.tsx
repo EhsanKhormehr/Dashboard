@@ -50,6 +50,10 @@ export const ROUTE_GROUPS: RouteGroup[] = [
         href: "/dashboard/tickets",
         label: "Tickets",
       },
+      {
+        href: "/dashboard/new-blog",
+        label: "New Blog",
+      },
     ],
   },
   {
