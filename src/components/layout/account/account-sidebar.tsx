@@ -10,20 +10,18 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar";
 import { accountMenuItems } from "@/config/account-sidebar.config";
-import {
-  LogOut,
-} from "lucide-react";
+import { useMeQuery } from "@/features/auth/me/services/useQueries";
+import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-
-
-const AccountSidebar =  () => {
+const AccountSidebar = () => {
   const pathname = usePathname();
+  const { data } = useMeQuery();
+  const user = data?.user;
   
   return (
     <Sidebar collapsible="icon">
@@ -34,8 +32,8 @@ const AccountSidebar =  () => {
               <AvatarImage src={"/avatar-user.jpg"} alt="avatar" />
             </Avatar>
             <div className="flex flex-col ml-3 group-data-[collapsible=icon]:hidden">
-              <span className="text-sm font-bold">Ehsan</span>
-              <span className="text-xs mt-0.5">09023555555</span>
+              <span className="text-sm font-bold">{user?.userName}</span>
+              <span className="text-xs mt-0.5">{user?.email}</span>
             </div>
           </div>
           <div className="group-data-[collapsible=icon]:hidden">
@@ -50,8 +48,8 @@ const AccountSidebar =  () => {
           <SidebarGroupLabel>Account</SidebarGroupLabel>
           <SidebarMenu>
             {accountMenuItems.map((item) => {
-              const isActive = item.href === pathname
-              
+              const isActive = item.href === pathname;
+
               return (
                 <SidebarMenuItem
                   key={item.title}
