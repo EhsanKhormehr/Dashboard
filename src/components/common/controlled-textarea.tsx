@@ -30,6 +30,7 @@ const ControlledTextarea = <T extends FieldValues>({
               id={name}
               value={field.value ?? ""}
               disabled={props.disabled}
+              className={className}
             />
             {error && <ErrorMessage text={error.message} />}
           </>
