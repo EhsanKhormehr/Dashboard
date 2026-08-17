@@ -24,7 +24,7 @@ const AccountSidebar = () => {
   const user = data?.user;
   
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className="z-20">
       <SidebarHeader>
         <div className="flex items-center justify-between border-b py-4">
           <div className="flex items-center">
