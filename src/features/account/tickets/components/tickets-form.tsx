@@ -23,6 +23,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/components/common/error-message";
 import { useCreateTicket } from "../services/useMutation";
 import ControlledTextarea from "@/components/common/controlled-textarea";
+import ControlledInput from "@/components/common/controlled-input";
 
 const TicketsForm = () => {
   const router = useRouter();
@@ -49,22 +50,15 @@ const TicketsForm = () => {
       >
         <FieldSet>
           <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <Field className="col-span-2 sm:col-span-1">
-              <FieldLabel>Subject</FieldLabel>
-              <Controller
-                control={control}
+            <div className="col-span-2 sm:col-span-1">
+              <ControlledInput<TicketFormValues>
                 name="subject"
-                render={({ field }) => (
-                  <Input
-                    placeholder="Please enter subject"
-                    type="text"
-                    className="bg-background"
-                    {...field}
-                  />
-                )}
+                className="bg-background"
+                type="text"
+                placeholder="Please enter subject"
+                label="Subject"
               />
-              {errors.subject && <ErrorMessage text={errors.subject.message} />}
-            </Field>
+            </div>
             <Field className="col-span-2 sm:col-span-1">
               <FieldLabel>Category</FieldLabel>
               <Controller
