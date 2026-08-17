@@ -91,6 +91,7 @@ const TicketsForm = () => {
             </Field>
             <div className="col-span-2">
               <ControlledTextarea<TicketFormValues>
+                label={"Message"}
                 name="message"
                 className="bg-background h-[200px]"
                 placeholder="Enter your message"
