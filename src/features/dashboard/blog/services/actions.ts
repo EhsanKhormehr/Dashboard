@@ -17,6 +17,7 @@ export const createBlog = async (data: BlogFormValues) => {
           slug: validatedData.slug,
           description: validatedData.description,
           category: validatedData.category,
+          status: validatedData.status,
           thumbnail: validatedData.thumbnail ?? null,
           content: validatedData.content,
           userId: currentAdmin.id,
