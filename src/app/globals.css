@@ -192,11 +192,19 @@
   }
 
   ul {
-    @apply list-disc list-inside my-4 space-y-1;
+    @apply list-disc list-outside my-4 pl-6 space-y-1;
   }
 
   ol {
-    @apply list-decimal list-inside my-4 space-y-1;
+    @apply list-decimal list-outside my-4 pl-6 space-y-1;
+  }
+
+  li p {
+    @apply m-0;
+  }
+
+  &:focus {
+    @apply outline-none;
   }
 
   img {
