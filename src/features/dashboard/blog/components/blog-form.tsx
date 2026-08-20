@@ -101,6 +101,33 @@ const BlogForm = () => {
                 )}
               />
             </Field>
+            <Field>
+              <FieldLabel>Status</FieldLabel>
+              <Controller
+                control={control}
+                name="status"
+                render={({ field, fieldState: { error } }) => (
+                  <>
+                    <Select
+                      onValueChange={(value) => field.onChange(value)}
+                      value={field.value}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectItem value="DRAFT">Draft</SelectItem>
+                          <SelectItem value="PUHBLISHED">Published</SelectItem>
+                          <SelectItem value="ARCHIVED">Archived</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    {error && <ErrorMessage text={error.message} />}
+                  </>
+                )}
+              />
+            </Field>
           </FieldGroup>
           <FieldGroup className="mb-6 ">
             <FieldLabel>Thumbnail</FieldLabel>
