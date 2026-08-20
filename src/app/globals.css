@@ -208,7 +208,7 @@
   }
 
   img {
-    @apply rounded-xl my-6 mx-auto shadow-sm border border-gray-200 max-w-full h-auto;
+    @apply rounded-xl my-6 mx-auto shadow-sm border max-w-full h-auto;
   }
 
   &:focus {
@@ -216,9 +216,9 @@
   }
 
   a {
-    @apply text-blue-600 underline decoration-blue-400 underline-offset-4 font-medium;
+    @apply text-blue-600 underline decoration-primary/600 underline-offset-4 font-medium;
   }
   strong {
-    @apply font-bold text-gray-950;
+    @apply font-bold text-surface-foreground;
   }
 }
