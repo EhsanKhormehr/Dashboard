@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ErrorMessage from "@/components/common/error-message";
+import { useCreateBlog } from "../services/useMutation";
 
 const BLOG_CATEGORIES = [
   { value: "hardware", label: "Hardware" },
@@ -42,8 +43,9 @@ const BlogForm = () => {
     resolver: zodResolver(newBlogSchema),
   });
   const { handleSubmit, control } = form;
+  const { mutate } = useCreateBlog();
   const newBlogSubmitHandler = (data: BlogFormValues) => {
-    console.log(data);
+    mutate(data);
   };
   return (
     <FormProvider {...form}>
