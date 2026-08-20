@@ -118,16 +118,17 @@ model User {
 }
 
 model Blog {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   title       String
-  slug        String   @unique
+  slug        String     @unique
   description String
   category    String
   thumbnail   String?
-  content     String   @db.Text
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status      BlogStatus
+  content     String     @db.Text
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
 
   @@index([category])
@@ -239,4 +240,10 @@ enum TicketStatus {
   PENDING
   ANSWERED
   CLOSED
+}
+
+enum BlogStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
 }
