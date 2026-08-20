@@ -174,3 +174,43 @@
 .related-products-slider .swiper-wrapper {
   margin: 30px 0;
 }
+.tiptap {
+  p {
+    @apply my-4 first:mt-0 last:mb-0 text-base leading-relaxed;
+  }
+
+  h1 {
+    @apply text-3xl font-bold mt-8 mb-4 first:mt-0 last:mb-0;
+  }
+
+  h2 {
+    @apply text-2xl font-bold mt-7 mb-3 first:mt-0 last:mb-0;
+  }
+
+  h3 {
+    @apply text-xl font-semibold mt-6 mb-2 first:mt-0 last:mb-0;
+  }
+
+  ul {
+    @apply list-disc list-inside my-4 space-y-1;
+  }
+
+  ol {
+    @apply list-decimal list-inside my-4 space-y-1;
+  }
+
+  img {
+    @apply rounded-xl my-6 mx-auto shadow-sm border border-gray-200 max-w-full h-auto;
+  }
+
+  &:focus {
+    @apply outline-none;
+  }
+
+  a {
+    @apply text-blue-600 underline decoration-blue-400 underline-offset-4 font-medium;
+  }
+  strong {
+    @apply font-bold text-gray-950;
+  }
+}
