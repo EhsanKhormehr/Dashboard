@@ -26,3 +26,23 @@ export const createBlog = async (data: BlogFormValues) => {
     },
   });
 };
+
+export const getBlogs = async () => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      return await prisma.blog.findMany({
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          user: {
+            select: {
+              userName: true,
+            },
+          },
+        },
+      });
+    },
+  });
+};
