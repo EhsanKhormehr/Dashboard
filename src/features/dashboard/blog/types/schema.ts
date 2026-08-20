@@ -1,5 +1,7 @@
 import z from "zod";
 
+// const blogStatus = z.enum(["PUBLISHED", "ARCHIVED"]);
+
 export const newBlogSchema = z.object({
   title: z
     .string()
@@ -19,14 +21,18 @@ export const newBlogSchema = z.object({
   content: z.any(),
   description: z.string().trim().min(1, "Description field is required!"),
   category: z.string().min(1, "Category filed is required"),
+  status: z.enum(["PUBLISHED", "ARCHIVED", "DRAFT"], {
+    error: "Status field is required",
+  }),
 });
+export type BlogFormValues = z.infer<typeof newBlogSchema>;
 
-export const blogFormDefaultValues = {
+export const blogFormDefaultValues: BlogFormValues = {
   title: "",
   slug: "",
   thumbnail: "",
+  content : "",
   description: "",
   category: "",
+  status: "DRAFT",
 };
-
-export type BlogFormValues = z.infer<typeof newBlogSchema>;
