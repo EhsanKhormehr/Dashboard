@@ -32,7 +32,7 @@ const BlogTextEditor = ({ value, onChange }: BlogTextEditorProps) => {
     content: value,
     editorProps: {
       attributes: {
-        class: "rounded-md h-[300px] p-4 dark:bg-input/30 border",
+        class: "rounded-md min-h-[300px] p-4 dark:bg-input/30 border",
       },
     },
     immediatelyRender: false,
