@@ -20,6 +20,7 @@ const BLOG_CATEGORIES = [
   { value: "it-information", label: "IT & Information" },
   { value: "reviews", label: "Reviews" },
 ];
+
 const BlogsFilter = () => {
   return (
     <div className="flex flex-col sm:flex-row items-center my-5">
@@ -48,7 +49,7 @@ const BlogsFilter = () => {
             <SelectContent>
               <SelectGroup>
                 {BLOG_CATEGORIES.map((category) => (
-                  <SelectItem value={category.value}>
+                  <SelectItem value={category.value} key={category.value}>
                     {category.label}
                   </SelectItem>
                 ))}

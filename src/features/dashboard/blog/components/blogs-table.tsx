@@ -12,6 +12,23 @@ import { useGetBlogs } from "../services/useQueries";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+
+export const blogStatusVariants = {
+  DRAFT:
+    "border-yellow-200 bg-yellow-100 text-yellow-700 dark:border-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
+
+  PUBLISHED:
+    "border-green-200 bg-green-100 text-green-700 dark:border-green-800 dark:bg-green-900/30 dark:text-green-400",
+
+  ARCHIVED:
+    "border-gray-200 bg-gray-100 text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400",
+} as const;
+export const blogStatusLabel = {
+  DRAFT: "Draft",
+  PUBLISHED: "Published",
+  ARCHIVED: "Archived",
+};
 
 const BlogsTable = () => {
   const { data } = useGetBlogs();
@@ -46,7 +63,11 @@ const BlogsTable = () => {
             <TableCell>{blog.title}</TableCell>
             <TableCell>{blog.category}</TableCell>
             <TableCell>{blog.user?.userName}</TableCell>
-            <TableCell>{blog.status}</TableCell>
+            <TableCell>
+              <Badge className={blogStatusVariants[blog.status]}>
+                {blogStatusLabel[blog.status]}
+              </Badge>
+            </TableCell>
             <TableCell>{new Date(blog.createdAt).toLocaleString()}</TableCell>
             <TableCell>{new Date(blog.updatedAt).toLocaleString()}</TableCell>
             <TableCell>
