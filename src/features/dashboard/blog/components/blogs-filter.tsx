@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useDebouncedSearchParams } from "@/hooks/use-debounced-search-params";
-import { updateUrlParams } from "@/lib/updateUrlParams";
+import { useUpdateUrlParams } from "@/hooks/use-update-url-params";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const BLOG_CATEGORIES = [
@@ -25,14 +25,12 @@ const BLOG_CATEGORIES = [
 ];
 
 const BlogsFilter = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const status = searchParams.get("status");
-  const category = searchParams.get("category");
-  const perPage = searchParams.get("perPage");
   const [searchValue, setSearchValue] = useDebouncedSearchParams();
+  const { getParam, updateParam } = useUpdateUrlParams();
+  const status = getParam("status");
+  const category = getParam("category");
+  const perPage = getParam("perPage");
+
   return (
     <div className="flex flex-col sm:flex-row items-center my-5">
       <form className="w-full">
@@ -49,12 +47,9 @@ const BlogsFilter = () => {
         <Select
           defaultValue={status ?? "DEFAULT"}
           onValueChange={(value) => {
-            updateUrlParams({
+            updateParam({
               key: "status",
               value,
-              pathname,
-              router,
-              searchParams,
             });
           }}
         >
@@ -73,12 +68,9 @@ const BlogsFilter = () => {
         <Select
           defaultValue={category ?? "DEFAULT"}
           onValueChange={(value) => {
-            updateUrlParams({
+            updateParam({
               key: "category",
               value,
-              pathname,
-              router,
-              searchParams,
             });
           }}
         >
@@ -99,12 +91,9 @@ const BlogsFilter = () => {
         <Select
           defaultValue={perPage ?? "12"}
           onValueChange={(value) => {
-            updateUrlParams({
+            updateParam({
               key: "perPage",
               value,
-              pathname,
-              router,
-              searchParams,
               defaultValue: "12",
             });
           }}
