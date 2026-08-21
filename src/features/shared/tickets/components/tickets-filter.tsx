@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useDebouncedSearchParams } from "@/hooks/use-debounced-search-params";
 import { updateUrlParams } from "@/lib/updateUrlParams";
 import { useDebounce } from "@/lib/useDebounce";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -17,26 +18,12 @@ const TicketsFilter = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [searchValue, setSearchValue] = useState(
-    searchParams.get("search") || "",
-  );
-  const debouncedSearch = useDebounce(searchValue, 500);
-
+  
   const status = searchParams.get("status");
   const category = searchParams.get("category");
-  const search = searchParams.get("search");
   const perPage = searchParams.get("perPage");
 
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (debouncedSearch) {
-      params.set("search", debouncedSearch);
-    } else {
-      params.delete("search");
-    }
-
-    router.replace(`${pathname}?${params}`);
-  }, [debouncedSearch]);
+   const [searchValue , setSearchValue] = useDebouncedSearchParams()
 
   return (
     <div className="flex flex-col sm:flex-row items-center my-5">

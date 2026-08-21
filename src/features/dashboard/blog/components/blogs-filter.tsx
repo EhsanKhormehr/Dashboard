@@ -8,10 +8,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useDebouncedSearchParams } from "@/hooks/use-debounced-search-params";
 import { updateUrlParams } from "@/lib/updateUrlParams";
-import { useDebounce } from "@/lib/useDebounce";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
 
 const BLOG_CATEGORIES = [
   { value: "hardware", label: "Hardware" },
@@ -33,21 +32,7 @@ const BlogsFilter = () => {
   const status = searchParams.get("status");
   const category = searchParams.get("category");
   const perPage = searchParams.get("perPage");
-  const [searchValue, setSearchValue] = useState(
-    searchParams.get("search") || "",
-  );
-  const debouncedSearch = useDebounce(searchValue, 500);
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (debouncedSearch) {
-      params.set("search", debouncedSearch);
-    } else {
-      params.delete("search");
-    }
-
-    router.replace(`${pathname}?${params}`);
-  }, [debouncedSearch]);
-  
+  const [searchValue, setSearchValue] = useDebouncedSearchParams();
   return (
     <div className="flex flex-col sm:flex-row items-center my-5">
       <form className="w-full">
