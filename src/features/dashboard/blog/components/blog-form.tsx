@@ -118,7 +118,7 @@ const BlogForm = () => {
                       <SelectContent>
                         <SelectGroup>
                           <SelectItem value="DRAFT">Draft</SelectItem>
-                          <SelectItem value="PUHBLISHED">Published</SelectItem>
+                          <SelectItem value="PUBLISHED">Published</SelectItem>
                           <SelectItem value="ARCHIVED">Archived</SelectItem>
                         </SelectGroup>
                       </SelectContent>
