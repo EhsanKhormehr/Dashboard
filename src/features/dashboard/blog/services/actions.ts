@@ -4,6 +4,15 @@ import { executeAction } from "@/lib/executeAction";
 import { BlogFormValues, newBlogSchema } from "../types/schema";
 import { requireAdmin } from "@/features/auth/utils/requireAdmin";
 import { prisma } from "@/lib/prisma";
+import { BlogStatus, Prisma } from "../../../../../generated/prisma/client";
+
+type GetBlogsVariables = {
+  search?: string;
+  category?: string;
+  status?: BlogStatus | "DEFAULT";
+  perPage?: string;
+  page?: string;
+};
 
 export const createBlog = async (data: BlogFormValues) => {
   return executeAction({
@@ -27,22 +36,52 @@ export const createBlog = async (data: BlogFormValues) => {
   });
 };
 
-export const getBlogs = async () => {
+export const getBlogs = async (params: GetBlogsVariables) => {
   return executeAction({
     actionFn: async () => {
+      const where: Prisma.BlogWhereInput = {};
+      const page = Math.max(1, parseInt(params.page || "1", 10) || 1);
+      const perPage = Math.max(1, parseInt(params.perPage || "12", 10) || 12);
+      const skip = (page - 1) * perPage;
+
+      if (params.category && params.category !== "DEFAULT") {
+        where.category = params.category;
+      }
+      if (params.search) {
+        where.title = {
+          contains: params.search,
+          mode: "insensitive",
+        };
+      }
+      if (params.status && params.status !== "DEFAULT") {
+        where.status = params.status;
+      }
       await requireAdmin();
-      return await prisma.blog.findMany({
-        orderBy: {
-          createdAt: "desc",
-        },
-        include: {
-          user: {
-            select: {
-              userName: true,
+      const [blogs, totalCount] = await Promise.all([
+        prisma.blog.findMany({
+          where: where,
+          skip: skip,
+          take: perPage,
+          orderBy: {
+            createdAt: "desc",
+          },
+          include: {
+            user: {
+              select: {
+                userName: true,
+              },
             },
           },
-        },
-      });
+        }),
+        prisma.blog.count({ where }),
+      ]);
+      return {
+        blogs,
+        totalCount,
+        page,
+        perPage,
+        totalPages: Math.ceil(totalCount / perPage),
+      };
     },
   });
 };
