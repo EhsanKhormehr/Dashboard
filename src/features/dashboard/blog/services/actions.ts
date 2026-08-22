@@ -99,3 +99,25 @@ export const deleteBlog = async (id: string) => {
     },
   });
 };
+
+export const updateBlog = async (id: string, data: BlogFormValues) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      await prisma.blog.update({
+        where: {
+          id,
+        },
+        data: {
+          title: data.title,
+          content: data.content,
+          description: data.description,
+          slug: data.slug,
+          category: data.category,
+          status: data.status,
+          thumbnail: data.thumbnail ?? undefined,
+        },
+      });
+    },
+  });
+};
