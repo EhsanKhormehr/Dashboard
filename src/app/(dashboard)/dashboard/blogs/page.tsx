@@ -4,7 +4,17 @@ import BlogsFilter from "@/features/dashboard/blog/components/blogs-filter";
 import BlogsTable from "@/features/dashboard/blog/components/blogs-table";
 import React from "react";
 
-const Blogs = () => {
+type BlogsProps = {
+  searchParams: Promise<{
+    search?: string | undefined;
+    category?: string | undefined;
+    status?: string | undefined;
+  }>;
+};
+
+const Blogs = async ({ searchParams }: BlogsProps) => {
+  const params = await searchParams;
+  
   return (
     <div>
       <PageHeader title="Blogs" />
