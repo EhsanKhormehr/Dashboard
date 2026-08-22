@@ -13,6 +13,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { Prisma } from "../../../../../generated/prisma/client";
 
 export const blogStatusVariants = {
   DRAFT:
@@ -30,8 +31,19 @@ export const blogStatusLabel = {
   ARCHIVED: "Archived",
 };
 
-const BlogsTable = () => {
-  const { data } = useGetBlogs();
+type BlogsTableProps = {
+  blogs: Prisma.BlogGetPayload<{
+    include: {
+      user: {
+        select: {
+          userName: true;
+        };
+      };
+    };
+  }>[];
+};
+
+const BlogsTable = ({ blogs }: BlogsTableProps) => {
   return (
     <Table className="min-w-[1200px]">
       <TableHeader>
@@ -48,7 +60,7 @@ const BlogsTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data?.map((blog) => (
+        {blogs.map((blog) => (
           <TableRow key={blog.id}>
             <TableCell>
               <Image
