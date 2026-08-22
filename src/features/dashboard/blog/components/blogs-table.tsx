@@ -14,6 +14,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Prisma } from "../../../../../generated/prisma/client";
+import ConfirmDialog from "@/components/common/confirm-dialog";
+import { useDeleteBlog } from "../services/useMutation";
 
 export const blogStatusVariants = {
   DRAFT:
@@ -44,6 +46,7 @@ type BlogsTableProps = {
 };
 
 const BlogsTable = ({ blogs }: BlogsTableProps) => {
+  const { mutate: deleteBlog } = useDeleteBlog();
   return (
     <Table className="min-w-[1200px]">
       <TableHeader>
@@ -90,12 +93,22 @@ const BlogsTable = ({ blogs }: BlogsTableProps) => {
               </Button>
             </TableCell>
             <TableCell>
-              <Button
-                className="cursor-pointer px-4 font-semibold"
-                variant={"destructive"}
-              >
-                Delete
-              </Button>
+              <ConfirmDialog
+                cancelText="Cancel"
+                confirmText="Delete"
+                confirmVariant="destructive"
+                cancelVariant="outline"
+                trigger={
+                  <Button
+                    className="cursor-pointer px-4 font-semibold"
+                    variant={"destructive"}
+                  >
+                    Delete
+                  </Button>
+                }
+                title="Are you sure to delete this blog?"
+                onConfirm={() => deleteBlog(blog.id)}
+              />
             </TableCell>
           </TableRow>
         ))}

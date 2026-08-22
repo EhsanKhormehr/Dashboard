@@ -39,6 +39,7 @@ export const createBlog = async (data: BlogFormValues) => {
 export const getBlogs = async (params: GetBlogsVariables) => {
   return executeAction({
     actionFn: async () => {
+      await requireAdmin();
       const where: Prisma.BlogWhereInput = {};
       const page = Math.max(1, parseInt(params.page || "1", 10) || 1);
       const perPage = Math.max(1, parseInt(params.perPage || "12", 10) || 12);
@@ -56,7 +57,6 @@ export const getBlogs = async (params: GetBlogsVariables) => {
       if (params.status && params.status !== "DEFAULT") {
         where.status = params.status;
       }
-      await requireAdmin();
       const [blogs, totalCount] = await Promise.all([
         prisma.blog.findMany({
           where: where,
@@ -82,6 +82,20 @@ export const getBlogs = async (params: GetBlogsVariables) => {
         perPage,
         totalPages: Math.ceil(totalCount / perPage),
       };
+    },
+  });
+};
+
+export const deleteBlog = async (id: string) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+
+      await prisma.blog.delete({
+        where: {
+          id,
+        },
+      });
     },
   });
 };
