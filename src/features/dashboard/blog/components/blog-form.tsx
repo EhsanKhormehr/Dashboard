@@ -23,7 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ErrorMessage from "@/components/common/error-message";
-import { useCreateBlog } from "../services/useMutation";
+import { useCreateBlog, useUpdateBlog } from "../services/useMutation";
 
 const BLOG_CATEGORIES = [
   { value: "hardware", label: "Hardware" },
@@ -37,15 +37,29 @@ const BLOG_CATEGORIES = [
   { value: "reviews", label: "Reviews" },
 ];
 
-const BlogForm = () => {
+type BlogFormProps = {
+  mode: "edit" | "create";
+  blogId?: string;
+  initialValue?: BlogFormValues;
+};
+
+const BlogForm = ({ mode, initialValue, blogId }: BlogFormProps) => {
   const form = useForm<BlogFormValues>({
-    defaultValues: blogFormDefaultValues,
+    defaultValues: initialValue ?? blogFormDefaultValues,
     resolver: zodResolver(newBlogSchema),
   });
   const { handleSubmit, control } = form;
-  const { mutate } = useCreateBlog();
+  const { mutate: createBlog } = useCreateBlog();
+  const { mutate: updateBlog } = useUpdateBlog();
+
   const newBlogSubmitHandler = (data: BlogFormValues) => {
-    mutate(data);
+    if (mode === "create") {
+      createBlog(data);
+    }
+    if (!blogId) return;
+    if (mode === "edit") {
+      updateBlog({ id: blogId, data });
+    }
   };
   return (
     <FormProvider {...form}>
@@ -158,8 +172,9 @@ const BlogForm = () => {
           <FieldGroup>
             <Field orientation={"horizontal"}>
               <Button className="py-4.5">
-                <Plus className="size-4" />
-                Create new Blog
+                {mode === "create" ? <Plus className="size-4" /> : ""}
+
+                {mode === "create" ? " Create new Blog" : " Update Blog"}
               </Button>
             </Field>
           </FieldGroup>
