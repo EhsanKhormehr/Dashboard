@@ -32,7 +32,6 @@ export const blogStatusLabel = {
 
 const BlogsTable = () => {
   const { data } = useGetBlogs();
-  console.log(data);
   return (
     <Table className="min-w-[1200px]">
       <TableHeader>

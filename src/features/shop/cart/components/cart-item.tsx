@@ -8,7 +8,6 @@ import React, { useState } from "react";
 
 const CartItem = () => {
   const [value, setValue] = useState(1);
-  console.log(value);
   return (
     <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center last:border-0 border-b p-4">
       <div className="flex lg:justify-between">
