@@ -1,7 +1,20 @@
 import MaxWidthWrapper from "@/components/common/max-width-wrapper";
 import ShopTitle from "@/components/common/shop-title";
+import CategoryBlogCard from "@/features/shop/blogs/components/category-blog-card";
 import LatestBlogCard from "@/features/shop/blogs/components/latest-blog-card";
 import React from "react";
+
+const BLOG_CATEGORIES = [
+  { label: "Hardware" },
+  { label: "News" },
+  { label: "Technology" },
+  { label: "Buying Guide" },
+  { label: "Artificial Intelligence" },
+  { label: "Gaming" },
+  { label: "Learning" },
+  { label: "IT & Information" },
+  { label: "Reviews" },
+];
 
 const Blogs = () => {
   return (
@@ -14,10 +27,23 @@ const Blogs = () => {
           </span>
         </div>
         <div className="grid grid-cols-2 gap-8 mt-6">
-            <LatestBlogCard />
-            <LatestBlogCard />
-            <LatestBlogCard />
-            <LatestBlogCard />
+          <LatestBlogCard />
+          <LatestBlogCard />
+          <LatestBlogCard />
+          <LatestBlogCard />
+        </div>
+        <div className="mt-10">
+          <div>
+            <ShopTitle title="Popular Categories" />
+            <span className="text-xs text-muted-foreground">
+              Find the topics everyone is talking about.
+            </span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-6">
+            {BLOG_CATEGORIES.map((category) => (
+              <CategoryBlogCard label={category.label} key={category.label} />
+            ))}
+          </div>
         </div>
       </MaxWidthWrapper>
     </div>
