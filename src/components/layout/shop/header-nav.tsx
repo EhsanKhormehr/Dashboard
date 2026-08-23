@@ -1,3 +1,4 @@
+import ToggleTheme from "@/components/common/toggle-theme";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -18,7 +19,7 @@ const HeaderNav = () => {
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>
-              <LayoutGrid className="mr-3"/>
+              <LayoutGrid className="mr-3" />
               Product Category
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -54,14 +55,14 @@ const HeaderNav = () => {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <Button variant={"outline"} asChild className="size-[45px] rounded-full bg-surface cursor-pointer border-none shadow-sm lg:hidden">
-          <LayoutGrid className="size-[26px]"  />
-        </Button>
-      <div>
-        <Button variant={"outline"} asChild className="size-[45px] rounded-full bg-surface cursor-pointer border-none shadow-sm">
-          <Moon className="size-[26px]"  />
-        </Button>
-      </div>
+      <Button
+        variant={"outline"}
+        asChild
+        className="size-[45px] rounded-full bg-surface cursor-pointer border-none shadow-sm lg:hidden"
+      >
+        <LayoutGrid className="size-[26px]" />
+      </Button>
+      <ToggleTheme />
     </div>
   );
 };
