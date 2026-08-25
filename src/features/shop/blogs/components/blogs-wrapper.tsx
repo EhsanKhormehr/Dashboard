@@ -62,6 +62,9 @@ const BlogsWrapper = () => {
         <BlogsCard />
         <BlogsCard />
       </div>
+      <div className="flex justify-center">
+        <Button variant={"outline"} className="h-11 px-20 cursor-pointer mt-6 font-bold ">Load More</Button>
+      </div>
     </div>
   );
 };
