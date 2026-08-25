@@ -1,5 +1,7 @@
 import MaxWidthWrapper from "@/components/common/max-width-wrapper";
 import ShopTitle from "@/components/common/shop-title";
+import BlogsFilter from "@/features/shop/blogs/components/blogs-filter";
+import BlogsWrapper from "@/features/shop/blogs/components/blogs-wrapper";
 import CategoryBlogCard from "@/features/shop/blogs/components/category-blog-card";
 import LatestBlogCard from "@/features/shop/blogs/components/latest-blog-card";
 import React from "react";
@@ -43,6 +45,14 @@ const Blogs = () => {
             {BLOG_CATEGORIES.map((category) => (
               <CategoryBlogCard label={category.label} key={category.label} />
             ))}
+          </div>
+        </div>
+        <div className="mt-10 grid grid-cols-12 gap-5">
+          <div className="col-span-3 hidden lg:inline ">
+            <BlogsFilter/>
+          </div>
+          <div className="col-span-12 lg:col-span-9">
+            <BlogsWrapper />
           </div>
         </div>
       </MaxWidthWrapper>
