@@ -1,8 +1,8 @@
 import React from "react";
 import { Star } from "lucide-react";
-import ReviewBox from "./review-box";
+import CommentsBox from "./comments-box";
 
-const ReviewsWrapper = () => {
+const CommentsWrapper = () => {
   return (
     <div className="mt-10">
       <div className="border-b flex items-center justify-between">
@@ -16,12 +16,12 @@ const ReviewsWrapper = () => {
         </div>
       </div>
       <div>
-        <ReviewBox />
-        <ReviewBox />
-        <ReviewBox />
+        <CommentsBox />
+        <CommentsBox />
+        <CommentsBox />
       </div>
     </div>
   );
 };
 
-export default ReviewsWrapper;
+export default CommentsWrapper;

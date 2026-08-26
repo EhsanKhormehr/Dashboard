@@ -2,9 +2,9 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
 import React from "react";
-import ReviewAnswer from "./review-answer";
+import CommentsAnswer from "./comments-answer";
 
-const ReviewBox = () => {
+const CommentsBox = () => {
   return (
     <div className="shadow-soft-card border mt-5 p-5 rounded-xl">
       <div className="flex justify-between items-center border-b py-3 flex-wrap gap-2">
@@ -44,9 +44,9 @@ const ReviewBox = () => {
         it’s a very good choice and I would definitely recommend it to anyone
         looking for something dependable and well-made.
       </p>
-      <ReviewAnswer />
+      <CommentsAnswer />
     </div>
   );
 };
 
-export default ReviewBox;
+export default CommentsBox;

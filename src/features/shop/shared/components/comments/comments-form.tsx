@@ -40,7 +40,7 @@ const ratingVariants = {
 
 type RatingScore = keyof typeof ratingLabels;
 
-const ReviewForm = () => {
+const CommentsForm = () => {
   const [score, setScore] = useState<RatingScore>(1);
 
   return (
@@ -114,4 +114,4 @@ const ReviewForm = () => {
   );
 };
 
-export default ReviewForm;
+export default CommentsForm;

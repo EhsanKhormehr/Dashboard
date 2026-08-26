@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { LucideBadgeCheck } from "lucide-react";
 import React from "react";
 
-const ReviewAnswer = () => {
+const CommentsAnswer = () => {
   return (
     <div className="border mt-5 p-4 rounded-xl bg-background">
       <div className="flex justify-between items-center border-b py-3 flex-wrap gap-2">
@@ -27,4 +27,4 @@ const ReviewAnswer = () => {
   );
 };
 
-export default ReviewAnswer;
+export default CommentsAnswer;
