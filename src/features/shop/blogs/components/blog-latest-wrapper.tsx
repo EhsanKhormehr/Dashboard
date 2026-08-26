@@ -7,7 +7,7 @@ const BlogLatestWrapper = () => {
   return (
     <div className="bg-surface rounded-xl shadow-soft-card px-4">
       <div className="flex gap-2 py-5">
-        <Newspaper />
+        <Newspaper className="text-primary" />
         <span className="font-extrabold">Latest Articles</span>
       </div>
       <div className="pb-5 flex flex-col gap-4">
