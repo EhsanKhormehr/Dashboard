@@ -8,35 +8,35 @@ const BlogShareWrapper = () => {
     <div className="bg-surface rounded-xl shadow-soft-card px-4">
       <div className="flex items-center justify-between">
         <div className="flex gap-2 py-5">
-          <Share2 />
+          <Share2 className="text-primary" />
           <span className="font-extrabold">Share</span>
         </div>
         <div className="flex gap-2">
-          <Link href={"/"} className="bg-background p-2 hover:bg-primary transition duration-300 rounded-sm">
+          <Link href={"/"} className="bg-gray-400/70 dark:bg-background dark:hover:bg-primary p-2 hover:bg-primary transition duration-300 rounded-sm">
             <Image
               src={"/shop/telegram.svg"}
               width={20}
               height={20}
               alt="share"
-              className="dark:invert"
+              className="invert"
             />
           </Link>
-          <Link href={"/"} className="bg-background p-2 hover:bg-primary transition duration-300 rounded-sm">
+          <Link href={"/"} className="bg-gray-400/70 dark:bg-background dark:hover:bg-primary p-2 hover:bg-primary transition duration-300 rounded-sm">
             <Image
               src={"/shop/instagram.svg"}
               width={20}
               height={20}
               alt="share"
-              className="dark:invert"
+              className="invert"
             />
           </Link>
-          <Link href={"/"} className="bg-background p-2 hover:bg-primary transition duration-300 rounded-sm">
+          <Link href={"/"} className="bg-gray-400/70 dark:bg-background dark:hover:bg-primary p-2 hover:bg-primary transition duration-300 rounded-sm">
             <Image
               src={"/shop/whatsapp.svg"}
               width={20}
               height={20}
               alt="share"
-              className="dark:invert"
+              className="invert"
               
             />
           </Link>
