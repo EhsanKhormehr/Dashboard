@@ -4,7 +4,7 @@ import BlogRelatedCard from "./blog-related-card";
 
 const BlogRelatedWrapper = () => {
   return (
-    <div className="bg-surface shadow-soft-card rounded-xl px-4">
+    <div className="bg-surface shadow-soft-card rounded-xl px-5">
       <div className="py-5 flex items-center gap-2">
         <TextAlignStart className="text-primary" />
         <h3 className="font-extrabold text-lg">Related Articles</h3>

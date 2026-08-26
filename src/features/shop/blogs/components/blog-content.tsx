@@ -5,7 +5,7 @@ import React from "react";
 
 const BlogContent = () => {
   return (
-    <div className="bg-surface shadow-soft-card rounded-xl px-4">
+    <div className="bg-surface shadow-soft-card rounded-xl px-5">
         <h2 className="border-b py-5 font-extrabold text-2xl">
           How to Choose the Best Gaming Keyboard in 2026
         </h2>
