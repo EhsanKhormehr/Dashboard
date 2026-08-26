@@ -1,10 +1,9 @@
 "use client";
-import ShopTitle from "@/components/common/shop-title";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { MessageSquareText, Send, Star } from "lucide-react";
+import {  Send, Star } from "lucide-react";
 import React, { useState } from "react";
 
 const ratingLabels = {
@@ -45,16 +44,6 @@ const CommentsForm = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <MessageSquareText className="text-primary size-[25px]" />
-          <ShopTitle
-            title="Customer Reviews"
-            isShape={false}
-            className="ml-2 font-black"
-          />
-        </div>
-      </div>
       <form action="#">
         <div className="border py-2 px-4 mt-5 rounded-lg bg-background flex items-center justify-between">
           <div>
