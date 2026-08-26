@@ -4,6 +4,7 @@ import BlogsFilter from "@/features/shop/blogs/components/blogs-filter";
 import BlogsLatestWrapper from "@/features/shop/blogs/components/blogs-latest-wrapper";
 import BlogsWrapper from "@/features/shop/blogs/components/blogs-wrapper";
 import CategoryBlogCard from "@/features/shop/blogs/components/category-blog-card";
+import { getArticles } from "@/features/shop/blogs/services/actions";
 import React from "react";
 
 const BLOG_CATEGORIES = [
@@ -18,7 +19,17 @@ const BLOG_CATEGORIES = [
   { label: "Reviews" },
 ];
 
-const Blogs = () => {
+type BlogsProps = {
+  searchParams: Promise<{
+    search?: string;
+    sortBy?: string;
+  }>;
+};
+
+const Blogs = async ({ searchParams }: BlogsProps) => {
+  const params = await searchParams;
+  const articles = await getArticles(params)
+  console.log(articles)
   return (
     <div>
       <MaxWidthWrapper className="py-15">
@@ -49,7 +60,7 @@ const Blogs = () => {
             <BlogsFilter />
           </div>
           <div className="col-span-12 lg:col-span-9">
-            <BlogsWrapper />
+            <BlogsWrapper articles={articles} />
           </div>
         </div>
       </MaxWidthWrapper>
