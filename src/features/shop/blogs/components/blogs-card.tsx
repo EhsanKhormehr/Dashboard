@@ -1,14 +1,29 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CalendarDays, User } from "lucide-react";
+import { ArrowRight, CalendarDays } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { formatDistanceToNow } from "date-fns";
 import React from "react";
 
-const BlogsCard = () => {
+type BlogsCardProps = {
+  title: string;
+  description: string;
+  userName?: string;
+  createdAt: Date;
+  slug: string;
+};
+
+const BlogsCard = ({
+  title,
+  description,
+  userName,
+  createdAt,
+  slug,
+}: BlogsCardProps) => {
   return (
     <div className="bg-surface shadow-soft-card rounded-xl overflow-hidden transition-transform duration-300 hover:-translate-y-2">
-      <Link href={"/"}>
+      <Link href={`/blogs/${slug}`}>
         <Image
           src={"/shop/blog-2.jpg"}
           width={300}
@@ -19,29 +34,32 @@ const BlogsCard = () => {
       </Link>
       <div className="p-4">
         <Link href={"/"} className="font-extrabold">
-          How to Choose the Best Gaming Keyboard in 2026
+          {title}
         </Link>
         <p className="line-clamp-2  text-xs text-muted-foreground my-2 ">
-          Discover the latest insights, practical tips, and helpful resources to
-          improve your skills and stay up to date.
+          {description}
         </p>
         <div className="mt-10 flex items-center justify-between flex-wrap gap-5">
           <div className="flex items-center gap-1.5">
             <Avatar>
-                <AvatarImage src={"/avatar-user.jpg"} />
+              <AvatarImage src={"/avatar-user.jpg"} />
             </Avatar>
-            <span className="text-sm font-bold text-surface-foreground">
-              Ehsan Khormehr
+            <span className="text-xs font-bold text-surface-foreground">
+              {userName}
             </span>
           </div>
 
           <div className="flex items-center gap-1.5 text-muted-foreground">
             <CalendarDays className="size-4" />
-            <span className="text-xs">2 Days Ago</span>
+            <span className="text-xs">
+              {formatDistanceToNow(new Date(createdAt), {
+                addSuffix: true,
+              })}
+            </span>
           </div>
         </div>
         <Button asChild className="font-bold">
-          <Link href={"/"} className="mt-5 w-full h-12">
+          <Link href={`/blogs/${slug}`} className="mt-5 w-full h-12">
             Read More
             <ArrowRight className="size-4 stroke-2" />
           </Link>
