@@ -1,3 +1,4 @@
+import BlogComments from "./blog-comments";
 import BlogContent from "./blog-content";
 import BlogRelatedWrapper from "./blog-related-wrapper";
 
@@ -6,6 +7,7 @@ const BlogWrapper = () => {
     <div className="flex flex-col gap-8">
       <BlogContent />
       <BlogRelatedWrapper />
+      <BlogComments />
     </div>
   );
 };
