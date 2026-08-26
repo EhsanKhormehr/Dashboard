@@ -5,7 +5,7 @@ import React from "react";
 
 const BlogRelatedCard = () => {
   return (
-    <div className="bg-background rounded-xl overflow-hidden shadow-soft-card">
+    <div className="bg-background rounded-xl overflow-hidden shadow-lg">
       <Link href={"/"}>
         <Image
           src={"/shop/blog-1.jpg"}
