@@ -4,7 +4,6 @@ import { getLatestArticles } from "../services/actions";
 
 const BlogsLatestWrapper = async () => {
   const latestArticles = await getLatestArticles();
-  console.log(latestArticles);
   return (
     <>
       {latestArticles.map((article) => (
