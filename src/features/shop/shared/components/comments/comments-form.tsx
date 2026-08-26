@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import {  Send, Star } from "lucide-react";
+import { Send, Star } from "lucide-react";
 import React, { useState } from "react";
+import { useCommentsContext } from "./comments-context";
 
 const ratingLabels = {
   1: "Poor",
@@ -41,45 +42,49 @@ type RatingScore = keyof typeof ratingLabels;
 
 const CommentsForm = () => {
   const [score, setScore] = useState<RatingScore>(1);
+  const { type } = useCommentsContext();
 
   return (
     <>
       <form action="#">
-        <div className="border py-2 px-4 mt-5 rounded-lg bg-background flex items-center justify-between">
-          <div>
-            <span className="text-xs text-muted-foreground font-semibold">
-              Your Rating
-            </span>
-            <div className="flex items-center mt-1 gap-1">
-              {Array.from({ length: 5 }).map((i, index) => {
-                const value = (index + 1) as RatingScore;
-                const isActive = value <= score;
+        {type === "product" && (
+          <div className="border py-2 px-4 mt-5 rounded-lg bg-background flex items-center justify-between">
+            <div>
+              <span className="text-xs text-muted-foreground font-semibold">
+                Your Rating
+              </span>
+              <div className="flex items-center mt-1 gap-1">
+                {Array.from({ length: 5 }).map((i, index) => {
+                  const value = (index + 1) as RatingScore;
+                  const isActive = value <= score;
 
-                return (
-                  <button
-                    onClick={() => setScore(value)}
-                    type="button"
-                    key={value}
-                  >
-                    <Star
-                      className={cn(
-                        " size-5 cursor-pointer",
-                        isActive
-                          ? "stroke-rating fill-rating"
-                          : "stroke-muted-foreground/20 fill-muted-foreground/20",
-                      )}
-                    />
-                  </button>
-                );
-              })}
+                  return (
+                    <button
+                      onClick={() => setScore(value)}
+                      type="button"
+                      key={value}
+                    >
+                      <Star
+                        className={cn(
+                          " size-5 cursor-pointer",
+                          isActive
+                            ? "stroke-rating fill-rating"
+                            : "stroke-muted-foreground/20 fill-muted-foreground/20",
+                        )}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
             </div>
+            <span
+              className={`rounded-full text-sm font-semibold border px-3 py-1 ${ratingVariants[score].className}`}
+            >
+              {ratingLabels[score]}
+            </span>
           </div>
-          <span
-            className={`rounded-full text-sm font-semibold border px-3 py-1 ${ratingVariants[score].className}`}
-          >
-            {ratingLabels[score]}
-          </span>
-        </div>
+        )}
+
         <div className="mt-5">
           <FieldGroup>
             <Field>
@@ -92,7 +97,7 @@ const CommentsForm = () => {
               <Button type="submit" className="cursor-pointer py-4.5 px-4">
                 <div className="flex items-center">
                   <Send className="mr-1" />
-                  Submit Review
+                  {type === "product" ? "Submit Review" : "Submit Comment"}
                 </div>
               </Button>
             </Field>

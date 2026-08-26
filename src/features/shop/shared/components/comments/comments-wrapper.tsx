@@ -17,14 +17,16 @@ const CommentsWrapper = ({ type }: CommentsWrapperProps) => {
           <div className="border-b flex items-center justify-between">
             <div className="py-2">
               <span className="text-base font-bold text-surface-foreground">
-                Reviews
+                {type === "product" ? "Reviews" : "Comments"}
               </span>
               <span className="text-muted-foreground text-xs ml-1">(110)</span>
             </div>
-            <div className="flex items-center gap-1 rounded-full border border-yellow-400/50 dark:border-yellow-400/20 bg-yellow-400/10 px-3 py-1 text-xs font-semibold text-rating">
-              <Star className="size-3.5 fill-rating stroke-rating" />
-              4.8 average
-            </div>
+            {type === "product" && (
+              <div className="flex items-center gap-1 rounded-full border border-yellow-400/50 dark:border-yellow-400/20 bg-yellow-400/10 px-3 py-1 text-xs font-semibold text-rating">
+                <Star className="size-3.5 fill-rating stroke-rating" />
+                4.8 average
+              </div>
+            )}
           </div>
           <div>
             <CommentsBox />
