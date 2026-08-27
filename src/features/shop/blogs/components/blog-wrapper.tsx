@@ -1,11 +1,24 @@
+import { Prisma } from "../../../../../generated/prisma/client";
 import BlogComments from "./blog-comments";
 import BlogContent from "./blog-content";
 import BlogRelatedWrapper from "./blog-related-wrapper";
 
-const BlogWrapper = () => {
+type BlogWrapperProps = {
+  article: Prisma.BlogGetPayload<{
+    include: {
+      user: {
+        select: {
+          userName: true;
+        };
+      };
+    };
+  }>;
+};
+
+const BlogWrapper = ({ article }: BlogWrapperProps) => {
   return (
     <div className="flex flex-col gap-8">
-      <BlogContent />
+      <BlogContent article={article} />
       <BlogRelatedWrapper />
       <BlogComments />
     </div>
