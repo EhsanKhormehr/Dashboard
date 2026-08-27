@@ -20,7 +20,6 @@ type BlogContentProps = {
 
 const BlogContent = ({ article }: BlogContentProps) => {
   const sanitizeContent = DOMPurify.sanitize(article.content);
-  console.log(sanitizeContent)
   return (
     <div className="bg-surface shadow-soft-card rounded-xl px-5">
       <h2 className="border-b py-5 font-extrabold text-2xl">{article.title}</h2>
