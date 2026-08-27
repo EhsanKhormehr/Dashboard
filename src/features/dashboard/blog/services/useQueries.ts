@@ -1,10 +1,8 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { getBlogs } from "./actions";
-import {
-  BlogStatus,
-} from "../../../../../generated/prisma/enums";
+import { getBlogs, getBlogTags } from "./actions";
+import { BlogStatus } from "../../../../../generated/prisma/enums";
 
 type GetBlogsVariables = {
   search?: string;
@@ -17,5 +15,12 @@ export const useGetBlogs = (params: GetBlogsVariables) => {
   return useQuery({
     queryKey: ["blog"],
     queryFn: () => getBlogs(params),
+  });
+};
+
+export const useGetBlogTags = () => {
+  return useQuery({
+    queryKey: ["blog"],
+    queryFn: getBlogTags,
   });
 };
