@@ -24,15 +24,39 @@ export const newBlogSchema = z.object({
   status: z.enum(["PUBLISHED", "ARCHIVED", "DRAFT"], {
     error: "Status field is required",
   }),
+  readingTime: z.preprocess(
+    (value) => (value === "" ? undefined : value),
+    z.coerce
+      .number("Reading time must be a number")
+      .int("Reading time must be an integer")
+      .positive("Reading time must be greater than zero")
+      .optional(),
+  ),
+  tags: z.array(z.string().min(1, "Tag name cannot be empty")).optional(),
 });
-export type BlogFormValues = z.infer<typeof newBlogSchema>;
+export type BlogFormValues = z.output<typeof newBlogSchema>;
+export type BlogFormInput = z.input<typeof newBlogSchema>;
 
 export const blogFormDefaultValues: BlogFormValues = {
   title: "",
   slug: "",
   thumbnail: "",
-  content : "",
+  content: "",
   description: "",
   category: "",
   status: "DRAFT",
+  readingTime: undefined,
+  tags: [],
+};
+
+export const newTagSchema = z.object({
+  name: z.string().trim().min(1, "Name field is required!"),
+  slug: z.string().trim().min(1, "Slug field is required!"),
+});
+
+export type TagFormValues = z.infer<typeof newTagSchema>;
+
+export const tagFormDefaultValues: TagFormValues = {
+  name: "",
+  slug: "",
 };
