@@ -124,8 +124,10 @@ model Blog {
   description String
   category    String
   thumbnail   String?
-  status      BlogStatus
+  status      BlogStatus @default(DRAFT)
   content     String     @db.Text
+  tags        BlogTag[]
+  readingTime Int?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -133,6 +135,16 @@ model Blog {
 
   @@index([category])
   @@index([createdAt])
+}
+
+model BlogTag {
+  id   String @id @default(cuid())
+  name String @unique
+  slug String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  blogs     Blog[]
 }
 
 model Address {
