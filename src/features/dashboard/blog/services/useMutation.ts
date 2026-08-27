@@ -2,7 +2,13 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { createBlog, deleteBlog, updateBlog } from "./actions";
+import {
+  createBlog,
+  createBlogTag,
+  deleteBlog,
+  deleteBlogTag,
+  updateBlog,
+} from "./actions";
 import { useRouter } from "next/navigation";
 import { BlogFormValues } from "../types/schema";
 
@@ -43,6 +49,30 @@ export const useUpdateBlog = () => {
     onSuccess: () => {
       router.refresh();
       toast.success("Blog updated successfully!");
+    },
+  });
+};
+
+export const useCreateBlogTag = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: createBlogTag,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blog"] });
+      toast.success("Tag created successfully!");
+    },
+  });
+};
+
+export const useDeleteBlogTag = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteBlogTag,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blog"] });
+      toast.success("Tag deleted successfully");
     },
   });
 };
