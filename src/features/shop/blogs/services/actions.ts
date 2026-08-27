@@ -62,3 +62,22 @@ export const getArticles = async (params: getArticlesParams) => {
     },
   });
 };
+
+export const getArticle = async (slug: string) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.blog.findFirst({
+        where: {
+          slug,
+        },
+        include: {
+          user: {
+            select: {
+              userName: true,
+            },
+          },
+        },
+      });
+    },
+  });
+};
