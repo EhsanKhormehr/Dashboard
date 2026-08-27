@@ -4,6 +4,7 @@ import React from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import {
   blogFormDefaultValues,
+  BlogFormInput,
   BlogFormValues,
   newBlogSchema,
 } from "../types/schema";
@@ -11,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ControlledInput from "@/components/common/controlled-input";
 import { Button } from "@/components/ui/button";
 import BlogTextEditor from "./blog-text-editor";
-import { Plus, UploadCloud } from "lucide-react";
+import { ChevronDown, Plus, UploadCloud } from "lucide-react";
 import ControlledTextarea from "@/components/common/controlled-textarea";
 import { Label } from "@/components/ui/label";
 import {
@@ -24,6 +25,15 @@ import {
 } from "@/components/ui/select";
 import ErrorMessage from "@/components/common/error-message";
 import { useCreateBlog, useUpdateBlog } from "../services/useMutation";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
+import BlogTagForm from "./blog-tag-form";
+import Link from "next/link";
+import { useGetBlogTags } from "../services/useQueries";
 
 const BLOG_CATEGORIES = [
   { value: "hardware", label: "Hardware" },
@@ -44,14 +54,14 @@ type BlogFormProps = {
 };
 
 const BlogForm = ({ mode, initialValue, blogId }: BlogFormProps) => {
-  const form = useForm<BlogFormValues>({
+  const form = useForm<BlogFormInput, unknown, BlogFormValues>({
     defaultValues: initialValue ?? blogFormDefaultValues,
     resolver: zodResolver(newBlogSchema),
   });
   const { handleSubmit, control } = form;
   const { mutate: createBlog } = useCreateBlog();
   const { mutate: updateBlog } = useUpdateBlog();
-
+  const { data: blogTags } = useGetBlogTags();
   const newBlogSubmitHandler = (data: BlogFormValues) => {
     if (mode === "create") {
       createBlog(data);
@@ -83,6 +93,48 @@ const BlogForm = ({ mode, initialValue, blogId }: BlogFormProps) => {
                 placeholder="Please enter description"
               />
             </div>
+            <ControlledInput<BlogFormValues>
+              name="readingTime"
+              label="Reading Time"
+              placeholder="Please enter reading time"
+            />
+            <Field>
+              <FieldLabel>Tags</FieldLabel>
+              <div className="flex w-full items-center gap-3">
+                <div className="flex-1">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        type="button"
+                        className=" flex justify-between w-full"
+                      >
+                        <span>Tags</span>
+                        <ChevronDown />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[var(--radix-popover-trigger-width)]">
+                      <FieldGroup>
+                        {blogTags?.map((tag) => (
+                          <Field orientation={"horizontal"} key={tag.id}>
+                            <Checkbox id={tag.id} name={tag.id} />
+                            <Label htmlFor={tag.id} className="w-full">
+                              {tag.name}
+                            </Label>
+                          </Field>
+                        ))}
+                      </FieldGroup>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+
+                <Button type="button" asChild>
+                  <Link href={"/dashboard/new-blog-tag"}>
+                    <Plus className="size-4 cursor-pointer" />
+                  </Link>
+                </Button>
+              </div>
+            </Field>
             <Field>
               <FieldLabel>Category</FieldLabel>
               <Controller
@@ -171,7 +223,7 @@ const BlogForm = ({ mode, initialValue, blogId }: BlogFormProps) => {
           </FieldGroup>
           <FieldGroup>
             <Field orientation={"horizontal"}>
-              <Button className="py-4.5">
+              <Button className="py-4.5" type="submit">
                 {mode === "create" ? <Plus className="size-4" /> : ""}
 
                 {mode === "create" ? " Create new Blog" : " Update Blog"}
