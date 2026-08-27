@@ -1,7 +1,12 @@
 "use server";
 
 import { executeAction } from "@/lib/executeAction";
-import { BlogFormValues, newBlogSchema } from "../types/schema";
+import {
+  BlogFormValues,
+  newBlogSchema,
+  newTagSchema,
+  TagFormValues,
+} from "../types/schema";
 import { requireAdmin } from "@/features/auth/utils/requireAdmin";
 import { prisma } from "@/lib/prisma";
 import { BlogStatus, Prisma } from "../../../../../generated/prisma/client";
@@ -116,6 +121,46 @@ export const updateBlog = async (id: string, data: BlogFormValues) => {
           category: data.category,
           status: data.status,
           thumbnail: data.thumbnail ?? undefined,
+        },
+      });
+    },
+  });
+};
+
+// Blog Tags
+export const createBlogTag = async (data: TagFormValues) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      const validatedData = newTagSchema.parse(data);
+      return await prisma.blogTag.create({
+        data: {
+          name: validatedData.name,
+          slug: validatedData.slug,
+        },
+      });
+    },
+  });
+};
+
+export const getBlogTags = async () => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      return prisma.blogTag.findMany({
+        where: {},
+      });
+    },
+  });
+};
+
+export const deleteBlogTag = async (id: string) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      return await prisma.blogTag.delete({
+        where: {
+          id,
         },
       });
     },
