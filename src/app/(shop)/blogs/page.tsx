@@ -29,7 +29,6 @@ type BlogsProps = {
 const Blogs = async ({ searchParams }: BlogsProps) => {
   const params = await searchParams;
   const articles = await getArticles(params)
-  console.log(articles)
   return (
     <div>
       <MaxWidthWrapper className="py-15">
