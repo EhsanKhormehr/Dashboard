@@ -20,7 +20,7 @@ export const useGetBlogs = (params: GetBlogsVariables) => {
 
 export const useGetBlogTags = () => {
   return useQuery({
-    queryKey: ["blog"],
+    queryKey: ["blogtag"],
     queryFn: getBlogTags,
   });
 };
