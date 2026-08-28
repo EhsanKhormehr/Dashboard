@@ -11,17 +11,36 @@ import {
 } from "../types/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ControlledInput from "@/components/common/controlled-input";
-import { useCreateBlogTag } from "../services/useMutation";
+import { useCreateBlogTag, useUpdateBlogTag } from "../services/useMutation";
+import { BlogTagGetPayload } from "../../../../../generated/prisma/models";
 
-const BlogTagForm = () => {
+type BlogTagFormProps = {
+  mode: "create" | "edit";
+  blogTagId?: string;
+  initialData?: BlogTagGetPayload<{}> | null;
+};
+
+const BlogTagForm = ({ mode, initialData, blogTagId }: BlogTagFormProps) => {
   const form = useForm<TagFormValues>({
-    defaultValues: tagFormDefaultValues,
+    defaultValues: initialData ?? tagFormDefaultValues,
     resolver: zodResolver(newTagSchema),
   });
   const { handleSubmit } = form;
-  const { mutate } = useCreateBlogTag();
+  const { mutate: createBlogTag } = useCreateBlogTag();
+  const { mutate: updateBlogTag } = useUpdateBlogTag();
   const newTagSubmitHandler = (data: TagFormValues) => {
-    mutate(data);
+    if (mode === "create") {
+      createBlogTag(data);
+    }
+    if (mode === "edit") {
+      if (!initialData) {
+        return <p>Tag not found!</p>;
+      }
+      if (!blogTagId) {
+        throw new Error("Blog tag ID is required");
+      }
+      updateBlogTag({ id: blogTagId, data });
+    }
   };
   return (
     <FormProvider {...form}>
@@ -41,8 +60,8 @@ const BlogTagForm = () => {
         <FieldGroup className="mt-6">
           <Field orientation={"horizontal"}>
             <Button type="submit" className="py-4.5 cursor-pointer">
-              <Plus />
-              Create Tag
+              {mode === "create" && <Plus />}
+              {mode === "create" ? "Create" : "Update"}
             </Button>
           </Field>
         </FieldGroup>
