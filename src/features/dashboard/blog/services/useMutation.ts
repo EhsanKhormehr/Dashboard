@@ -8,13 +8,19 @@ import {
   deleteBlog,
   deleteBlogTag,
   updateBlog,
+  updateBlogTag,
 } from "./actions";
 import { useRouter } from "next/navigation";
-import { BlogFormValues } from "../types/schema";
+import { BlogFormValues, TagFormValues } from "../types/schema";
 
 type EditBlogVaribles = {
   id: string;
   data: BlogFormValues;
+};
+
+type EditBlogTagVaribles = {
+  id: string;
+  data: TagFormValues;
 };
 
 export const useCreateBlog = () => {
@@ -59,7 +65,7 @@ export const useCreateBlogTag = () => {
   return useMutation({
     mutationFn: createBlogTag,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["blog"] });
+      queryClient.invalidateQueries({ queryKey: ["blogtag"] });
       toast.success("Tag created successfully!");
     },
   });
@@ -71,8 +77,20 @@ export const useDeleteBlogTag = () => {
   return useMutation({
     mutationFn: deleteBlogTag,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["blog"] });
+      queryClient.invalidateQueries({ queryKey: ["blogtag"] });
       toast.success("Tag deleted successfully");
+    },
+  });
+};
+
+export const useUpdateBlogTag = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, data }: EditBlogTagVaribles) => updateBlogTag(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blogtag"] });
+      toast.success("Tag updated successfully!")
     },
   });
 };
