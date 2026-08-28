@@ -44,7 +44,7 @@ const BlogTagsTable = () => {
                 className="cursor-pointer px-4 font-semibold"
                 asChild
               >
-                <Link href={"/dashboard/blog-tags/3232/edit"}>Edit</Link>
+                <Link href={`/dashboard/blog-tags/${tag.id}/edit`}>Edit</Link>
               </Button>
             </TableCell>
             <TableCell>
