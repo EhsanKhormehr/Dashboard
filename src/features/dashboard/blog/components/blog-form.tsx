@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ControlledInput from "@/components/common/controlled-input";
 import { Button } from "@/components/ui/button";
 import BlogTextEditor from "./blog-text-editor";
-import { ChevronDown, Plus, UploadCloud } from "lucide-react";
+import { Plus, UploadCloud } from "lucide-react";
 import ControlledTextarea from "@/components/common/controlled-textarea";
 import { Label } from "@/components/ui/label";
 import {
@@ -25,15 +25,20 @@ import {
 } from "@/components/ui/select";
 import ErrorMessage from "@/components/common/error-message";
 import { useCreateBlog, useUpdateBlog } from "../services/useMutation";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Checkbox } from "@/components/ui/checkbox";
-import BlogTagForm from "./blog-tag-form";
 import Link from "next/link";
 import { useGetBlogTags } from "../services/useQueries";
+import {
+  Combobox,
+  ComboboxChip,
+  ComboboxChips,
+  ComboboxChipsInput,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxValue,
+  useComboboxAnchor,
+} from "@/components/ui/combobox";
 
 const BLOG_CATEGORIES = [
   { value: "hardware", label: "Hardware" },
@@ -62,20 +67,27 @@ const BlogForm = ({ mode, initialValue, blogId }: BlogFormProps) => {
   const { mutate: createBlog } = useCreateBlog();
   const { mutate: updateBlog } = useUpdateBlog();
   const { data: blogTags } = useGetBlogTags();
+  const anchor = useComboboxAnchor();
   const newBlogSubmitHandler = (data: BlogFormValues) => {
+    console.log("form data:", data);
+  console.log("selected tag ids:", data.tags);
+
     if (mode === "create") {
       createBlog(data);
     }
-    if (!blogId) return;
     if (mode === "edit") {
+      if (!blogId) {
+        return <p>id not found</p>
+      };
       updateBlog({ id: blogId, data });
     }
   };
+
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(newBlogSubmitHandler)}>
         <FieldSet>
-          <FieldGroup className="grid grid-cols-2 gap-8">
+          <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <ControlledInput<BlogFormValues>
               name="title"
               label="Title"
@@ -86,7 +98,7 @@ const BlogForm = ({ mode, initialValue, blogId }: BlogFormProps) => {
               label="Slug"
               placeholder="Please enter slug"
             />
-            <div className="col-span-2">
+            <div className="sm:col-span-2">
               <ControlledTextarea<BlogFormValues>
                 name="description"
                 label="Description"
@@ -100,33 +112,55 @@ const BlogForm = ({ mode, initialValue, blogId }: BlogFormProps) => {
             />
             <Field>
               <FieldLabel>Tags</FieldLabel>
-              <div className="flex w-full items-center gap-3">
-                <div className="flex-1">
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={"outline"}
-                        type="button"
-                        className=" flex justify-between w-full"
-                      >
-                        <span>Tags</span>
-                        <ChevronDown />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-[var(--radix-popover-trigger-width)]">
-                      <FieldGroup>
-                        {blogTags?.map((tag) => (
-                          <Field orientation={"horizontal"} key={tag.id}>
-                            <Checkbox id={tag.id} name={tag.id} />
-                            <Label htmlFor={tag.id} className="w-full">
-                              {tag.name}
-                            </Label>
-                          </Field>
-                        ))}
-                      </FieldGroup>
-                    </PopoverContent>
-                  </Popover>
-                </div>
+              <div className="flex w-full items-center gap-3 flex-wrap sm:flex-nowrap">
+                <Controller
+                  control={control}
+                  name="tags"
+                  render={({ field }) => (
+                    <Combobox
+                      multiple
+                      autoHighlight
+                      items={blogTags ?? []}
+                      onValueChange={(value) => {
+                        field.onChange(value);
+                      }}
+                      value={field.value ?? []}
+                    >
+                      <ComboboxChips ref={anchor} className={"w-full"}>
+                        <ComboboxValue>
+                          {(values) => (
+                            <>
+                              {values.map((tagId: string) => {
+                                const tag = blogTags?.find((item)=> item.id === tagId)
+                                return (
+                                  <ComboboxChip
+                                    key={tagId}
+                                    className={"bg-background font-bold"}
+                                  >
+                                    {tag?.name}
+                                  </ComboboxChip>
+                                );
+                              })}
+                              <ComboboxChipsInput />
+                            </>
+                          )}
+                        </ComboboxValue>
+                      </ComboboxChips>
+                      <ComboboxContent anchor={anchor}>
+                        <ComboboxEmpty>No items found.</ComboboxEmpty>
+                        <ComboboxList>
+                          {(item) => {
+                            return (
+                              <ComboboxItem key={item.id} value={item.id}>
+                                {item.name}
+                              </ComboboxItem>
+                            );
+                          }}
+                        </ComboboxList>
+                      </ComboboxContent>
+                    </Combobox>
+                  )}
+                />
 
                 <Button type="button" asChild>
                   <Link href={"/dashboard/new-blog-tag"}>
