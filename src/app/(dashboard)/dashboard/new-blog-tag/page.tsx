@@ -12,7 +12,7 @@ const NewTag = () => {
           <CardTitle className="font-bold text-2xl">New Blog Tag</CardTitle>
         </CardHeader>
         <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-          <BlogTagForm />
+          <BlogTagForm mode="create" />
         </CardContent>
       </Card>
     </div>
