@@ -22,6 +22,8 @@ const BlogEdit = async ({ params }: { params: Promise<{ id: string }> }) => {
       category: true,
       status: true,
       thumbnail: true,
+      tags: true,
+      readingTime : true
     },
   });
   if (!data) {
@@ -35,6 +37,8 @@ const BlogEdit = async ({ params }: { params: Promise<{ id: string }> }) => {
     category: data.category,
     status: data.status as BlogStatus,
     thumbnail: data.thumbnail ?? undefined,
+    tags: data.tags.map((tag) => tag.id),
+    readingTime : data.readingTime ?? undefined
   };
   return (
     <div>
