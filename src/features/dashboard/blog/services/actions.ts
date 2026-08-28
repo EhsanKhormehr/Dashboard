@@ -154,6 +154,19 @@ export const getBlogTags = async () => {
   });
 };
 
+export const getBlogTag = async (id: string) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      return await prisma.blogTag.findUnique({
+        where: {
+          id,
+        },
+      });
+    },
+  });
+};
+
 export const deleteBlogTag = async (id: string) => {
   return executeAction({
     actionFn: async () => {
@@ -161,6 +174,32 @@ export const deleteBlogTag = async (id: string) => {
       return await prisma.blogTag.delete({
         where: {
           id,
+        },
+      });
+    },
+  });
+};
+
+export const updateBlogTag = async (id: string, data: TagFormValues) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      const validatedData = newTagSchema.parse(data);
+      const tag = await prisma.blogTag.findFirst({
+        where: {
+          id,
+        },
+      });
+      if (!tag) {
+        throw new Error("Tag not found");
+      }
+      return await prisma.blogTag.update({
+        where: {
+          id,
+        },
+        data: {
+          name: validatedData.name.trim(),
+          slug: validatedData.slug.trim().toLowerCase(),
         },
       });
     },
