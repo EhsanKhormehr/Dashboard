@@ -77,6 +77,13 @@ export const getArticle = async (slug: string) => {
               userName: true,
             },
           },
+          tags: {
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+            },
+          },
         },
       });
     },
