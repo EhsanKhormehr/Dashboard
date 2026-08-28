@@ -14,6 +14,13 @@ type BlogContentProps = {
           userName: true;
         };
       };
+      tags: {
+        select: {
+          id: true;
+          name: true;
+          slug: true;
+        };
+      };
     };
   }>;
 };
@@ -46,7 +53,7 @@ const BlogContent = ({ article }: BlogContentProps) => {
           <div className="flex items-center gap-2">
             <Clock12 className="size-5 text-muted-foreground" />
             <span className="text-sm text-muted-foreground">
-              10 Minutes Read
+              {article.readingTime} Minutes Read
             </span>
           </div>
         </div>
@@ -59,18 +66,17 @@ const BlogContent = ({ article }: BlogContentProps) => {
         <div className="flex items-center gap-3">
           <span className="text-muted-foreground font-bold">Tags: </span>
           <div className="flex gap-2">
-            <Link
-              href={"/"}
-              className="text-xs bg-muted hover:bg-primary duration-300 py-1 px-3 rounded-2xl"
-            >
-              Mouse
-            </Link>
-            <Link
-              href={"/"}
-              className="text-xs bg-muted hover:bg-primary duration-300 py-1 px-3 rounded-2xl"
-            >
-              Keyboard
-            </Link>
+            {article.tags?.map((tag) => {
+              return (
+                <Link
+                key={tag.id}
+                  href={`/blogs/category/${tag.slug}`}
+                  className="text-xs bg-muted hover:bg-primary duration-300 py-1 px-3 rounded-2xl"
+                >
+                  {tag.name}
+                </Link>
+              );
+            })}
           </div>
         </div>
         <Link
