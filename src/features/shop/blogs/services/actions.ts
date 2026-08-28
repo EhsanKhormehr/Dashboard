@@ -13,7 +13,7 @@ export const getLatestArticles = async () => {
   return executeAction({
     actionFn: async () => {
       return await prisma.blog.findMany({
-        where: {},
+        where: { status: "PUBLISHED" },
         select: {
           id: true,
           title: true,
@@ -33,7 +33,7 @@ export const getLatestArticles = async () => {
 export const getArticles = async (params: getArticlesParams) => {
   return executeAction({
     actionFn: async () => {
-      const where: Prisma.BlogWhereInput = {};
+      const where: Prisma.BlogWhereInput = { status: "PUBLISHED" };
       const orderBy: Prisma.BlogOrderByWithRelationInput = {
         createdAt: "desc",
       };
@@ -69,6 +69,7 @@ export const getArticle = async (slug: string) => {
       return await prisma.blog.findFirst({
         where: {
           slug,
+          status: "PUBLISHED",
         },
         include: {
           user: {
