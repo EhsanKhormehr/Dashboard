@@ -33,9 +33,9 @@ const BlogLatestCard = ({ latestArticle }: BlogLatestCardProps) => {
         alt="blog"
         className="w-[80px] h-[60px] object-cover rounded-2xl"
       />
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 w-full">
         <p className="text-sm font-bold line-clamp-2">{latestArticle.title}</p>
-        <span className="self-end text-xs text-muted-foreground">
+        <span className="self-end ml-auto text-xs text-muted-foreground">
           {formatDistanceToNow(new Date(latestArticle.createdAt), {
             addSuffix: true,
           })}
