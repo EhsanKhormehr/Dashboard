@@ -34,6 +34,11 @@ export const createBlog = async (data: BlogFormValues) => {
           status: validatedData.status,
           thumbnail: validatedData.thumbnail ?? null,
           content: validatedData.content,
+          tags: {
+            connect: (validatedData.tags ?? []).map((tagId) => ({
+              id: tagId,
+            })),
+          },
           userId: currentAdmin.id,
         },
       });
@@ -121,6 +126,12 @@ export const updateBlog = async (id: string, data: BlogFormValues) => {
           category: data.category,
           status: data.status,
           thumbnail: data.thumbnail ?? undefined,
+          readingTime: data.readingTime ?? undefined,
+          tags: {
+            set: (data.tags ?? []).map((tagId) => ({
+              id: tagId,
+            })),
+          },
         },
       });
     },
