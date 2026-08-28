@@ -18,6 +18,7 @@ const BlogPage = async ({ params }: BlogPageProps) => {
   const slug = urlParams.slug;
   const article = await getArticle(slug);
   const latestArticle = await getLatestArticles();
+  console.log(article)
   if (!article) {
     return <p>Article not found</p>;
   }
