@@ -11,6 +11,13 @@ type BlogWrapperProps = {
           userName: true;
         };
       };
+      tags: {
+        select: {
+          id: true;
+          name: true;
+          slug: true;
+        };
+      };
     };
   }>;
 };
