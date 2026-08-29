@@ -8,15 +8,15 @@ import React from "react";
 import BlogsCategoryCard from "@/features/shop/blogs/components/blogs-category-card";
 
 const BLOG_CATEGORIES = [
-  { label: "Hardware" },
-  { label: "News" },
-  { label: "Technology" },
-  { label: "Buying Guide" },
-  { label: "Artificial Intelligence" },
-  { label: "Gaming" },
-  { label: "Learning" },
-  { label: "IT & Information" },
-  { label: "Reviews" },
+  { slug: "hardware", label: "Hardware" },
+  { slug: "news", label: "News" },
+  { slug: "technology", label: "Technology" },
+  { slug: "buying-guide", label: "Buying Guide" },
+  { slug: "artificial-intelligence", label: "Artificial Intelligence" },
+  { slug: "gaming", label: "Gaming" },
+  { slug: "learning", label: "Learning" },
+  { slug: "it-information", label: "IT & Information" },
+  { slug: "reviews", label: "Reviews" },
 ];
 
 type BlogsProps = {
@@ -50,7 +50,7 @@ const Blogs = async ({ searchParams }: BlogsProps) => {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-6">
             {BLOG_CATEGORIES.map((category) => (
-              <BlogsCategoryCard label={category.label} key={category.label} />
+              <BlogsCategoryCard label={category.label} slug={category.slug}  key={category.label} />
             ))}
           </div>
         </div>
