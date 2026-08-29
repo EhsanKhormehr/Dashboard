@@ -34,7 +34,7 @@ const BlogsLatestCard = ({
       </div>
       <div className="flex flex-col justify-center flex-1 h-full ml-3">
         <Link
-          href={`/blogs/categories/${category}`}
+          href={`/blogs/category/${category}`}
           className="inline-flex self-start rounded-full text-xs border-primary/70 border-1 px-4 py-1 text-primary bg-blue-100 font-bold dark:bg-primary/10 dark:text-blue-400 capitalize"
         >
           {category}
