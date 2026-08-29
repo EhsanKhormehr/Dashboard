@@ -33,9 +33,6 @@ const BlogLatestWrapper = ({ latestArticle }: BlogLatestWrapperProps) => {
             <BlogLatestCard key={article.id} latestArticle={article} />
           ))}
         </div>
-        <Button asChild variant={"outline"}>
-          <Link href={"/"}>View All</Link>
-        </Button>
       </div>
     </div>
   );
