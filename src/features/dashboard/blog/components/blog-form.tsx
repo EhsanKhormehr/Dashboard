@@ -69,8 +69,7 @@ const BlogForm = ({ mode, initialValue, blogId }: BlogFormProps) => {
   const { data: blogTags } = useGetBlogTags();
   const anchor = useComboboxAnchor();
   const newBlogSubmitHandler = (data: BlogFormValues) => {
-    console.log("form data:", data);
-  console.log("selected tag ids:", data.tags);
+
 
     if (mode === "create") {
       createBlog(data);
