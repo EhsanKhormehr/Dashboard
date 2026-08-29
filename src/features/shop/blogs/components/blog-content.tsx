@@ -70,7 +70,7 @@ const BlogContent = ({ article }: BlogContentProps) => {
               return (
                 <Link
                 key={tag.id}
-                  href={`/blogs/category/${tag.slug}`}
+                  href={`/blogs/tag/${tag.slug}`}
                   className="text-xs bg-muted hover:bg-primary duration-300 py-1 px-3 rounded-2xl"
                 >
                   {tag.name}
