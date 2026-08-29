@@ -141,3 +141,22 @@ export const getArticlesByTag = async (tag: string) => {
     },
   });
 };
+
+export const getArticlesByCategory = async (category: string) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.blog.findMany({
+        where: {
+          category,
+        },
+        include: {
+          user: {
+            select: {
+              userName: true,
+            },
+          },
+        },
+      });
+    },
+  });
+};
