@@ -12,7 +12,7 @@ type LatestBlogCardProps = {
   createdAt: Date;
 };
 
-const LatestBlogCard = ({
+const BlogsLatestCard = ({
   title,
   category,
   id,
@@ -59,4 +59,4 @@ const LatestBlogCard = ({
   );
 };
 
-export default LatestBlogCard;
+export default BlogsLatestCard;

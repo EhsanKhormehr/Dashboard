@@ -1,13 +1,13 @@
 import React from "react";
-import LatestBlogCard from "./latest-blog-card";
 import { getLatestArticles } from "../services/actions";
+import BlogsLatestCard from "./blogs-latest-card";
 
 const BlogsLatestWrapper = async () => {
   const latestArticles = await getLatestArticles();
   return (
     <>
       {latestArticles.map((article) => (
-        <LatestBlogCard
+        <BlogsLatestCard
           key={article.id}
           id={article.id}
           title={article.title}
