@@ -22,7 +22,7 @@ const BlogsCard = ({
   slug,
 }: BlogsCardProps) => {
   return (
-    <div className="bg-surface shadow-soft-card rounded-xl overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+    <div className="bg-surface shadow-soft-card rounded-xl overflow-hidden transition-transform duration-300 hover:-translate-y-2 flex flex-col h-full">
       <Link href={`/blogs/${slug}`}>
         <Image
           src={"/shop/blog-2.jpg"}
@@ -32,38 +32,40 @@ const BlogsCard = ({
           className="w-full h-auto object-contain rounded-xl"
         />
       </Link>
-      <div className="p-4">
-        <Link href={"/"} className="font-extrabold">
+      <div className="p-4 flex flex-col flex-1">
+        <Link href={`/blogs/${slug}`} className="font-extrabold line-clamp-3">
           {title}
         </Link>
-        <p className="line-clamp-2  text-xs text-muted-foreground my-2 ">
-          {description}
-        </p>
-        <div className="mt-10 flex items-center justify-between flex-wrap gap-5">
-          <div className="flex items-center gap-1.5">
-            <Avatar>
-              <AvatarImage src={"/avatar-user.jpg"} />
-            </Avatar>
-            <span className="text-xs font-bold text-surface-foreground">
-              {userName}
-            </span>
-          </div>
+        <div className="mt-auto">
+          <p className="line-clamp-2  text-xs text-muted-foreground my-2 ">
+            {description}
+          </p>
+          <div className="mt-10 flex items-center justify-between flex-wrap gap-5">
+            <div className="flex items-center gap-1.5">
+              <Avatar>
+                <AvatarImage src={"/avatar-user.jpg"} />
+              </Avatar>
+              <span className="text-xs font-bold text-surface-foreground">
+                {userName}
+              </span>
+            </div>
 
-          <div className="flex items-center gap-1.5 text-muted-foreground">
-            <CalendarDays className="size-4" />
-            <span className="text-xs">
-              {formatDistanceToNow(new Date(createdAt), {
-                addSuffix: true,
-              })}
-            </span>
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <CalendarDays className="size-4" />
+              <span className="text-xs">
+                {formatDistanceToNow(new Date(createdAt), {
+                  addSuffix: true,
+                })}
+              </span>
+            </div>
           </div>
+          <Button asChild className="font-bold">
+            <Link href={`/blogs/${slug}`} className="mt-5 w-full h-12">
+              Read More
+              <ArrowRight className="size-4 stroke-2" />
+            </Link>
+          </Button>
         </div>
-        <Button asChild className="font-bold">
-          <Link href={`/blogs/${slug}`} className="mt-5 w-full h-12">
-            Read More
-            <ArrowRight className="size-4 stroke-2" />
-          </Link>
-        </Button>
       </div>
     </div>
   );
