@@ -118,3 +118,26 @@ export const getRelatedArticles = async (
     },
   });
 };
+
+export const getArticlesByTag = async (tag: string) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.blog.findMany({
+        where: {
+          tags: {
+            some: {
+              slug: tag,
+            },
+          },
+        },
+        include: {
+          user: {
+            select: {
+              userName: true,
+            },
+          },
+        },
+      });
+    },
+  });
+};
