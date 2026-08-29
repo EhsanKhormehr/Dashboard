@@ -21,8 +21,8 @@ const BlogsLatestCard = ({
 }: LatestBlogCardProps) => {
   return (
     <div className="flex items-center rounded-md overflow-hidden">
-      <div className="hidden md:flex w-1/3 h-auto lg:w-[280px] lg:h-[170px]">
-        <Link href={`/blogs/${slug}`}>
+      <div className="hidden md:flex">
+        <Link href={`/blogs/${slug}`} className="w-[120px] h-auto lg:w-[280px] lg:h-[170px]">
           <Image
             src={"/shop/blog-1.jpg"}
             width={1000}
@@ -32,7 +32,7 @@ const BlogsLatestCard = ({
           />
         </Link>
       </div>
-      <div className="flex flex-col justify-between h-full ml-3">
+      <div className="flex flex-col justify-center flex-1 h-full ml-3">
         <Link
           href={`/blogs/categories/${category}`}
           className="inline-flex self-start rounded-full text-xs border-primary/70 border-1 px-4 py-1 text-primary bg-blue-100 font-bold dark:bg-primary/10 dark:text-blue-400 capitalize"
@@ -41,7 +41,7 @@ const BlogsLatestCard = ({
         </Link>
         <Link
           href={`/blogs/${slug}`}
-          className="text-base md:text-lg font-extrabold my-3"
+          className="text-base md:text-lg font-extrabold my-3 break-all line-clamp-3"
         >
           {title}
         </Link>
