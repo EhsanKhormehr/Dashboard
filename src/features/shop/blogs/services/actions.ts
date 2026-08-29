@@ -89,3 +89,32 @@ export const getArticle = async (slug: string) => {
     },
   });
 };
+
+export const getRelatedArticles = async (
+  category: string,
+  currentArticle: string,
+) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.blog.findMany({
+        where: {
+          category,
+          id: {
+            not: currentArticle,
+          },
+        },
+        take: 4,
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          user: {
+            select: {
+              userName: true,
+            },
+          },
+        },
+      });
+    },
+  });
+};
