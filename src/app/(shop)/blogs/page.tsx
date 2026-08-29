@@ -3,9 +3,9 @@ import ShopTitle from "@/components/common/shop-title";
 import BlogsFilter from "@/features/shop/blogs/components/blogs-filter";
 import BlogsLatestWrapper from "@/features/shop/blogs/components/blogs-latest-wrapper";
 import BlogsWrapper from "@/features/shop/blogs/components/blogs-wrapper";
-import CategoryBlogCard from "@/features/shop/blogs/components/category-blog-card";
 import { getArticles } from "@/features/shop/blogs/services/actions";
 import React from "react";
+import BlogsCategoryCard from "@/features/shop/blogs/components/blogs-category-card";
 
 const BLOG_CATEGORIES = [
   { label: "Hardware" },
@@ -50,7 +50,7 @@ const Blogs = async ({ searchParams }: BlogsProps) => {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-6">
             {BLOG_CATEGORIES.map((category) => (
-              <CategoryBlogCard label={category.label} key={category.label} />
+              <BlogsCategoryCard label={category.label} key={category.label} />
             ))}
           </div>
         </div>
