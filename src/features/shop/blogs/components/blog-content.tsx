@@ -80,7 +80,7 @@ const BlogContent = ({ article }: BlogContentProps) => {
           </div>
         </div>
         <Link
-          href={"/"}
+          href={`/blogs/category/${article.category}`}
           className="inline-flex self-start rounded-full text-xs border-primary/70 border-1 px-4 py-1 text-primary bg-blue-100 font-bold dark:bg-primary/10 dark:text-blue-400 capitalize"
         >
           {article.category}
