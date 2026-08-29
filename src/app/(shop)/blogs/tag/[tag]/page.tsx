@@ -18,7 +18,7 @@ const BlogsTag = async ({ params }: BlogsTagProps) => {
       <h3 className="capitalize text-center text-2xl font-extrabold">
         <span className="text-primary">{tag}</span> Tag
       </h3>
-      <div className="mt-10 grid grid-cols-4 gap-5">
+      <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
         {articles.map((article) => (
           <BlogsCard
             title={article.title}
