@@ -185,7 +185,7 @@ export const getArticleComments = async (blogId: string) => {
       return prisma.blogComment.findMany({
         where: {
           blogId,
-          isApproved: true,
+          status: "APPROVED",
         },
         include: {
           user: {
