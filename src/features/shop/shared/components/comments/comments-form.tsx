@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Send, Star } from "lucide-react";
 import React, { useState } from "react";
 import { useCommentsContext } from "./comments-context";
+import { useSubmitArticleComment } from "@/features/shop/blogs/services/useMutation";
 
 const ratingLabels = {
   1: "Poor",
@@ -40,13 +41,34 @@ const ratingVariants = {
 
 type RatingScore = keyof typeof ratingLabels;
 
-const CommentsForm = () => {
+type CommentsFormProps = {
+  userId: string | null;
+  blogId: string;
+};
+
+const CommentsForm = ({ userId, blogId }: CommentsFormProps) => {
   const [score, setScore] = useState<RatingScore>(1);
+  const [commentValue, setCommentValue] = useState("");
   const { type } = useCommentsContext();
+  const { mutate: submitArticleComment } = useSubmitArticleComment();
+
+  const submitComment = (event: React.SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (type === "blog") {
+      if (!userId) {
+        return <p>Please login first</p>;
+      }
+      submitArticleComment({
+        blogId,
+        userId: userId,
+        content: commentValue,
+      });
+    }
+  };
 
   return (
     <>
-      <form action="#">
+      <form action="#" onSubmit={(event) => submitComment(event)}>
         {type === "product" && (
           <div className="border py-2 px-4 mt-5 rounded-lg bg-background flex items-center justify-between">
             <div>
@@ -91,6 +113,8 @@ const CommentsForm = () => {
               <Textarea
                 placeholder="Share your thoughts about this product..."
                 className="h-[200px] !bg-background"
+                onChange={(event) => setCommentValue(event.target.value)}
+                value={commentValue}
               ></Textarea>
             </Field>
             <Field orientation={"horizontal"} className="flex justify-end">
