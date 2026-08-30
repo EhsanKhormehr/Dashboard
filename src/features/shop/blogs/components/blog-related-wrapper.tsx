@@ -13,7 +13,6 @@ const BlogRelatedWrapper = async ({
   id,
 }: BlogRelatedWrapperProps) => {
   const relatedArticles = await getRelatedArticles(category, id);
-  console.log(relatedArticles);
   return (
     <div className="bg-surface shadow-soft-card rounded-xl px-5">
       <div className="py-5 flex items-center gap-2">
