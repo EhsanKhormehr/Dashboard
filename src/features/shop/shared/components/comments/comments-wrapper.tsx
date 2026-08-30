@@ -3,16 +3,25 @@ import { Star } from "lucide-react";
 import CommentsBox from "./comments-box";
 import CommentsForm from "./comments-form";
 import { CommentsProvider } from "./comments-context";
+import { getArticleComments } from "@/features/shop/blogs/services/actions";
 
 type CommentsWrapperProps = {
   type: "product" | "blog";
+  userId: string | null;
+  blogId: string;
 };
 
-const CommentsWrapper = ({ type }: CommentsWrapperProps) => {
+const CommentsWrapper = async ({
+  type,
+  userId,
+  blogId,
+}: CommentsWrapperProps) => {
+  const comments = await getArticleComments(blogId);
+  console.log(comments);
   return (
     <CommentsProvider type={type}>
       <div>
-        <CommentsForm />
+        <CommentsForm userId={userId} blogId={blogId} />
         <div className="mt-10">
           <div className="border-b flex items-center justify-between">
             <div className="py-2">
@@ -29,9 +38,14 @@ const CommentsWrapper = ({ type }: CommentsWrapperProps) => {
             )}
           </div>
           <div>
-            <CommentsBox />
-            <CommentsBox />
-            <CommentsBox />
+            {comments.map((comment) => (
+              <CommentsBox
+                key={comment.id}
+                userName={comment.user?.userName}
+                createdAt={comment.createdAt}
+                content={comment.content}
+              />
+            ))}
           </div>
         </div>
       </div>
