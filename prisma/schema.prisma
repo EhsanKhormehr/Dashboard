@@ -115,26 +115,42 @@ model User {
   sessions       Session[]
   ticketMessages TicketMessage[]
   blogs          Blog[]
+  blogComments   BlogComment[]
 }
 
 model Blog {
-  id          String     @id @default(cuid())
+  id          String        @id @default(cuid())
   title       String
-  slug        String     @unique
+  slug        String        @unique
   description String
   category    String
   thumbnail   String?
-  status      BlogStatus @default(DRAFT)
-  content     String     @db.Text
+  status      BlogStatus    @default(DRAFT)
+  content     String        @db.Text
   tags        BlogTag[]
   readingTime Int?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  user        User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
+  comments    BlogComment[]
 
   @@index([category])
   @@index([createdAt])
+}
+
+model BlogComment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  blogId String?
+  blog   Blog?   @relation(fields: [blogId], references: [id])
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  isApproved Boolean @default(false)
 }
 
 model BlogTag {
