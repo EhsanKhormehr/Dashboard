@@ -9,12 +9,23 @@ import {
 } from "../types/schema";
 import { requireAdmin } from "@/features/auth/utils/requireAdmin";
 import { prisma } from "@/lib/prisma";
-import { BlogStatus, Prisma } from "../../../../../generated/prisma/client";
+import {
+  BlogStatus,
+  CommentStatus,
+  Prisma,
+} from "../../../../../generated/prisma/client";
 
 type GetBlogsVariables = {
   search?: string;
   category?: string;
   status?: BlogStatus | "DEFAULT";
+  perPage?: string;
+  page?: string;
+};
+
+type GetBlogsCommentsVaribles = {
+  search?: string;
+  status?: CommentStatus | "DEFAULT";
   perPage?: string;
   page?: string;
 };
@@ -132,6 +143,81 @@ export const updateBlog = async (id: string, data: BlogFormValues) => {
               id: tagId,
             })),
           },
+        },
+      });
+    },
+  });
+};
+
+// Blog Comments
+export const getBlogsComments = async (params: GetBlogsCommentsVaribles) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      const page = Math.max(1, parseInt(params.page || "1", 10) || 1);
+      const perPage = Math.max(1, parseInt(params.perPage || "12", 10) || 12);
+      const skip = (page - 1) * perPage;
+
+      const where: Prisma.BlogCommentWhereInput = {};
+      if (params.search) {
+        where.blog = {
+          title: {
+            contains: params.search,
+            mode: "insensitive",
+          },
+        };
+      }
+      if (params.status && params.status !== "DEFAULT") {
+        where.status = params.status;
+      }
+      const [comments, totalCount] = await Promise.all([
+        prisma.blogComment.findMany({
+          where,
+          skip,
+          take: perPage,
+          orderBy: {
+            createdAt: "desc",
+          },
+          include: {
+            blog: {
+              select: {
+                title: true,
+                slug: true,
+              },
+            },
+            user: {
+              select: {
+                userName: true,
+              },
+            },
+          },
+        }),
+        prisma.blogComment.count({where}),
+      ]);
+      return {
+        comments,
+        totalCount,
+        page,
+        perPage,
+        totalPages: Math.ceil(totalCount / perPage),
+      };
+    },
+  });
+};
+
+export const updateBlogCommentStatus = async (
+  id: string,
+  status: CommentStatus,
+) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      return await prisma.blogComment.update({
+        where: {
+          id,
+        },
+        data: {
+          status,
         },
       });
     },
