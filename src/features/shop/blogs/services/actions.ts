@@ -160,3 +160,41 @@ export const getArticlesByCategory = async (category: string) => {
     },
   });
 };
+
+export const submitArticleComment = async (
+  content: string,
+  blogId: string,
+  userId: string,
+) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.blogComment.create({
+        data: {
+          content,
+          userId,
+          blogId,
+        },
+      });
+    },
+  });
+};
+
+export const getArticleComments = async (blogId: string) => {
+  return executeAction({
+    actionFn: async () => {
+      return prisma.blogComment.findMany({
+        where: {
+          blogId,
+          isApproved: true,
+        },
+        include: {
+          user: {
+            select: {
+              userName: true,
+            },
+          },
+        },
+      });
+    },
+  });
+};
