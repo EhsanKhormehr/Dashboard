@@ -8,10 +8,12 @@ import {
   deleteBlog,
   deleteBlogTag,
   updateBlog,
+  updateBlogCommentStatus,
   updateBlogTag,
 } from "./actions";
 import { useRouter } from "next/navigation";
 import { BlogFormValues, TagFormValues } from "../types/schema";
+import { CommentStatus } from "../../../../../generated/prisma/enums";
 
 type EditBlogVaribles = {
   id: string;
@@ -21,6 +23,11 @@ type EditBlogVaribles = {
 type EditBlogTagVaribles = {
   id: string;
   data: TagFormValues;
+};
+
+type UpdateBlogCommentStatusVaribles = {
+  id: string;
+  status: CommentStatus;
 };
 
 export const useCreateBlog = () => {
@@ -90,7 +97,25 @@ export const useUpdateBlogTag = () => {
     mutationFn: ({ id, data }: EditBlogTagVaribles) => updateBlogTag(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["blogtag"] });
-      toast.success("Tag updated successfully!")
+      toast.success("Tag updated successfully!");
+    },
+  });
+};
+
+export const useUpdateBlogCommentStatus = () => {
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: ({ id, status }: UpdateBlogCommentStatusVaribles) =>
+      updateBlogCommentStatus(id, status),
+    onSuccess: (_data, variables) => {
+      if (variables.status === "APPROVED") {
+        toast.success("Comment confirmed successfully!");
+      }
+      if (variables.status === "REJECTED") {
+        toast.error("Comment rejected successfully!");
+      }
+      router.refresh();
     },
   });
 };
