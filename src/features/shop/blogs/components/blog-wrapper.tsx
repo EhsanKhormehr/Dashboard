@@ -27,7 +27,7 @@ const BlogWrapper = ({ article }: BlogWrapperProps) => {
     <div className="flex flex-col gap-8">
       <BlogContent article={article} />
       <BlogRelatedWrapper category={article.category} id={article.id}  />
-      <BlogComments />
+      <BlogComments userId={article.userId} blogId={article.id} />
     </div>
   );
 };
