@@ -28,7 +28,7 @@ const CommentsWrapper = async ({
               <span className="text-base font-bold text-surface-foreground">
                 {type === "product" ? "Reviews" : "Comments"}
               </span>
-              <span className="text-muted-foreground text-xs ml-1">(110)</span>
+              <span className="text-muted-foreground text-xs ml-1">({comments.length})</span>
             </div>
             {type === "product" && (
               <div className="flex items-center gap-1 rounded-full border border-yellow-400/50 dark:border-yellow-400/20 bg-yellow-400/10 px-3 py-1 text-xs font-semibold text-rating">
