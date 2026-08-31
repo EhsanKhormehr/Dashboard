@@ -37,6 +37,7 @@ export const basicInfoSchema = z.object({
     .number<number>("Please enter a valid number")
     .int()
     .min(1, "Stock Feild is required"),
+  content: z.string().min(1, "Expert Review Field is required"),
   categoryId: z.string().min(1),
 });
 
@@ -46,6 +47,7 @@ export const basicInfoDefaultValues = {
   description: "",
   price: 0,
   stock: 0,
+  content : "",
   categoryId: "",
   attributes: {},
 };
