@@ -29,8 +29,7 @@ export const newBlogSchema = z.object({
     z.coerce
       .number("Reading time must be a number")
       .int("Reading time must be an integer")
-      .positive("Reading time must be greater than zero")
-      .optional(),
+      .positive("Reading time must be greater than zero"),
   ),
   tags: z.array(z.string().min(1, "Tag name cannot be empty")).optional(),
 });
@@ -45,7 +44,7 @@ export const blogFormDefaultValues: BlogFormValues = {
   description: "",
   category: "",
   status: "DRAFT",
-  readingTime: undefined,
+  readingTime: 0,
   tags: [],
 };
 
