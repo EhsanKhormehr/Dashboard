@@ -18,7 +18,7 @@ type getFilteredProductsParams = {
 export const getCategoryAttributes = async (id: string) => {
   return executeAction({
     actionFn: async () => {
-      await requireAdmin()
+      await requireAdmin();
       if (!id) {
         throw new Error("Category id is required");
       }
@@ -37,7 +37,7 @@ export const getCategoryAttributes = async (id: string) => {
 export const createNewProduct = async (data: ProductFormValues) => {
   return executeAction({
     actionFn: async () => {
-      await requireAdmin()
+      await requireAdmin();
 
       const categoryAttributes = await prisma.categoryAttribute.findMany({
         where: {
@@ -75,6 +75,7 @@ export const createNewProduct = async (data: ProductFormValues) => {
           description: data.description,
           price: data.price,
           stock: data.stock,
+          content: data.content,
           categoryId: data.categoryId,
           slug: data.slug,
           attributes: {
@@ -94,7 +95,7 @@ export const getFilteredProducts = async (
 ) => {
   return executeAction({
     actionFn: async () => {
-      await requireAdmin()
+      await requireAdmin();
 
       const page = parseInt(params.page || "1", 10);
       const limit = parseInt(params.limit || "8", 10);
@@ -156,7 +157,7 @@ export const getFilteredProducts = async (
 export const deleteProduct = async (id: string) => {
   return executeAction({
     actionFn: async () => {
-      await requireAdmin()
+      await requireAdmin();
       return prisma.product.delete({
         where: {
           id,
