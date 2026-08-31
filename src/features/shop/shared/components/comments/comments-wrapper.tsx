@@ -17,7 +17,6 @@ const CommentsWrapper = async ({
   blogId,
 }: CommentsWrapperProps) => {
   const comments = await getArticleComments(blogId);
-  console.log(comments);
   return (
     <CommentsProvider type={type}>
       <div>
