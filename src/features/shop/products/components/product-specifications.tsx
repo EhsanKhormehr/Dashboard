@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/table";
 import { SlidersHorizontal } from "lucide-react";
 import React from "react";
+import { ProductAttributeValue } from "../../../../../generated/prisma/client";
+import { ProductAttributeValueGetPayload } from "../../../../../generated/prisma/models";
 
 const specifications = [
   { feature: "Processor", details: "Intel Core i7-13650HX, 14 cores" },
@@ -23,9 +25,24 @@ const specifications = [
   { feature: "Weight", details: "2.5 kg" },
 ];
 
-const ProductSpecifications = () => {
+type ProductSpecificationsProps = {
+  attributes: ProductAttributeValueGetPayload<{
+    include: {
+      attribute: {
+        select: {
+          name: true;
+        };
+      };
+    };
+  }>[];
+};
+
+const ProductSpecifications = ({ attributes }: ProductSpecificationsProps) => {
   return (
-    <div className="mt-5 bg-surface shadow-soft-card rounded-xl p-5 col-span-12 lg:col-span-9" id="specifications">
+    <div
+      className="mt-5 bg-surface shadow-soft-card rounded-xl p-5 col-span-12 lg:col-span-9"
+      id="specifications"
+    >
       <div className="flex items-center">
         <SlidersHorizontal className="text-primary size-[25px]" />
         <ShopTitle
@@ -42,10 +59,12 @@ const ProductSpecifications = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {specifications.map((specific) => (
-            <TableRow key={specific.feature}>
-              <TableCell className="font-bold py-4">{specific.feature}</TableCell>
-              <TableCell className="py-4">{specific.details}</TableCell>
+          {attributes?.map((attribute) => (
+            <TableRow key={attribute.id}>
+              <TableCell className="font-bold py-4">
+                {attribute.attribute.name}
+              </TableCell>
+              <TableCell className="py-4">{attribute.value}</TableCell>
             </TableRow>
           ))}
         </TableBody>
