@@ -48,6 +48,7 @@ model Product {
   description String?
   price       Float
   stock       Int     @default(0)
+  content     String  @db.Text
 
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
