@@ -25,7 +25,11 @@ const purchaseBenefits = [
   },
 ];
 
-const ProductPurchasePanel = () => {
+type ProductPurchasePanelProps = {
+  price: number;
+};
+
+const ProductPurchasePanel = ({ price }: ProductPurchasePanelProps) => {
   return (
     <aside className="col-span-12 self-start rounded-2xl bg-surface shadow-soft-card px-4 py-5 lg:sticky lg:top-5 lg:col-span-3">
       <div className="rounded-2xl border border-border/70 bg-surface-foreground/5 p-4">
@@ -37,7 +41,7 @@ const ProductPurchasePanel = () => {
 
             <div className="mt-1 flex items-baseline gap-1.5">
               <span className="text-3xl font-black tracking-tight text-foreground">
-                $1,200
+                ${price}
               </span>
               <span className="text-xs font-medium text-muted-foreground">
                 USD
