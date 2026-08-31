@@ -46,9 +46,9 @@ const productSpecs = [
 const ProductInfoPanel = () => {
   return (
     <div className="col-span-12 xl:col-span-6 bg-surface rounded-2xl relative shadow-soft-card p-5">
-      <span className="block text-xs text-muted-foreground font-medium">
+      {/* <span className="block text-xs text-muted-foreground font-medium">
         ASUS ROG
-      </span>
+      </span> */}
       <h1 className="text-lg sm:text-2xl font-black">ROG Strix G16 Gaming Laptop</h1>
       <div className="mt-4 flex justify-between items-center">
         <div className="flex items-center">
