@@ -7,18 +7,31 @@ import ProductRelated from "@/features/shop/products/components/product-related"
 import ProductReviews from "@/features/shop/products/components/product-reviews";
 import ProductSectionsNav from "@/features/shop/products/components/product-sections-nav";
 import ProductSpecifications from "@/features/shop/products/components/product-specifications";
+import { getProductBySlug } from "@/features/shop/products/services/actions";
 import React from "react";
 
-const Product = () => {
+type ProductProps = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
+
+const Product = async ({ params }: ProductProps) => {
+  const urlParams = await params;
+  const slug = urlParams.slug;
+  const product = await getProductBySlug(slug);
+  if (!product) {
+    return <p>Product not found</p>;
+  }
   return (
     <MaxWidthWrapper>
       {/* <ProductBreadcrumb /> */}
       <div className="grid grid-cols-12 mt-10 gap-5 relative">
         <ProductInfoWrapper />
-        <ProductPurchasePanel />
+        <ProductPurchasePanel price={product.price} />
         <ProductSectionsNav />
-        <ProductSpecifications />
-        <ProductExpertReview />
+        <ProductSpecifications attributes={product.attributes} />
+        <ProductExpertReview content={product.content} />
         <ProductRelated />
         <ProductReviews />
       </div>
