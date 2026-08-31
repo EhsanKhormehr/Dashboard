@@ -10,6 +10,8 @@ type HomeDiscountedCardProps = {
   category: string;
   image: string;
   price: number;
+  slug: string;
+  categorySlug: string;
   oldPrice?: number;
   discount?: number;
   badge?: string;
@@ -22,21 +24,21 @@ const ProductCard = ({
   price,
   oldPrice,
   discount,
+  slug,
+  categorySlug
 }: HomeDiscountedCardProps) => {
   return (
     <div className="shadow-soft-card rounded-xl p-4 hover:-translate-y-1.5 transition-transform h-full flex flex-col bg-surface">
       <div>
-        <Heart
-          className="size-[26px] hover:stroke-destructive hover:fill-destructive cursor-pointer"
-        />
+        <Heart className="size-[26px] hover:stroke-destructive hover:fill-destructive cursor-pointer" />
       </div>
-      <Link href={"/"} className="w-full flex justify-center py-7">
+      <Link href={`/products/${slug}`} className="w-full flex justify-center py-7">
         <Image src={image} width={150} height={150} alt="iphone" />
       </Link>
-      <span className="block text-xs text-muted-foreground font-semibold">
+      <Link href={`/products/category/${categorySlug}`} className="block text-xs text-muted-foreground font-semibold">
         {category}
-      </span>
-      <Link href={"/"} className="font-bold my-3 block">
+      </Link>
+      <Link href={`/products/${slug}`} className="font-bold my-3 block">
         {title}
       </Link>
       <div className="flex justify-between items-center mt-auto">
