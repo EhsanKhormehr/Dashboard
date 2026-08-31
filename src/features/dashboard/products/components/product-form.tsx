@@ -33,6 +33,7 @@ import { useCreateNewProduct } from "../services/useMutation";
 import ErrorMessage from "@/components/common/error-message";
 import ControlledInput from "@/components/common/controlled-input";
 import ControlledTextarea from "@/components/common/controlled-textarea";
+import TextEditor from "@/components/common/text-editor";
 
 export default function ProductForm() {
   const { data: categories } = useCategories();
@@ -103,6 +104,18 @@ export default function ProductForm() {
                 placeholder="Stock"
                 label="Stock"
               />
+              <div className="col-span-2">
+                <Controller
+                  control={control}
+                  name="content"
+                  render={({ field }) => (
+                    <TextEditor onChange={field.onChange} value={field.value} />
+                  )}
+                />
+                {errors.content && (
+                  <ErrorMessage text={errors.content.message} />
+                )}
+              </div>
             </FieldGroup>
           </FieldSet>
           <FieldSeparator />
