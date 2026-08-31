@@ -19,10 +19,7 @@ type BlogCommentsProps = {
 const BlogComments = async ({ searchParams }: BlogCommentsProps) => {
   const urlSearchParams = await searchParams;
   const comments = await getBlogsComments(urlSearchParams);
-  console.log(comments.page)
-  console.log(comments.perPage)
-  console.log(comments.totalCount)
-  console.log(comments.totalPages)
+  
   return (
     <div>
       <PageHeader title="Blog Comments" />
