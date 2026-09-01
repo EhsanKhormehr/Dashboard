@@ -27,6 +27,7 @@ const BlogsTag = async ({ params }: BlogsTagProps) => {
             slug={article.slug}
             key={article.id}
             userName={article.user?.userName}
+            thumbnail={article.thumbnail}
           />
         ))}
       </div>
