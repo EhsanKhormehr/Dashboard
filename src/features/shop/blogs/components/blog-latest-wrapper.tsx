@@ -12,6 +12,7 @@ type BlogLatestWrapperProps = {
       createdAt: true;
       category: true;
       slug: true;
+      thumbnail: true;
     };
     orderBy: {
       createdAt: "desc";

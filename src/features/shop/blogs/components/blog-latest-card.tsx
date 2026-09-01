@@ -12,6 +12,8 @@ type BlogLatestCardProps = {
       createdAt: true;
       category: true;
       slug: true;
+      thumbnail : true
+
     };
     orderBy: {
       createdAt: "desc";
@@ -27,7 +29,7 @@ const BlogLatestCard = ({ latestArticle }: BlogLatestCardProps) => {
       className="flex items-center gap-2 py-2 border-b last:border-0"
     >
       <Image
-        src={"/shop/blog-1.jpg"}
+        src={latestArticle.thumbnail}
         width={400}
         height={400}
         alt="blog"

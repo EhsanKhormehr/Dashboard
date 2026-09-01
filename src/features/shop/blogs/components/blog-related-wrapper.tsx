@@ -28,6 +28,7 @@ const BlogRelatedWrapper = async ({
               author={article.user?.userName}
               slug={article.slug}
               createdAt={article.createdAt}
+              thumbnail={article.thumbnail}
             />
           ))}
         </div>

@@ -9,6 +9,7 @@ type BlogRelatedCardProps = {
   author: string | undefined;
   slug: string;
   createdAt: Date;
+  thumbnail: string;
 };
 
 const BlogRelatedCard = ({
@@ -16,20 +17,24 @@ const BlogRelatedCard = ({
   author,
   slug,
   createdAt,
+  thumbnail,
 }: BlogRelatedCardProps) => {
   return (
     <div className="bg-background rounded-xl overflow-hidden shadow-lg flex flex-col h-full">
       <Link href={`/blogs/${slug}`}>
         <Image
-          src={"/shop/blog-1.jpg"}
+          src={thumbnail}
           width={500}
           height={500}
           alt="blog"
-          className="w-full h-full object-cover"
+          className="aspect-video w-full object-cover"
         />
       </Link>
       <div className="p-3 flex flex-col flex-1 gap-5">
-        <Link href={`/blogs/${slug}`} className=" text-sm font-bold line-clamp-2 break-all">
+        <Link
+          href={`/blogs/${slug}`}
+          className=" text-sm font-bold line-clamp-2 break-all"
+        >
           {title}
         </Link>
         <div className="flex justify-between mt-auto items-center gap-2 flex-wrap">
