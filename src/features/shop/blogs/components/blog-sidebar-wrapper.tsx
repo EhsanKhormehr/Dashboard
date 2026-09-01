@@ -11,6 +11,7 @@ type BlogSidebarWrapperProps = {
       createdAt: true;
       category: true;
       slug: true;
+      thumbnail : true
     };
     orderBy: {
       createdAt: "desc";
