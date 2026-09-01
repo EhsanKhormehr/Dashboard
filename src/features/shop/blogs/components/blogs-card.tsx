@@ -12,6 +12,7 @@ type BlogsCardProps = {
   userName?: string;
   createdAt: Date;
   slug: string;
+  thumbnail: string;
 };
 
 const BlogsCard = ({
@@ -20,17 +21,20 @@ const BlogsCard = ({
   userName,
   createdAt,
   slug,
+  thumbnail,
 }: BlogsCardProps) => {
   return (
     <div className="bg-surface shadow-soft-card rounded-xl overflow-hidden transition-transform duration-300 hover:-translate-y-2 flex flex-col h-full">
       <Link href={`/blogs/${slug}`}>
-        <Image
-          src={"/shop/blog-2.jpg"}
-          width={300}
-          height={150}
-          alt="blog"
-          className="w-full h-auto object-contain rounded-xl"
-        />
+        <div className="block h-auto">
+          <Image
+            src={thumbnail}
+            width={500}
+            height={500}
+            alt="blog"
+            className="block w-full object-cover aspect-video"
+          />
+        </div>
       </Link>
       <div className="p-4 flex flex-col flex-1">
         <Link href={`/blogs/${slug}`} className="font-extrabold line-clamp-3">

@@ -14,6 +14,7 @@ const BlogsLatestWrapper = async () => {
           category={article.category}
           slug={article.slug}
           createdAt={article.createdAt}
+          thumbnail={article.thumbnail}
         />
       ))}
     </>

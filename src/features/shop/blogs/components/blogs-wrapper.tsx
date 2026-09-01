@@ -90,6 +90,7 @@ const BlogsWrapper = ({ articles }: BlogsWrapperProps) => {
             title={article.title}
             userName={article.user?.userName}
             key={article.id}
+            thumbnail={article.thumbnail}
           />
         ))}
       </div>

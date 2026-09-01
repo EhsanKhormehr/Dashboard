@@ -10,6 +10,7 @@ type LatestBlogCardProps = {
   category: string;
   slug: string;
   createdAt: Date;
+  thumbnail: string;
 };
 
 const BlogsLatestCard = ({
@@ -18,13 +19,17 @@ const BlogsLatestCard = ({
   id,
   slug,
   createdAt,
+  thumbnail,
 }: LatestBlogCardProps) => {
   return (
     <div className="flex items-center rounded-md overflow-hidden">
       <div className="hidden md:flex">
-        <Link href={`/blogs/${slug}`} className="w-[120px] h-auto lg:w-[280px] lg:h-[170px]">
+        <Link
+          href={`/blogs/${slug}`}
+          className="w-[120px] h-auto lg:w-[280px] lg:h-[170px]"
+        >
           <Image
-            src={"/shop/blog-1.jpg"}
+            src={thumbnail}
             width={1000}
             height={1000}
             alt="blog"
