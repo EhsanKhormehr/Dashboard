@@ -17,7 +17,7 @@ export const newBlogSchema = z.object({
       /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
       "Slug must contain only English letters, numbers, and hyphens",
     ),
-  thumbnail: z.string().optional(),
+  thumbnail: z.any().optional(),
   content: z.any(),
   description: z.string().trim().min(1, "Description field is required!"),
   category: z.string().min(1, "Category filed is required"),
