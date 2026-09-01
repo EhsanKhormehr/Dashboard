@@ -20,6 +20,7 @@ export const getLatestArticles = async () => {
           createdAt: true,
           category: true,
           slug: true,
+          thumbnail: true,
         },
         orderBy: {
           createdAt: "desc",
