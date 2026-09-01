@@ -78,6 +78,8 @@ export const createNewProduct = async (data: ProductFormValues) => {
           content: data.content,
           categoryId: data.categoryId,
           slug: data.slug,
+          thumbnail: data.thumbnail,
+          images: data.images,
           attributes: {
             create: attributeValues,
           },
