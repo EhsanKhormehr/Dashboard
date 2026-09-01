@@ -14,7 +14,7 @@ const BlogShareWrapper = () => {
         <div className="flex gap-2">
           <Link href={"/"} className="bg-gray-400/70 dark:bg-background dark:hover:bg-primary p-2 hover:bg-primary transition duration-300 rounded-sm">
             <Image
-              src={"/shop/telegram.svg"}
+              src={"/telegram.svg"}
               width={20}
               height={20}
               alt="share"
@@ -23,7 +23,7 @@ const BlogShareWrapper = () => {
           </Link>
           <Link href={"/"} className="bg-gray-400/70 dark:bg-background dark:hover:bg-primary p-2 hover:bg-primary transition duration-300 rounded-sm">
             <Image
-              src={"/shop/instagram.svg"}
+              src={"/instagram.svg"}
               width={20}
               height={20}
               alt="share"
@@ -32,7 +32,7 @@ const BlogShareWrapper = () => {
           </Link>
           <Link href={"/"} className="bg-gray-400/70 dark:bg-background dark:hover:bg-primary p-2 hover:bg-primary transition duration-300 rounded-sm">
             <Image
-              src={"/shop/whatsapp.svg"}
+              src={"/whatsapp.svg"}
               width={20}
               height={20}
               alt="share"
