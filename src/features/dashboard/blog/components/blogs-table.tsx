@@ -27,6 +27,7 @@ export const blogStatusVariants = {
   ARCHIVED:
     "border-gray-200 bg-gray-100 text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400",
 } as const;
+
 export const blogStatusLabel = {
   DRAFT: "Draft",
   PUBLISHED: "Published",
@@ -67,10 +68,10 @@ const BlogsTable = ({ blogs }: BlogsTableProps) => {
           <TableRow key={blog.id}>
             <TableCell>
               <Image
-                src={"/shop/promo-1.png"}
-                width={70}
-                height={70}
-                className="rounded-md"
+                src={blog.thumbnail}
+                width={500}
+                height={500}
+                className="rounded-md h-[40px] w-[70px]"
                 alt="blog"
               />
             </TableCell>
