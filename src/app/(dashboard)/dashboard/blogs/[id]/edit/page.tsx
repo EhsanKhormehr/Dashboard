@@ -23,7 +23,7 @@ const BlogEdit = async ({ params }: { params: Promise<{ id: string }> }) => {
       status: true,
       thumbnail: true,
       tags: true,
-      readingTime : true
+      readingTime: true,
     },
   });
   if (!data) {
@@ -36,9 +36,9 @@ const BlogEdit = async ({ params }: { params: Promise<{ id: string }> }) => {
     description: data.description,
     category: data.category,
     status: data.status as BlogStatus,
-    thumbnail: data.thumbnail ?? undefined,
+    thumbnail: data.thumbnail,
     tags: data.tags.map((tag) => tag.id),
-    readingTime : data.readingTime ?? undefined
+    readingTime: data.readingTime ?? 0,
   };
   return (
     <div>
