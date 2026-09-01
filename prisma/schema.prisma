@@ -125,7 +125,7 @@ model Blog {
   slug        String        @unique
   description String
   category    String
-  thumbnail   String?
+  thumbnail   String
   status      BlogStatus    @default(DRAFT)
   content     String        @db.Text
   tags        BlogTag[]
