@@ -26,6 +26,7 @@ const BlogsCategory = async ({ params }: BlogsCategoryProps) => {
             slug={article.slug}
             key={article.id}
             userName={article.user?.userName}
+            thumbnail={article.thumbnail}
           />
         ))}
       </div>
