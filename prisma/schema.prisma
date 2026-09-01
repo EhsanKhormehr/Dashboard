@@ -42,13 +42,15 @@ model CategoryAttribute {
 }
 
 model Product {
-  id          String  @id @default(cuid())
+  id          String   @id @default(cuid())
   name        String
-  slug        String  @unique
+  slug        String   @unique
   description String?
   price       Float
-  stock       Int     @default(0)
-  content     String  @db.Text
+  stock       Int      @default(0)
+  content     String   @db.Text
+  thumbnail   String   @default("")
+  images      String[]
 
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
