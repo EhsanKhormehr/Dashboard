@@ -34,6 +34,8 @@ import ErrorMessage from "@/components/common/error-message";
 import ControlledInput from "@/components/common/controlled-input";
 import ControlledTextarea from "@/components/common/controlled-textarea";
 import TextEditor from "@/components/common/text-editor";
+import ImageUploader from "@/components/common/image-uploader";
+import MultiplaImageUploader from "@/components/common/multiple-image-uploader";
 
 export default function ProductForm() {
   const { data: categories } = useCategories();
@@ -105,6 +107,21 @@ export default function ProductForm() {
                 label="Stock"
               />
               <div className="col-span-2">
+                <ImageUploader<ProductFormValues>
+                  id="thumbnail"
+                  name="thumbnail"
+                  label="Thumbnail"
+                />
+                <div className="mt-5">
+                  <MultiplaImageUploader<ProductFormValues>
+                    name="images"
+                    id="images-uploader"
+                    label="Product Images"
+                  />
+                </div>
+              </div>
+              <div className="col-span-2">
+                <FieldLabel className="mb-2">Expert Review</FieldLabel>
                 <Controller
                   control={control}
                   name="content"
