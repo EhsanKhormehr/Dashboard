@@ -39,6 +39,8 @@ export const basicInfoSchema = z.object({
     .min(1, "Stock Feild is required"),
   content: z.string().min(1, "Expert Review Field is required"),
   categoryId: z.string().min(1),
+  thumbnail: z.any(),
+  images: z.any(),
 });
 
 export const basicInfoDefaultValues = {
@@ -47,9 +49,11 @@ export const basicInfoDefaultValues = {
   description: "",
   price: 0,
   stock: 0,
-  content : "",
+  content: "",
   categoryId: "",
   attributes: {},
+  thumbnail: "",
+  images: "",
 };
 
 export type BasicInfoFormValues = z.infer<typeof basicInfoSchema>;
