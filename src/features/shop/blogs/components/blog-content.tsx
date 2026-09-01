@@ -5,6 +5,7 @@ import React from "react";
 import { Prisma } from "../../../../../generated/prisma/client";
 import DOMPurify from "isomorphic-dompurify";
 import { formatDistanceToNow } from "date-fns";
+import Image from "next/image";
 
 type BlogContentProps = {
   article: Prisma.BlogGetPayload<{
@@ -58,6 +59,15 @@ const BlogContent = ({ article }: BlogContentProps) => {
           </div>
         </div>
       </div>
+      <div className="h-auto">
+        <Image
+          src={article.thumbnail}
+          width={1000}
+          height={1000}
+          alt="blog"
+          className="rounded-xl mb-7 w-full aspect-[2/1] object-cover"
+        />
+      </div>
       <div
         className="pb-5 border-b tiptap"
         dangerouslySetInnerHTML={{ __html: sanitizeContent }}
@@ -69,7 +79,7 @@ const BlogContent = ({ article }: BlogContentProps) => {
             {article.tags?.map((tag) => {
               return (
                 <Link
-                key={tag.id}
+                  key={tag.id}
                   href={`/blogs/tag/${tag.slug}`}
                   className="text-xs bg-muted hover:bg-primary duration-300 py-1 px-3 rounded-2xl"
                 >
