@@ -33,7 +33,7 @@ const ImageUploader = <T extends FieldValues>({
   };
   return (
     <>
-      {label && <FieldLabel>{label}</FieldLabel>}
+      {label && <FieldLabel className="mb-2">{label}</FieldLabel>}
       <Controller
         control={control}
         name={name}
@@ -81,7 +81,6 @@ const ImageUploader = <T extends FieldValues>({
                   className="hidden"
                   onChange={(event) => {
                     const file = event.target.files?.[0];
-                    console.log(event.target.files)
                     if (!file) return;
                     field.onChange(normalizeImage(file.name));
                     imageChangeHandler(event);
