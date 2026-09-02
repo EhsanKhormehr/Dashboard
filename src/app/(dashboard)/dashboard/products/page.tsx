@@ -56,7 +56,7 @@ export default async function Products({ searchParams }: ProductsProps) {
             <ProductsCard
               key={product.id}
               id={product.id}
-              img="/apple-watch1.png"
+              thumbnail={product.thumbnail}
               name={product.name}
               price={product.price}
               rate="4"
