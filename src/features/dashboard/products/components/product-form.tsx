@@ -29,7 +29,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { useCreateNewProduct } from "../services/useMutation";
+import { useCreateNewProduct, useUpdateProduct } from "../services/useMutation";
 import ErrorMessage from "@/components/common/error-message";
 import ControlledInput from "@/components/common/controlled-input";
 import ControlledTextarea from "@/components/common/controlled-textarea";
@@ -37,10 +37,22 @@ import TextEditor from "@/components/common/text-editor";
 import ImageUploader from "@/components/common/image-uploader";
 import MultiplaImageUploader from "@/components/common/multiple-image-uploader";
 
-export default function ProductForm() {
+type ProductFormProps = {
+  mode: "create" | "edit";
+  initialValue?: ProductFormValues;
+  productId?: string;
+};
+
+export default function ProductForm({
+  mode,
+  initialValue,
+  productId,
+}: ProductFormProps) {
   const { data: categories } = useCategories();
 
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>(
+    initialValue?.categoryId ?? "",
+  );
 
   const { data: categoryAttributes } =
     useCategoryAttributes(selectedCategoryId);
@@ -52,7 +64,7 @@ export default function ProductForm() {
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(schema),
-    defaultValues: basicInfoDefaultValues,
+    defaultValues: initialValue ?? basicInfoDefaultValues,
     mode: "onChange",
   });
 
@@ -62,10 +74,19 @@ export default function ProductForm() {
     formState: { errors },
   } = form;
 
-  const { mutate } = useCreateNewProduct();
+  const { mutate: createProduct } = useCreateNewProduct();
+  const { mutate: updateProduct } = useUpdateProduct();
 
   const submitProductForm = (data: ProductFormValues) => {
-    mutate(data);
+    if (mode === "create") {
+      createProduct(data);
+    }
+    if (mode === "edit") {
+      if (!productId) {
+        return;
+      }
+      updateProduct({ id: productId, data });
+    }
   };
 
   return (
@@ -111,12 +132,14 @@ export default function ProductForm() {
                   id="thumbnail"
                   name="thumbnail"
                   label="Thumbnail"
+                  initImage={initialValue?.thumbnail}
                 />
                 <div className="mt-5">
                   <MultiplaImageUploader<ProductFormValues>
                     name="images"
                     id="images-uploader"
                     label="Product Images"
+                    initImages={initialValue?.images}
                   />
                 </div>
               </div>
