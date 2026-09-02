@@ -9,7 +9,7 @@ import React from "react";
 
 type ProductsCardProps = {
   id : string
-  img : string
+  thumbnail : string
   name : string
   price : number
   rate : string
@@ -19,12 +19,12 @@ type ProductsCardProps = {
 function ProductsCard(data:ProductsCardProps) {
   return (
     <div className="bg-surface shadow-card rounded-3xl overflow-hidden">
-      <div className="relative h-[300px] w-full overflow-hidden bg-white">
+      <div className="relative h-[300px] w-full overflow-hidden ">
         <Image
-          src={data.img}
+          src={data.thumbnail}
           alt={"/apple-watch1.png"}
           fill
-          className="object-contain p-8"
+          className="object-cover aspect-video"
         />
       </div>
 
