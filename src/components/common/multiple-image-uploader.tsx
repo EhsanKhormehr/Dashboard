@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Controller,
   ControllerRenderProps,
@@ -26,9 +26,12 @@ const MultiplaImageUploader = <T extends FieldValues>({
   id,
   label,
 }: MultiplaImageUploaderProps<T>) => {
+  console.log(initImages);
   const { control } = useFormContext<T>();
-  const [images, setImages] = useState<string[]>([]);
-  const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [images, setImages] = useState<string[]>(initImages ?? []);
+  const [previewImages, setPreviewImages] = useState<string[]>(
+    initImages ?? [],
+  );
 
   const imagesChangeHandler = (files: File[]) => {
     const previewImages = files.map((file) => {
