@@ -92,6 +92,57 @@ export const createNewProduct = async (data: ProductFormValues) => {
   });
 };
 
+export const updateProduct = async (id: string, data: ProductFormValues) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+
+      const categoryAttributes = await prisma.categoryAttribute.findMany({
+        where: { categoryId: data.categoryId },
+        select: { id: true, slug: true },
+      });
+
+      const attributeMap = new Map(
+        categoryAttributes.map((attribute) => [attribute.slug, attribute.id]),
+      );
+
+      const attributeValues = Object.entries(data.attributes ?? {})
+        .map(([slug, value]) => {
+          const attributeId = attributeMap.get(slug);
+          if (!attributeId) return null;
+
+          return {
+            attributeId,
+            value: String(value),
+          };
+        })
+        .filter(
+          (item): item is { attributeId: string; value: string } =>
+            item !== null,
+        );
+
+      return prisma.product.update({
+        where: { id },
+        data: {
+          name: data.name,
+          slug: data.slug,
+          description: data.description,
+          price: data.price,
+          stock: data.stock,
+          thumbnail: data.thumbnail,
+          images: data.images,
+          content: data.content,
+          categoryId: data.categoryId,
+          attributes: {
+            deleteMany: {},
+            create: attributeValues,
+          },
+        },
+      });
+    },
+  });
+};
+
 export const getFilteredProducts = async (
   params: getFilteredProductsParams,
 ) => {
@@ -163,6 +214,29 @@ export const deleteProduct = async (id: string) => {
       return prisma.product.delete({
         where: {
           id,
+        },
+      });
+    },
+  });
+};
+
+export const getProductById = async (id: string) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.product.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          attributes: {
+            include: {
+              attribute: {
+                select: {
+                  slug: true,
+                },
+              },
+            },
+          },
         },
       });
     },
