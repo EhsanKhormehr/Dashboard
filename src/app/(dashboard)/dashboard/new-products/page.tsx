@@ -13,7 +13,7 @@ export default function NewProduct() {
           <CardTitle className="font-bold text-2xl">New Product</CardTitle>
         </CardHeader>
         <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-          <ProductForm />
+          <ProductForm mode="create" />
         </CardContent>
       </Card>
     </div>
