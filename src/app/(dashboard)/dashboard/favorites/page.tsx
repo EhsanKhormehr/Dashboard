@@ -1,7 +1,7 @@
 import PageHeader from "@/components/common/page-header";
 import { Input } from "@/components/ui/input";
 import ProductsCard from "@/features/dashboard/products/components/products-card";
-import ProductsFilter from "@/features/dashboard/products/components/products-filter";
+import ProductsFilter from "@/features/dashboard/products/components/products-pro-filter";
 import { Search } from "lucide-react";
 import React from "react";
 
