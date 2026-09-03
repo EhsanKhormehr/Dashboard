@@ -6,13 +6,12 @@ import { Prisma } from "../../../../../generated/prisma/browser";
 import { requireAdmin } from "@/features/auth/utils/requireAdmin";
 
 type getFilteredProductsParams = {
-  q?: string;
-  sortBy?: string;
+  search?: string;
+  status?: string;
   category?: string;
+  sortBy?: string;
+  perPage?: string;
   page?: string;
-  limit?: string;
-  minPrice?: string;
-  maxPrice?: string;
 };
 
 export const getCategoryAttributes = async (id: string) => {
@@ -150,39 +149,61 @@ export const getFilteredProducts = async (
     actionFn: async () => {
       await requireAdmin();
 
-      const page = parseInt(params.page || "1", 10);
-      const limit = parseInt(params.limit || "8", 10);
-      const skip = (page - 1) * limit;
+      const page = Math.max(1, parseInt(params.page || "1", 10) || 1);
+      const perPage = Math.max(1, parseInt(params.perPage || "12", 10) || 12);
+      const skip = (page - 1) * perPage;
 
       const where: Prisma.ProductWhereInput = {};
 
-      if (params.q) {
-        where.name = { contains: params.q, mode: "insensitive" };
+      if (params.search) {
+        where.name = { contains: params.search, mode: "insensitive" };
       }
 
-      if (params.category && params.category !== "default") {
+      if (params.category && params.category !== "ALL") {
         where.categoryId = params.category;
       }
 
-      if (params.minPrice || params.maxPrice) {
-        where.price = {
-          ...(params.minPrice && { gte: parseFloat(params.minPrice) }),
-          ...(params.maxPrice && { lte: parseFloat(params.maxPrice) }),
-        };
+      if (params.status && params.status !== "ALL") {
+        switch (params.status) {
+          case "INSTOCK":
+            {
+              where.stock = {
+                gt: 0,
+              };
+            }
+            break;
+          case "OUTOFSTOCK":
+            {
+              where.stock = {
+                equals: 0,
+              };
+            }
+            break;
+        }
       }
 
       const orderBy: Prisma.ProductOrderByWithRelationInput = {};
 
-      switch (params.sortBy) {
-        case "price-asc":
-          orderBy.price = "asc";
-          break;
-        case "price-desc":
-          orderBy.price = "desc";
-          break;
-        default:
-          orderBy.createdAt = "desc";
-          break;
+      if (params.sortBy && params.sortBy !== "DEFAULT") {
+        switch (params.sortBy) {
+          case "PRICEASC":
+            orderBy.price = "asc";
+            break;
+          case "PRICEDESC":
+            orderBy.price = "desc";
+            break;
+          case "NEWEST":
+            orderBy.createdAt = "desc";
+            break;
+          case "OLDEST":
+            orderBy.createdAt = "asc";
+            break;
+          default:
+            {
+              orderBy.createdAt = "desc";
+            }
+            break;
+        }
       }
 
       const [products, totalCount] = await prisma.$transaction([
@@ -190,7 +211,7 @@ export const getFilteredProducts = async (
           where,
           orderBy,
           skip,
-          take: limit,
+          take: perPage,
           include: {
             category: true,
           },
@@ -200,7 +221,8 @@ export const getFilteredProducts = async (
       return {
         products,
         totalCount,
-        totalPages: Math.ceil(totalCount / limit),
+        perPage,
+        totalPages: Math.ceil(totalCount / perPage),
         currentPage: page,
       };
     },
@@ -239,6 +261,15 @@ export const getProductById = async (id: string) => {
           },
         },
       });
+    },
+  });
+};
+
+export const getCategories = async () => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      return prisma.category.findMany({});
     },
   });
 };
