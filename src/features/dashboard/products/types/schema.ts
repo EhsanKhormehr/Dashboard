@@ -36,7 +36,7 @@ export const basicInfoSchema = z.object({
   stock: z.coerce
     .number<number>("Please enter a valid number")
     .int()
-    .min(1, "Stock Feild is required"),
+    .min(0, "Stock Feild is required"),
   content: z.string().min(1, "Expert Review Field is required"),
   categoryId: z.string().min(1),
   thumbnail: z.any(),
