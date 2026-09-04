@@ -7,57 +7,22 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import ProductCard from "./product-card";
 import { Autoplay } from "swiper/modules";
+import { ProductGetPayload } from "../../../../../generated/prisma/models";
 
-export const relatedProducts = [
-  {
-    title: "Wireless Bluetooth Headphones",
-    category: "Audio",
-    image: "/shop/iphone-14.png",
-    price: 89.99,
-    oldPrice: 119.99,
-    discount: 25,
-  },
-  {
-    title: "Smart Fitness Watch",
-    category: "Wearables",
-    image: "/shop/iphone-14.png",
-    price: 149.99,
-    oldPrice: 199.99,
-    discount: 25,
-  },
-  {
-    title: "Portable Bluetooth Speaker",
-    category: "Audio",
-    image: "/shop/iphone-14.png",
-    price: 59.99,
-    oldPrice: 79.99,
-    discount: 20,
-  },
-  {
-    title: "USB-C Fast Charger",
-    category: "Accessories",
-    image: "/shop/iphone-14.png",
-    price: 24.99,
-  },
-  {
-    title: "Ergonomic Wireless Mouse",
-    category: "Computer Accessories",
-    image: "/shop/iphone-14.png",
-    price: 39.99,
-    oldPrice: 49.99,
-    discount: 20,
-  },
-  {
-    title: "Mechanical Gaming Keyboard",
-    category: "Gaming",
-    image: "/shop/iphone-14.png",
-    price: 129.99,
-    oldPrice: 159.99,
-    discount: 19,
-  },
-];
+type ProductRelatedProps = {
+  products: ProductGetPayload<{
+    include: {
+      category: {
+        select: {
+          name: true;
+          slug: true;
+        };
+      };
+    };
+  }>[];
+};
 
-const ProductRelated = () => {
+const ProductRelated = ({ products }: ProductRelatedProps) => {
   return (
     <div className="col-span-12 lg:col-span-9">
       <div className="flex items-center">
@@ -82,25 +47,27 @@ const ProductRelated = () => {
             1024: {
               slidesPerView: 2,
             },
-            1280 : {
-                slidesPerView : 3
-            }
+            1280: {
+              slidesPerView: 3,
+            },
           }}
           className="related-products-slider"
           loop
           modules={[Autoplay]}
           autoplay
         >
-          {relatedProducts.map((product) => (
+          {products.map((product) => (
             <SwiperSlide className="!h-auto flex">
               <ProductCard
-                category={product.category}
+                category={product.category.name}
                 price={product.price}
-                image={product.image}
-                title={product.title}
-                discount={product.discount}
-                oldPrice={product.oldPrice}
-                key={product.title}
+                image={product.thumbnail}
+                title={product.name}
+                categorySlug={product.category.name}
+                slug={product.slug}
+                // discount={product.discount}
+                // oldPrice={product.oldPrice}
+                key={product.id}
               />
             </SwiperSlide>
           ))}
