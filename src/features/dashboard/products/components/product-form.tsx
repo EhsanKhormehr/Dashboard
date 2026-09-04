@@ -48,7 +48,6 @@ export default function ProductForm({
   initialValue,
   productId,
 }: ProductFormProps) {
-  console.log(initialValue);
   const { data: categories } = useCategories();
 
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>(
