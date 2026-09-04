@@ -1,6 +1,6 @@
 "use server";
 import { prisma } from "@/lib/prisma";
-import { ProductFormValues } from "../types/schema";
+import { NewBrandFormValues, ProductFormValues } from "../types/schema";
 import { executeAction } from "@/lib/executeAction";
 import { Prisma } from "../../../../../generated/prisma/browser";
 import { requireAdmin } from "@/features/auth/utils/requireAdmin";
@@ -79,7 +79,7 @@ export const createNewProduct = async (data: ProductFormValues) => {
           slug: data.slug,
           thumbnail: data.thumbnail,
           images: data.images,
-          brand: data.brand,
+          brandId: data.brandId,
           attributes: {
             create: attributeValues,
           },
@@ -133,7 +133,7 @@ export const updateProduct = async (id: string, data: ProductFormValues) => {
           images: data.images,
           content: data.content,
           categoryId: data.categoryId,
-          brand: data.brand,
+          brandId: data.brandId,
           attributes: {
             deleteMany: {},
             create: attributeValues,
@@ -272,6 +272,100 @@ export const getCategories = async () => {
     actionFn: async () => {
       await requireAdmin();
       return prisma.category.findMany({});
+    },
+  });
+};
+
+// Brand
+export const createNewBrand = async (data: NewBrandFormValues) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      return await prisma.brand.create({
+        data: {
+          name: data.name,
+          slug: data.slug,
+          logo: data.logo,
+        },
+      });
+    },
+  });
+};
+
+export const getBrands = async () => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+
+      return await prisma.brand.findMany({
+        where: {},
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          _count: {
+            select: {
+              products: true,
+            },
+          },
+        },
+      });
+    },
+  });
+};
+
+export const getBrandBySlug = async (slug: string) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+
+      return await prisma.brand.findUnique({
+        where: {
+          slug,
+        },
+      });
+    },
+  });
+};
+
+export const updateBrand = async (id: string, data: NewBrandFormValues) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+
+      return await prisma.brand.update({
+        where: {
+          id,
+        },
+        data: {
+          name: data.name,
+          slug: data.slug,
+          logo: data.logo,
+        },
+      });
+    },
+  });
+};
+
+export const deleteBrand = async (id: string) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      try {
+        return await prisma.brand.delete({
+          where: {
+            id,
+          },
+        });
+      } catch (error) {
+        const code = (error as any)?.code ?? (error as any)?.cause?.code;
+        if (code === "23001") {
+          throw new Error(
+            "This brand cannot be deleted because it is linked to other records.",
+          );
+        }
+        throw error;
+      }
     },
   });
 };
