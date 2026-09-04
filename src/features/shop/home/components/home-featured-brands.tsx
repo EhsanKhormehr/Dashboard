@@ -6,37 +6,37 @@ import HomeFeaturedBrandsCard from "./home-featured-brands-card";
 export const featuredBrands = [
   {
     name: "Redragon",
-    image: "/shop/redragon.svg",
+    image: "/redragon.svg",
     href: "/products?brand=redragon",
   },
   {
     name: "Samsung",
-    image: "/shop/samsung.svg",
+    image: "/samsung.svg",
     href: "/products?brand=samsung",
   },
   {
     name: "NVIDIA",
-    image: "/shop/nvidia.svg",
+    image: "/nvidia.svg",
     href: "/products?brand=nvidia",
   },
   {
     name: "Razer",
-    image: "/shop/razer.svg",
+    image: "/razer.svg",
     href: "/products?brand=razer",
   },
   {
     name: "AMD",
-    image: "/shop/amd.svg",
+    image: "/amd.svg",
     href: "/products?brand=amd",
   },
   {
     name: "Intel",
-    image: "/shop/intel.svg",
+    image: "/intel.svg",
     href: "/products?brand=intel",
   },
   {
     name: "ROG",
-    image: "/shop/rog.svg",
+    image: "/rog.svg",
     href: "/products?brand=rog",
   },
 ];

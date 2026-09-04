@@ -22,7 +22,7 @@ const HomeBanner = () => {
         <SwiperSlide>
           <Link href={"/"}>
             <Image
-              src={"/shop/banner-1.png"}
+              src={"/banner-1.png"}
               width={1900}
               height={600}
               alt="banner"
@@ -33,7 +33,7 @@ const HomeBanner = () => {
         <SwiperSlide>
           <Link href={"/"}>
             <Image
-              src={"/shop/banner-2.png"}
+              src={"/banner-2.png"}
               width={1900}
               height={600}
               alt="banner"

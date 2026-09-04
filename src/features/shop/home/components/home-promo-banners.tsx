@@ -10,7 +10,7 @@ const HomePromoBanners = () => {
         <Link href={"/"} className="rounded-2xl ">
           <Image
             className="h-auto w-full rounded-2xl aspect-[5/2]"
-            src={"/shop/promo-1.png"}
+            src={"/promo-1.png"}
             width={750}
             height={300}
             alt="banner"
@@ -19,7 +19,7 @@ const HomePromoBanners = () => {
         <Link href={"/"} className="rounded-2xl ">
           <Image
             className="h-auto w-full rounded-2xl aspect-[5/2]"
-            src={"/shop/promo-2.png"}
+            src={"/promo-2.png"}
             width={750}
             height={300}
             alt="banner"
