@@ -1,55 +1,23 @@
-import {
-  Cpu,
-  Fan,
-  HardDrive,
-  MemoryStick,
-  Monitor,
-  MonitorCog,
-  Star,
-} from "lucide-react";
+"use client";
+import { Star } from "lucide-react";
+import { useParams } from "next/navigation";
 import React from "react";
-import ProductInfoPanelBox from "./product-info-panel-box";
-
-const productSpecs = [
-  {
-    label: "CPU",
-    value: "Intel Core i7-13650HX",
-    icon: Cpu,
-  },
-  {
-    label: "GPU",
-    value: "NVIDIA RTX 4060 8GB",
-    icon: MonitorCog,
-  },
-  {
-    label: "RAM",
-    value: "16GB DDR5",
-    icon: MemoryStick,
-  },
-  {
-    label: "Storage",
-    value: "1TB NVMe SSD",
-    icon: HardDrive,
-  },
-  {
-    label: "Display",
-    value: '16" FHD+ 165Hz',
-    icon: Monitor,
-  },
-  {
-    label: "Cooling",
-    value: "ROG Intelligent Cooling",
-    icon: Fan,
-  },
-];
+import { useGetProductBySlug } from "../services/useQueries";
+import Link from "next/link";
 
 const ProductInfoPanel = () => {
+  const params = useParams();
+  const slug = params.slug;
+  const { data: product } = useGetProductBySlug(slug as string);
+  if (!product) {
+    return;
+  }
   return (
-    <div className="col-span-12 xl:col-span-6 bg-surface rounded-2xl relative shadow-soft-card p-5">
-      {/* <span className="block text-xs text-muted-foreground font-medium">
-        ASUS ROG
-      </span> */}
-      <h1 className="text-lg sm:text-2xl font-black">ROG Strix G16 Gaming Laptop</h1>
+    <div className="col-span-12 xl:col-span-6 bg-surface rounded-2xl relative shadow-soft-card p-5 self-start">
+      <span className="block text-xs text-muted-foreground font-medium">
+        {product?.brand}
+      </span>
+      <h1 className="text-lg sm:text-2xl font-black">{product?.name}</h1>
       <div className="mt-4 flex justify-between items-center">
         <div className="flex items-center">
           <Star className="fill-rating stroke-rating" />
@@ -62,7 +30,7 @@ const ProductInfoPanel = () => {
           (124 Reviews)
         </span>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-5 mt-5">
+      {/* <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-5 mt-5">
         {productSpecs.map((spec) => (
           <ProductInfoPanelBox
             key={spec.label}
@@ -71,20 +39,33 @@ const ProductInfoPanel = () => {
             value={spec.value}
           />
         ))}
-      </div>
+      </div> */}
       <p className="mt-5 text-sm text-muted-foreground font-medium">
-        Built for smooth gaming and heavy multitasking, this laptop combines
-        powerful performance, fast storage, and advanced cooling in a sleek ROG
-        design.
+        {product?.description}
       </p>
       <div className="flex items-center mt-5 gap-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-        <span>
+        {/* <span>
           SKU: <span className="text-surface-foreground">ROG-G16-2024-BL</span>
-        </span>
-        <span className="w-px h-3 bg-surface-foreground/10"></span>
+        </span> */}
+        {/* <span className="w-px h-3 bg-surface-foreground/10"></span> */}
         <span>
-          Category: <span className="text-surface-foreground">Gaming Laptops</span>
+          Category:
+          <Link
+            href={`/products/category/${product.category.slug}`}
+            className="text-surface-foreground"
+          >
+            <span> {product.category.name}</span>
+          </Link>
         </span>
+      </div>
+      <div className="mt-5 rounded-xl border-2 border-destructive border-dashed p-3 bg-destructive/10">
+        <h4 className="font-extrabold text-destructive">
+          ☂️ Return & Refund Policy
+        </h4>
+        <p className="text-sm text-destructive my-4">
+          Returns are accepted only when the item is in its original condition.
+          Sealed products are not eligible for return once opened.
+        </p>
       </div>
     </div>
   );
