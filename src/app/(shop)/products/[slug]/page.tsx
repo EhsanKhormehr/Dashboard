@@ -7,7 +7,10 @@ import ProductRelated from "@/features/shop/products/components/product-related"
 import ProductReviews from "@/features/shop/products/components/product-reviews";
 import ProductSectionsNav from "@/features/shop/products/components/product-sections-nav";
 import ProductSpecifications from "@/features/shop/products/components/product-specifications";
-import { getProductBySlug } from "@/features/shop/products/services/actions";
+import {
+  getProductBySlug,
+  getRelatedProducts,
+} from "@/features/shop/products/services/actions";
 import React from "react";
 
 type ProductProps = {
@@ -23,16 +26,20 @@ const Product = async ({ params }: ProductProps) => {
   if (!product) {
     return <p>Product not found</p>;
   }
+  const relatedProducts = await getRelatedProducts(product.categoryId);
+  if (!relatedProducts) {
+    return;
+  }
   return (
     <MaxWidthWrapper>
       {/* <ProductBreadcrumb /> */}
       <div className="grid grid-cols-12 mt-10 gap-5 relative">
         <ProductInfoWrapper />
-        <ProductPurchasePanel price={product.price} />
+        <ProductPurchasePanel price={product.price} stock={product.stock} />
         <ProductSectionsNav />
         <ProductSpecifications attributes={product.attributes} />
         <ProductExpertReview content={product.content} />
-        <ProductRelated />
+        <ProductRelated products={relatedProducts} />
         <ProductReviews />
       </div>
     </MaxWidthWrapper>
