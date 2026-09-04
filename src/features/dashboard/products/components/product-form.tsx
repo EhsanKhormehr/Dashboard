@@ -108,13 +108,6 @@ export default function ProductForm({
                 placeholder="Slug"
                 label="Slug"
               />
-              <div className="col-span-2">
-                <ControlledTextarea<ProductFormValues>
-                  name="description"
-                  label="Description"
-                  placeholder="Description"
-                />
-              </div>
               <ControlledInput<ProductFormValues>
                 name="price"
                 type="text"
@@ -127,6 +120,19 @@ export default function ProductForm({
                 placeholder="Stock"
                 label="Stock"
               />
+              <ControlledInput<ProductFormValues>
+                name="brand"
+                type="text"
+                placeholder="Brand"
+                label="Brand"
+              />
+              <div className="col-span-2">
+                <ControlledTextarea<ProductFormValues>
+                  name="description"
+                  label="Description"
+                  placeholder="Description"
+                />
+              </div>
               <div className="col-span-2">
                 <ImageUploader<ProductFormValues>
                   id="thumbnail"
