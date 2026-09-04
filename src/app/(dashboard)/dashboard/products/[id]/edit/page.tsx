@@ -25,7 +25,7 @@ export default async function ProductEdit({ params }: ProductEditProps) {
     thumbnail: product.thumbnail,
     images: product.images,
     description: product.description ?? "",
-    brand: product.brand,
+    brandId: product.brandId,
   };
 
   const initialValue = {
