@@ -26,7 +26,6 @@ const MultiplaImageUploader = <T extends FieldValues>({
   id,
   label,
 }: MultiplaImageUploaderProps<T>) => {
-  console.log(initImages);
   const { control } = useFormContext<T>();
   const [images, setImages] = useState<string[]>(initImages ?? []);
   const [previewImages, setPreviewImages] = useState<string[]>(
