@@ -1,6 +1,10 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import { getCategoryAttributes, getFilteredProducts } from "./actions";
+import {
+  getBrands,
+  getCategoryAttributes,
+  getFilteredProducts,
+} from "./actions";
 
 type GetFilteredProductsParams = {
   q?: string;
@@ -24,5 +28,12 @@ export const useFilteredProducts = (params: GetFilteredProductsParams) => {
   return useQuery({
     queryKey: ["products", params],
     queryFn: () => getFilteredProducts(params),
+  });
+};
+
+export const useGetBrands = () => {
+  return useQuery({
+    queryKey: ["brands"],
+    queryFn: getBrands,
   });
 };
