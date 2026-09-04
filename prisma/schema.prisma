@@ -51,7 +51,6 @@ model Product {
   content     String     @db.Text
   thumbnail   String     @default("")
   images      String[]
-  brand       String
   cartItems   CartItem[]
   categoryId  String
   category    Category   @relation(fields: [categoryId], references: [id])
@@ -60,6 +59,18 @@ model Product {
   orderItems OrderItem[]
   createdAt  DateTime                @default(now())
   updatedAt  DateTime                @updatedAt
+  brand      Brand                  @relation(fields: [brandId], references: [id], onDelete: Restrict)
+  brandId    String
+}
+
+model Brand {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  slug      String    @unique
+  logo      String
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Order {
