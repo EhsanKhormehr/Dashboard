@@ -41,6 +41,7 @@ export const basicInfoSchema = z.object({
   categoryId: z.string().min(1),
   thumbnail: z.any(),
   images: z.any(),
+  brand: z.string().min(1, "Brand Field is required"),
 });
 
 export const basicInfoDefaultValues = {
@@ -54,6 +55,7 @@ export const basicInfoDefaultValues = {
   attributes: {},
   thumbnail: "",
   images: "",
+  brand: "",
 };
 
 export type BasicInfoFormValues = z.infer<typeof basicInfoSchema>;
