@@ -6,6 +6,8 @@ import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
+import { useGetProductBySlug } from "../services/useQueries";
+import { useParams } from "next/navigation";
 
 type ProductImage = {
   id: number;
@@ -24,16 +26,26 @@ export const productImages: ProductImage[] = [
 
 const ProductGallery = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-
+  const params = useParams();
+  const slug = params.slug;
+  const { data: product } = useGetProductBySlug(slug as string);
+  if (!product) {
+    return;
+  }
+  const productGallery = [
+    product.thumbnail,
+    ...product.images.filter((image) => image !== product.thumbnail),
+  ];
+  console.log(productGallery);
   return (
     <div className="col-span-12 xl:col-span-6 bg-surface rounded-2xl relative shadow-soft-card">
-      <div className="relative flex justify-center py-10 border-b h-[400px] px-12 lg:px-5">
+      <div className="relative flex justify-center py-20 border-b ">
         <Image
-          src={productImages[activeIndex].src}
-          width={300}
-          height={300}
-          alt={productImages[activeIndex].alt}
-          className="object-contain"
+          src={productGallery[activeIndex]}
+          width={1000}
+          height={1000}
+          alt={product.thumbnail}
+          className="object-cover aspect-video rounded-xl"
           priority
         />
       </div>
@@ -45,27 +57,30 @@ const ProductGallery = () => {
             500: {
               slidesPerView: 4,
             },
-            640: {
-              slidesPerView: 5,
-            },
           }}
           className="product-gallery-slider"
         >
-          {productImages.map((image, index) => (
+          {productGallery.map((image, index) => (
             <SwiperSlide
-              key={image.id}
-              className={`p-2.5 rounded-2xl bg-background border-2 border-transparent transition-all shadow-soft-card cursor-pointer !h-[90px] ${activeIndex === index && "!border-primary border-2"}`}
+              key={image + index}
+              className={`p-2 rounded-2xl bg-background border-2 border-transparent transition-all shadow-soft-card cursor-pointer  ${activeIndex === index && "!border-primary border-2"}`}
               onClick={() => setActiveIndex(index)}
             >
               <div className="flex justify-center items-center h-full">
-                <Image src={image.src} width={50} height={50} alt={image.alt} />
+                <Image
+                  src={image}
+                  width={500}
+                  height={500}
+                  className="object-cover aspect-video rounded-md"
+                  alt={image}
+                />
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
 
-      <div className="flex flex-col absolute top-5 left-4">
+      <div className="flex items-center absolute gap-2 top-5 left-4">
         <Button
           variant={"outline"}
           className="shadow-soft-card rounded-full size-[20px] border-0 cursor-pointer"
@@ -75,7 +90,7 @@ const ProductGallery = () => {
         </Button>
         <Button
           variant={"outline"}
-          className="shadow-soft-card rounded-full size-[20px] border-0 cursor-pointer mt-3"
+          className="shadow-soft-card rounded-full size-[20px] border-0 cursor-pointer"
           asChild
         >
           <Share2 className="size-[45px] hover:fill-primary hover:stroke-primary hover:scale-110" />
