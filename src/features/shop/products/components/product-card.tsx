@@ -25,23 +25,37 @@ const ProductCard = ({
   oldPrice,
   discount,
   slug,
-  categorySlug
+  categorySlug,
 }: HomeDiscountedCardProps) => {
   return (
-    <div className="shadow-soft-card rounded-xl p-4 hover:-translate-y-1.5 transition-transform h-full flex flex-col bg-surface">
-      <div>
+    <div className="shadow-soft-card rounded-xl hover:-translate-y-1.5 transition-transform h-full flex flex-col bg-surface">
+      {/* <div className=" p-4">
         <Heart className="size-[26px] hover:stroke-destructive hover:fill-destructive cursor-pointer" />
+      </div> */}
+      <Link
+        href={`/products/${slug}`}
+        className="w-full flex justify-center pb-2"
+      >
+        <Image
+          src={image}
+          width={500}
+          height={500}
+          alt="iphone"
+          className="aspect-video object-cover py-3 rounded-xl"
+        />
+      </Link>
+      <div className="px-4">
+        <Link
+          href={`/products/category/${categorySlug}`}
+          className="block text-xs text-muted-foreground font-semibold"
+        >
+          {category}
+        </Link>
+        <Link href={`/products/${slug}`} className="font-bold my-3 block">
+          {title}
+        </Link>
       </div>
-      <Link href={`/products/${slug}`} className="w-full flex justify-center py-7">
-        <Image src={image} width={150} height={150} alt="iphone" />
-      </Link>
-      <Link href={`/products/category/${categorySlug}`} className="block text-xs text-muted-foreground font-semibold">
-        {category}
-      </Link>
-      <Link href={`/products/${slug}`} className="font-bold my-3 block">
-        {title}
-      </Link>
-      <div className="flex justify-between items-center mt-auto">
+      <div className="flex justify-between items-center mt-auto px-4 pb-4">
         <div className="flex items-center gap-4">
           <span className="font-bold">${price}</span>
           {oldPrice && (
