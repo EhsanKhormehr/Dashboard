@@ -1,9 +1,16 @@
 "use client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createNewProduct, deleteProduct, updateProduct } from "./actions";
+import {
+  createNewBrand,
+  createNewProduct,
+  deleteBrand,
+  deleteProduct,
+  updateBrand,
+  updateProduct,
+} from "./actions";
 import { toast } from "sonner";
 import { id } from "zod/v4/locales";
-import { ProductFormValues } from "../types/schema";
+import { NewBrandFormValues, ProductFormValues } from "../types/schema";
 import { useRouter } from "next/navigation";
 
 export const useCreateNewProduct = () => {
@@ -47,3 +54,38 @@ export const useUpdateProduct = () => {
     },
   });
 };
+
+// Brand
+export const useCreateNewBrand = () => {
+  const router = useRouter();
+  return useMutation({
+    mutationFn: createNewBrand,
+    onSuccess: () => {
+      router.refresh();
+      toast.success("Brand created successfully!");
+    },
+  });
+};
+
+export const useUpdateBrand = () => {
+  const router = useRouter();
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: NewBrandFormValues }) =>
+      updateBrand(id, data),
+    onSuccess : ()=>{
+      router.refresh()
+      toast.success("Brand updated successfully!")
+    }
+  });
+};
+
+export const useDeleteBrand = ()=>{
+  const router = useRouter()
+  return useMutation({
+    mutationFn : deleteBrand,
+    onSuccess : ()=> {
+      router.refresh()
+      toast.success("Brand deleted successfully!")
+    }
+  })
+}
