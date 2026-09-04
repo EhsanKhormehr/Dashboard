@@ -19,7 +19,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import React, { useMemo, useState } from "react";
 import { useCategories } from "../../categories/services/useQueries";
-import { useCategoryAttributes } from "../services/useQueries";
+import { useCategoryAttributes, useGetBrands } from "../services/useQueries";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import {
   basicInfoDefaultValues,
@@ -48,6 +48,7 @@ export default function ProductForm({
   initialValue,
   productId,
 }: ProductFormProps) {
+  console.log(initialValue);
   const { data: categories } = useCategories();
 
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>(
@@ -76,6 +77,7 @@ export default function ProductForm({
 
   const { mutate: createProduct } = useCreateNewProduct();
   const { mutate: updateProduct } = useUpdateProduct();
+  const { data: brands } = useGetBrands();
 
   const submitProductForm = (data: ProductFormValues) => {
     if (mode === "create") {
@@ -120,12 +122,33 @@ export default function ProductForm({
                 placeholder="Stock"
                 label="Stock"
               />
-              <ControlledInput<ProductFormValues>
-                name="brand"
-                type="text"
-                placeholder="Brand"
-                label="Brand"
-              />
+              <Field>
+                <FieldLabel>Brand</FieldLabel>
+                <Controller
+                  control={control}
+                  name="brandId"
+                  render={({ field }) => (
+                    <Select
+                      value={field.value}
+                      onValueChange={(value) => field.onChange(value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a Brand" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {brands?.map((brand) => (
+                            <SelectItem key={brand.id} value={brand.id}>
+                              {brand.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+                {errors.brandId && <ErrorMessage text={errors.brandId.message} />}
+              </Field>
               <div className="col-span-2">
                 <ControlledTextarea<ProductFormValues>
                   name="description"
