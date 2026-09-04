@@ -79,6 +79,7 @@ export const createNewProduct = async (data: ProductFormValues) => {
           slug: data.slug,
           thumbnail: data.thumbnail,
           images: data.images,
+          brand: data.brand,
           attributes: {
             create: attributeValues,
           },
@@ -132,6 +133,7 @@ export const updateProduct = async (id: string, data: ProductFormValues) => {
           images: data.images,
           content: data.content,
           categoryId: data.categoryId,
+          brand: data.brand,
           attributes: {
             deleteMany: {},
             create: attributeValues,
