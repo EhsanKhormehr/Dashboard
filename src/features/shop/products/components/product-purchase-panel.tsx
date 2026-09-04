@@ -27,9 +27,11 @@ const purchaseBenefits = [
 
 type ProductPurchasePanelProps = {
   price: number;
+  stock: number;
 };
 
-const ProductPurchasePanel = ({ price }: ProductPurchasePanelProps) => {
+const ProductPurchasePanel = ({ price, stock }: ProductPurchasePanelProps) => {
+  const isInStock = stock > 0 ? true : false;
   return (
     <aside className="col-span-12 self-start rounded-2xl bg-surface shadow-soft-card px-4 py-5 lg:sticky lg:top-5 lg:col-span-3">
       <div className="rounded-2xl border border-border/70 bg-surface-foreground/5 p-4">
@@ -54,18 +56,20 @@ const ProductPurchasePanel = ({ price }: ProductPurchasePanelProps) => {
           </div>
         </div>
       </div>
+      {isInStock && (
+        <div className="mt-5 flex items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3.5 text-sm font-bold text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400">
+          <PackageCheck className="size-5" />
+          <span>In Stock</span>
+        </div>
+      )}
+      {!isInStock && (
+        <div className="mt-5 flex items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3.5 text-sm font-bold text-red-600 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400">
+          <PackageX className="size-5" />
+          <span>Out of Stock</span>
+        </div>
+      )}
 
-      <div className="mt-5 flex items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3.5 text-sm font-bold text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400">
-        <PackageCheck className="size-5" />
-        <span>In Stock</span>
-      </div>
-
-      {/* <div className="mt-5 flex items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3.5 text-sm font-bold text-red-600 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400">
-        <PackageX className="size-5" />
-        <span>Out of Stock</span>
-      </div> */}
-
-      <Button className="mt-5 h-12 w-full gap-2 text-base font-bold">
+      <Button className="mt-5 h-12 w-full gap-2 text-base font-bold" disabled={!isInStock}>
         <Handbag className="size-5" />
         Add To Cart
       </Button>
