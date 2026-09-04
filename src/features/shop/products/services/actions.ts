@@ -49,3 +49,24 @@ export const getProductBySlug = async (slug: string) => {
     },
   });
 };
+
+export const getRelatedProducts = async (categoryId: string) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.product.findMany({
+        where: {
+          categoryId,
+        },
+        take : 4, 
+        include: {
+          category: {
+            select: {
+              name: true,
+              slug: true,
+            },
+          },
+        },
+      });
+    },
+  });
+};
