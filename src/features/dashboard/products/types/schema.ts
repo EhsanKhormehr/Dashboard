@@ -1,28 +1,3 @@
-// import { z } from "zod";
-
-// export const basicInfoSchema = z.object({
-//   name: z.string().min(1, "Name Field is required"),
-//   slug: z.string().min(1, "Slug Field is required"),
-//   description: z.string().optional(),
-//   price: z.coerce.number<number>("Please enter a valid number").min(1 , "Price Feild is required"),
-//   stock: z.coerce.number<number>("Please enter a valid number").int().min(1 , "Stock Feild is required"),
-//   categoryId: z.string().min(1),
-//   attributes: z.record(z.string(), z.union([z.string()])).optional()
-
-// });
-
-// export const basicInfoDefaultValues: BasicInfoFormValues = {
-//   name: "",
-//   slug: "",
-//   description: "",
-//   price: 0,
-//   stock: 0,
-//   categoryId: "",
-//   attributes : {}
-// };
-
-// export type BasicInfoFormValues = z.infer<typeof basicInfoSchema>;
-
 import z from "zod";
 import { CategoryFormValues } from "../../categories/types/schema";
 
@@ -41,7 +16,7 @@ export const basicInfoSchema = z.object({
   categoryId: z.string().min(1),
   thumbnail: z.any(),
   images: z.any(),
-  brand: z.string().min(1, "Brand Field is required"),
+  brandId: z.string().min(1, "Brand Field is required"),
 });
 
 export const basicInfoDefaultValues = {
@@ -55,7 +30,7 @@ export const basicInfoDefaultValues = {
   attributes: {},
   thumbnail: "",
   images: "",
-  brand: "",
+  brandId: "",
 };
 
 export type BasicInfoFormValues = z.infer<typeof basicInfoSchema>;
@@ -146,4 +121,19 @@ export const buildProductSchema = (attributes: CategoryAttribute[]) => {
   return basicInfoSchema.extend({
     attributes: buildAttributesSchema(attributes),
   });
+};
+
+// Brand
+export const newBrandSchema = z.object({
+  name: z.string().trim().min(1, "Name field is required!"),
+  slug: z.string().trim().min(1, "Slug field is required!"),
+  logo: z.string().trim().min(1, "Logo is required"),
+});
+
+export type NewBrandFormValues = z.infer<typeof newBrandSchema>;
+
+export const newBrandDefaultValues = {
+  name: "",
+  slug: "",
+  logo: "",
 };
