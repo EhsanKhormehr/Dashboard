@@ -36,7 +36,6 @@ const ProductGallery = () => {
     product.thumbnail,
     ...product.images.filter((image) => image !== product.thumbnail),
   ];
-  console.log(productGallery);
   return (
     <div className="col-span-12 xl:col-span-6 bg-surface rounded-2xl relative shadow-soft-card">
       <div className="relative flex justify-center py-20 border-b ">
