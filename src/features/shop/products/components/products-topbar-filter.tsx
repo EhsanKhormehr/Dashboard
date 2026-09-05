@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -18,37 +19,65 @@ import {
 import { Filter, Search } from "lucide-react";
 import React from "react";
 import ProductsFiltering from "./products-filtering";
+import { useUpdateUrlParams } from "@/hooks/use-update-url-params";
+import { useDebouncedSearchParams } from "@/hooks/use-debounced-search-params";
+import { Brand, Category } from "../../../../../generated/prisma/client";
 
-const ProductsTopbarFilter = () => {
+type ProductsTopbarFilterProps = {
+  categories: Category[];
+  brands: Brand[];
+  productCount: number;
+};
+
+const ProductsTopbarFilter = ({
+  categories,
+  brands,
+  productCount,
+}: ProductsTopbarFilterProps) => {
+  const { getParam, updateParam } = useUpdateUrlParams();
+  const search = getParam("search");
+  const [searchValue, setSearchValue] = useDebouncedSearchParams({
+    initValue: search ?? "",
+  });
+  const sortBy = getParam("sortBy");
   return (
     <div className="flex justify-between items-center">
       <div className="hidden lg:flex">
-        <span className="font-bold">All Products / 40 Products Found</span>
+        <span className="font-bold">
+          Products / {productCount} Products Found
+        </span>
       </div>
       <div className="grid grid-cols-2 lg:flex lg:items-center w-full lg:w-auto gap-5">
-        <form className="relative hidden lg:flex">
+        <div className="relative hidden lg:flex">
           <Input
             placeholder="Search..."
             className="bg-surface py-6 w-[350px] pl-10"
+            value={searchValue}
+            onChange={(event) => setSearchValue(event.target.value)}
           />
           <Search className="absolute top-1/2 -translate-y-1/2 left-3 text-muted-foreground" />
-        </form>
+        </div>
         <div>
-          <Select>
+          <Select
+            onValueChange={(value) => {
+              updateParam({
+                key: "sortBy",
+                value,
+                defaultValue: "DEFAULT",
+              });
+            }}
+            value={sortBy ?? "DEFAULT"}
+          >
             <SelectTrigger className="bg-surface py-6 px-4 w-full">
               <SelectValue placeholder="Sort By" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="newest">Newest</SelectItem>
-                <SelectItem value="oldest">Oldest</SelectItem>
-                <SelectItem value="bestselling">Best Selling</SelectItem>
-                <SelectItem value="pricelth">Price: Low to High</SelectItem>
-                <SelectItem value="pricehtl">Price: High to Low</SelectItem>
-                <SelectItem value="toprated">Top Rated</SelectItem>
-                <SelectItem value="biggestdiscount">
-                  Biggest Discount
-                </SelectItem>
+                <SelectItem value="DEFAULT">Default</SelectItem>
+                <SelectItem value="NEWEST">Newest</SelectItem>
+                <SelectItem value="OLDEST">Oldest</SelectItem>
+                <SelectItem value="PRICEHTL">Price: High to Low</SelectItem>
+                <SelectItem value="PRICELTH">Price: Low to High</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -67,7 +96,11 @@ const ProductsTopbarFilter = () => {
               <SheetTitle>Filters</SheetTitle>
             </SheetHeader>
             <div className="px-4 ">
-              <ProductsFiltering isMobile={true} />
+              <ProductsFiltering
+                isMobile={true}
+                categories={categories}
+                brands={brands}
+              />
             </div>
           </SheetContent>
         </Sheet>
