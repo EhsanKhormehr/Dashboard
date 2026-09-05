@@ -6,7 +6,6 @@ import React from "react";
 
 const Brands = async () => {
   const brands = await getBrands();
-  console.log(brands);
   return (
     <div>
       <PageHeader title="Brands" />
