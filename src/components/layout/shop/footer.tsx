@@ -30,7 +30,7 @@ const Footer = () => {
           <div className="flex gap-4 mt-3">
             <Link href={"/"}>
               <Image
-                src={"/shop/telegram.svg"}
+                src={"/telegram.svg"}
                 width={30}
                 height={30}
                 alt="telegram"
@@ -39,7 +39,7 @@ const Footer = () => {
             </Link>
             <Link href={"/"}>
               <Image
-                src={"/shop/instagram.svg"}
+                src={"/instagram.svg"}
                 width={30}
                 height={30}
                 alt="instagram"
