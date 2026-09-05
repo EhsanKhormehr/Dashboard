@@ -9,21 +9,49 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductsSwitchButton from "./products-switch-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Brand, Category } from "../../../../../generated/prisma/client";
+import { useUpdateUrlParams } from "@/hooks/use-update-url-params";
 
 type ProductsFilteringProps = {
   isMobile?: boolean;
+  categories: Category[];
+  brands: Brand[];
 };
 
-const ProductsFiltering = ({ isMobile }: ProductsFilteringProps) => {
-  const [min, setMin] = useState<number>(0);
-  const [max, setMax] = useState<number>(100);
+const ProductsFiltering = ({
+  isMobile,
+  categories,
+  brands,
+}: ProductsFilteringProps) => {
+  const {
+    getParam,
+    updateParam,
+    updatePriceParams,
+    updateMultipleParam,
+    clearParams,
+    getParams,
+  } = useUpdateUrlParams();
+  const selectedCategories = getParams("category");
+  const selectedBrands = getParams("brand");
+  const minParam = getParam("min");
+  const maxParam = getParam("max");
+  const minPrice = minParam !== null ? Number(minParam) : null;
+  const maxPrice = maxParam !== null ? Number(maxParam) : null;
 
+  const [min, setMin] = useState<number>(minPrice ?? 0);
+  const [max, setMax] = useState<number>(maxPrice ?? 100);
+  useEffect(() => {
+    setMin(minPrice ?? 0);
+    setMax(maxPrice ?? 100);
+  }, [minPrice, maxPrice]);
+  const isInStockParam = getParam("inStock");
+  const isInStock = isInStockParam === "true";
   return (
     <div>
       <Accordion type="multiple">
@@ -34,42 +62,23 @@ const ProductsFiltering = ({ isMobile }: ProductsFilteringProps) => {
           <AccordionContent className="overflow-hidden pt-3 pb-0">
             <ScrollArea className="mt-3 border rounded-lg px-3 py-3 h-[250px]">
               <FieldGroup className="my-2">
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Laptop</Label>
-                </Field>
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Laptop</Label>
-                </Field>
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Laptop</Label>
-                </Field>
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Laptop</Label>
-                </Field>
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Laptop</Label>
-                </Field>
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Laptop</Label>
-                </Field>
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Laptop</Label>
-                </Field>
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Laptop</Label>
-                </Field>
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Laptop</Label>
-                </Field>
+                {categories.map((category) => (
+                  <Field orientation={"horizontal"} key={category.id}>
+                    <Checkbox
+                      id={category.slug}
+                      name={category.slug}
+                      checked={selectedCategories.includes(category.slug)}
+                      onCheckedChange={(checked) => {
+                        updateMultipleParam({
+                          key: "category",
+                          value: category.slug,
+                          checked: Boolean(checked),
+                        });
+                      }}
+                    />
+                    <Label htmlFor={category.slug}>{category.name}</Label>
+                  </Field>
+                ))}
               </FieldGroup>
             </ScrollArea>
           </AccordionContent>
@@ -81,30 +90,23 @@ const ProductsFiltering = ({ isMobile }: ProductsFilteringProps) => {
           <AccordionContent className="overflow-hidden pt-3 pb-0">
             <ScrollArea className="mt-3 border rounded-lg px-3 py-3 h-[250px]">
               <FieldGroup className="my-2">
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Asus</Label>
-                </Field>
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Amd</Label>
-                </Field>
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Intel</Label>
-                </Field>
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Razer</Label>
-                </Field>
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Logitech</Label>
-                </Field>
-                <Field orientation={"horizontal"}>
-                  <Checkbox id="Laptop" name="Laptop" />
-                  <Label htmlFor="Laptop">Msi</Label>
-                </Field>
+                {brands.map((brand) => (
+                  <Field key={brand.id} orientation={"horizontal"}>
+                    <Checkbox
+                      id={brand.slug}
+                      name={brand.slug}
+                      checked={selectedBrands.includes(brand.slug)}
+                      onCheckedChange={(checked) => {
+                        updateMultipleParam({
+                          key: "brand",
+                          value: brand.slug,
+                          checked: Boolean(checked),
+                        });
+                      }}
+                    />
+                    <Label htmlFor={brand.slug}>{brand.name}</Label>
+                  </Field>
+                ))}
               </FieldGroup>
             </ScrollArea>
           </AccordionContent>
@@ -126,22 +128,37 @@ const ProductsFiltering = ({ isMobile }: ProductsFilteringProps) => {
             </div>
           </div>
           <Slider
-            defaultValue={[0, 100]}
+            value={[min, max]}
             max={100}
             step={1}
             onValueChange={(value) => {
               setMin(value[0]);
               setMax(value[1]);
             }}
+            onValueCommit={(value) => {
+              updatePriceParams(value[0], value[1]);
+            }}
             className="mt-7"
           />
         </CardContent>
       </Card>
       <ProductsSwitchButton idValue="discount" labelValue="Discount Only" />
-      <ProductsSwitchButton idValue="available" labelValue="In Stock Only" />
+      <ProductsSwitchButton
+        idValue="isInStock"
+        labelValue="In Stock Only"
+        checked={isInStock}
+        onCheckedChange={(checked) => {
+          updateParam({
+            key: "inStock",
+            value: checked,
+            defaultValue: false,
+          });
+        }}
+      />
       <Button
         variant={"secondary"}
         className="mt-5 w-full py-5 cursor-pointer sticky"
+        onClick={clearParams}
       >
         Clear All Filters
       </Button>
