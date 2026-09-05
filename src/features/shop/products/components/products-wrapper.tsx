@@ -1,10 +1,21 @@
-import React from "react";
+import { ProductGetPayload } from "../../../../../generated/prisma/models";
 import ProductCard from "./product-card";
-import { getProducts } from "../services/actions";
-import Pagination from "@/components/common/pagination";
 
-const ProductsWrapper = async () => {
-  const products = await getProducts();
+type ProductsWrapperProps = {
+  products: ProductGetPayload<{
+    include: {
+      category: {
+        select: {
+          name: true;
+          slug: true;
+        };
+      };
+    };
+  }>[];
+};
+
+const ProductsWrapper = async ({ products }: ProductsWrapperProps) => {
+
   return (
     <div className="mt-7">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
@@ -20,8 +31,7 @@ const ProductsWrapper = async () => {
           />
         ))}
       </div>
-      <div className="flex justify-center mt-8">
-      </div>
+      <div className="flex justify-center mt-8"></div>
     </div>
   );
 };
