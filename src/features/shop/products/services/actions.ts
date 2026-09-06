@@ -77,7 +77,7 @@ export const getProducts = async (params: GetProductsParams) => {
             break;
         }
       }
-      const [products, totalCount] = await Promise.all([
+      const [products, totalCount, priceRange] = await Promise.all([
         prisma.product.findMany({
           where,
           orderBy,
@@ -93,6 +93,14 @@ export const getProducts = async (params: GetProductsParams) => {
           },
         }),
         prisma.product.count({ where }),
+        prisma.product.aggregate({
+          _min: {
+            price: true,
+          },
+          _max: {
+            price: true,
+          },
+        }),
       ]);
       return {
         products,
@@ -100,6 +108,7 @@ export const getProducts = async (params: GetProductsParams) => {
         skip,
         perPage,
         totalPages: Math.ceil(totalCount / perPage),
+        priceRange,
       };
     },
   });

@@ -43,12 +43,13 @@ const Products = async ({ searchParams }: ProductsProps) => {
   const products = await getProducts(normalizeUrlParams);
   const categories = await getCategories();
   const brands = await getBrands();
+  console.log(products.priceRange)
   return (
     <div>
       <MaxWidthWrapper className="grid gap-5 grid-cols-12 py-15">
         <div className="col-span-3 hidden lg:flex">
           <div className="bg-surface w-full rounded-2xl shadow-soft-card px-4 self-start py-7 sticky top-5">
-            <ProductsFiltering categories={categories} brands={brands} />
+            <ProductsFiltering categories={categories} brands={brands} pricRange={products.priceRange}  />
           </div>
         </div>
         <div className="col-span-12 lg:col-span-9">

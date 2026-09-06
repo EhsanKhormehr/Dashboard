@@ -22,13 +22,23 @@ type ProductsFilteringProps = {
   isMobile?: boolean;
   categories: Category[];
   brands: Brand[];
+  pricRange: {
+    _min: {
+      price: number | null;
+    };
+    _max: {
+      price: number | null;
+    };
+  };
 };
 
 const ProductsFiltering = ({
   isMobile,
   categories,
   brands,
+  pricRange,
 }: ProductsFilteringProps) => {
+  console.log(pricRange._max.price);
   const {
     getParam,
     updateParam,
@@ -41,14 +51,16 @@ const ProductsFiltering = ({
   const selectedBrands = getParams("brand");
   const minParam = getParam("min");
   const maxParam = getParam("max");
-  const minPrice = minParam !== null ? Number(minParam) : null;
-  const maxPrice = maxParam !== null ? Number(maxParam) : null;
+  const minPrice = minParam !== null ? Number(minParam) : 0;
+  const maxPrice = maxParam !== null ? Number(maxParam) : pricRange._max.price;
 
   const [min, setMin] = useState<number>(minPrice ?? 0);
-  const [max, setMax] = useState<number>(maxPrice ?? 100);
+  const [max, setMax] = useState<number | null>(
+    maxPrice ?? pricRange._max.price,
+  );
   useEffect(() => {
     setMin(minPrice ?? 0);
-    setMax(maxPrice ?? 100);
+    setMax(maxPrice ?? pricRange._max.price);
   }, [minPrice, maxPrice]);
   const isInStockParam = getParam("inStock");
   const isInStock = isInStockParam === "true";
@@ -128,8 +140,8 @@ const ProductsFiltering = ({
             </div>
           </div>
           <Slider
-            value={[min, max]}
-            max={100}
+            value={[min, max!]}
+            max={pricRange._max.price!}
             step={1}
             onValueChange={(value) => {
               setMin(value[0]);
