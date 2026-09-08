@@ -190,3 +190,72 @@ export const getBrands = async () => {
     },
   });
 };
+
+export const submitProductReview = async (
+  content: string,
+  productId: string,
+  userId: string,
+  rate: number,
+) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.productComment.create({
+        data: {
+          content,
+          userId,
+          productId,
+          rate,
+        },
+      });
+    },
+  });
+};
+
+export const getProductReviews = async (productId: string) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.productComment.findMany({
+        where: {
+          productId,
+          status: "APPROVED",
+        },
+        include: {
+          user: {
+            select: {
+              userName: true,
+            },
+          },
+        },
+      });
+    },
+  });
+};
+
+export const getAverageReviewsScore = async (productId: string) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.productComment.aggregate({
+        where: {
+          productId,
+          status: "APPROVED",
+        },
+        _avg: {
+          rate: true,
+        },
+      });
+    },
+  });
+};
+
+export const getProductReviewCount = async (productId: string) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.productComment.count({
+        where: {
+          productId,
+          status: "APPROVED",
+        },
+      });
+    },
+  });
+};
