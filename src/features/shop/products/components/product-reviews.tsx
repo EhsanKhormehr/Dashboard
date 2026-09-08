@@ -1,8 +1,17 @@
 import ShopTitle from "@/components/common/shop-title";
 import CommentsWrapper from "../../shared/components/comments/comments-wrapper";
 import { MessageSquareText } from "lucide-react";
+import { getCurrentUser } from "@/features/auth/utils/getCurrentUser";
 
-const ProductReviews = () => {
+type ProductReviewsProps = {
+  productId: string;
+};
+
+const ProductReviews = async ({ productId }: ProductReviewsProps) => {
+  const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    return;
+  }
   return (
     <div
       className="bg-surface p-5 col-span-12 lg:col-span-9 rounded-xl mt-2 shadow-soft-card"
@@ -16,7 +25,11 @@ const ProductReviews = () => {
           className="ml-2 font-black"
         />
       </div>
-      <CommentsWrapper type="product" />
+      <CommentsWrapper
+        type="product"
+        targetId={productId}
+        userId={currentUser.id}
+      />
     </div>
   );
 };
