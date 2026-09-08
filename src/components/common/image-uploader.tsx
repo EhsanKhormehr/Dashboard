@@ -40,7 +40,7 @@ const ImageUploader = <T extends FieldValues>({
         render={({ field, fieldState: { error } }) => (
           <>
             <Label htmlFor={id} className="inline">
-              <div className="group border-2 border-dashed border-muted-foreground/30 p-8 rounded-xl  cursor-pointer hover:border-primary hover:bg-primary/5 transition-all duration-200">
+              <div className="group border-2 border-dashed border-muted-foreground/30 md:p-8 rounded-xl  cursor-pointer hover:border-primary hover:bg-primary/5 transition-all duration-200">
                 {initImage && !preview && (
                   <div className="flex h-[360px] items-center justify-center overflow-hidden">
                     <Image
