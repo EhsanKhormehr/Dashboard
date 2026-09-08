@@ -7,6 +7,8 @@ import { Send, Star } from "lucide-react";
 import React, { useState } from "react";
 import { useCommentsContext } from "./comments-context";
 import { useSubmitArticleComment } from "@/features/shop/blogs/services/useMutation";
+import { submitProductReview } from "@/features/shop/products/services/actions";
+import { useSubmitProductReview } from "@/features/shop/products/services/useMutation";
 
 const ratingLabels = {
   1: "Poor",
@@ -44,13 +46,16 @@ type RatingScore = keyof typeof ratingLabels;
 type CommentsFormProps = {
   userId: string | null;
   blogId: string;
+  productId: string;
 };
 
-const CommentsForm = ({ userId, blogId }: CommentsFormProps) => {
+const CommentsForm = ({ userId, blogId, productId }: CommentsFormProps) => {
   const [score, setScore] = useState<RatingScore>(1);
   const [commentValue, setCommentValue] = useState("");
   const { type } = useCommentsContext();
+
   const { mutate: submitArticleComment } = useSubmitArticleComment();
+  const { mutate: submitProductReview } = useSubmitProductReview();
 
   const submitComment = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -62,6 +67,17 @@ const CommentsForm = ({ userId, blogId }: CommentsFormProps) => {
         blogId,
         userId: userId,
         content: commentValue,
+      });
+    }
+    if (type === "product") {
+      if (!userId) {
+        return <p>Please login first</p>;
+      }
+      submitProductReview({
+        productId,
+        content: commentValue,
+        rate: score,
+        userId,
       });
     }
   };
