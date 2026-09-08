@@ -14,7 +14,7 @@ const BlogComments = ({ userId, blogId }: BlogCommentsProps) => {
         <TextAlignStart className="text-primary" />
         <h3 className="font-extrabold text-lg">Comments</h3>
       </div>
-      <CommentsWrapper type="blog" userId={userId} blogId={blogId} />
+      <CommentsWrapper type="blog" userId={userId} targetId={blogId} />
     </div>
   );
 };
