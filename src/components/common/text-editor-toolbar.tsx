@@ -180,7 +180,7 @@ const TextEditorToolbar = ({ editor }: { editor: Editor | null }) => {
   ];
   return (
     <div className="mb-1 p-2 border rounded-md ">
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap">
         {options.map((option) => (
           <Toggle
             key={option.format}
