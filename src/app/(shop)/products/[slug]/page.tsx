@@ -9,6 +9,7 @@ import ProductSectionsNav from "@/features/shop/products/components/product-sect
 import ProductSpecifications from "@/features/shop/products/components/product-specifications";
 import {
   getProductBySlug,
+  getProductReviewCount,
   getRelatedProducts,
 } from "@/features/shop/products/services/actions";
 import React from "react";
@@ -23,6 +24,7 @@ const Product = async ({ params }: ProductProps) => {
   const urlParams = await params;
   const slug = urlParams.slug;
   const product = await getProductBySlug(slug);
+  const commentCount = await getProductReviewCount(product?.id)
   if (!product) {
     return <p>Product not found</p>;
   }
@@ -34,13 +36,13 @@ const Product = async ({ params }: ProductProps) => {
     <MaxWidthWrapper>
       {/* <ProductBreadcrumb /> */}
       <div className="grid grid-cols-12 mt-10 gap-5 relative">
-        <ProductInfoWrapper />
+        <ProductInfoWrapper commentCount={commentCount} />
         <ProductPurchasePanel price={product.price} stock={product.stock} />
         <ProductSectionsNav />
         <ProductSpecifications attributes={product.attributes} />
         <ProductExpertReview content={product.content} />
         <ProductRelated products={relatedProducts} />
-        <ProductReviews />
+        <ProductReviews productId={product.id} />
       </div>
     </MaxWidthWrapper>
   );
