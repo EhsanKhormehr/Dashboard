@@ -2,14 +2,23 @@
 import { prisma } from "@/lib/prisma";
 import { NewBrandFormValues, ProductFormValues } from "../types/schema";
 import { executeAction } from "@/lib/executeAction";
-import { Prisma } from "../../../../../generated/prisma/browser";
+import { Prisma } from "../../../../../generated/prisma/client";
 import { requireAdmin } from "@/features/auth/utils/requireAdmin";
+import { CommentStatus } from "../../../../../generated/prisma/enums";
+import { ProductCommentWhereInput } from "../../../../../generated/prisma/models";
 
-type getFilteredProductsParams = {
+type FilteredProductsParams = {
   search?: string;
   status?: string;
   category?: string;
   sortBy?: string;
+  perPage?: string;
+  page?: string;
+};
+
+type ProductCommentsParams = {
+  search?: string;
+  status?: CommentStatus | "DEFAULT";
   perPage?: string;
   page?: string;
 };
@@ -144,9 +153,7 @@ export const updateProduct = async (id: string, data: ProductFormValues) => {
   });
 };
 
-export const getFilteredProducts = async (
-  params: getFilteredProductsParams,
-) => {
+export const getFilteredProducts = async (params: FilteredProductsParams) => {
   return executeAction({
     actionFn: async () => {
       await requireAdmin();
@@ -366,6 +373,77 @@ export const deleteBrand = async (id: string) => {
         }
         throw error;
       }
+    },
+  });
+};
+
+// Comments
+export const getProductComments = async (params: ProductCommentsParams) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      const page = Math.max(1, parseInt(params.page || "1", 10) || 1);
+      const perPage = Math.max(1, parseInt(params.perPage || "12", 10) || 12);
+      const skip = (page - 1) * perPage;
+
+      const where: ProductCommentWhereInput = {};
+      if (params.search?.trim()) {
+        where.product = {
+          name: {
+            contains: params.search,
+          },
+        };
+      }
+      if (params.status !== "DEFAULT") {
+        where.status = params.status;
+      }
+      const [comments, totalCount] = await Promise.all([
+        prisma.productComment.findMany({
+          where,
+          skip,
+          take: perPage,
+          include: {
+            user: {
+              select: {
+                userName: true,
+              },
+            },
+            product: {
+              select: {
+                name: true,
+                slug: true,
+              },
+            },
+          },
+        }),
+        prisma.productComment.count({ where }),
+      ]);
+      return {
+        comments,
+        totalCount,
+        page,
+        perPage,
+        totalPages: Math.ceil(totalCount / perPage),
+      };
+    },
+  });
+};
+
+export const changeProductCommentStatus = async (
+  id: string,
+  status: CommentStatus,
+) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      return await prisma.productComment.update({
+        where: {
+          id,
+        },
+        data: {
+          status,
+        },
+      });
     },
   });
 };
