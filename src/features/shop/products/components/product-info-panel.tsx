@@ -5,13 +5,18 @@ import React from "react";
 import { useGetProductBySlug } from "../services/useQueries";
 import Link from "next/link";
 
-const ProductInfoPanel = () => {
+type ProductInfoPanelProps = {
+  commentCount: number;
+};
+
+const ProductInfoPanel = ({ commentCount }: ProductInfoPanelProps) => {
   const params = useParams();
   const slug = params.slug;
   const { data: product } = useGetProductBySlug(slug as string);
   if (!product) {
     return;
   }
+  
   return (
     <div className="col-span-12 xl:col-span-6 bg-surface rounded-2xl relative shadow-soft-card p-5 self-start">
       <span className="block text-xs text-muted-foreground font-medium">
@@ -27,7 +32,7 @@ const ProductInfoPanel = () => {
           <Star className="stroke-muted-foreground/20 fill-muted-foreground/20" />
         </div>
         <span className="text-xs sm:text-sm text-muted-foreground font-semibold">
-          (124 Reviews)
+          ({commentCount} Reviews)
         </span>
       </div>
       {/* <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-5 mt-5">
