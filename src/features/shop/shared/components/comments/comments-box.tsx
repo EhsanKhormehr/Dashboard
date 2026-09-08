@@ -11,9 +11,15 @@ type CommentsBoxProps = {
   userName: string | undefined;
   createdAt: Date;
   content: string;
+  rate?: number;
 };
 
-const CommentsBox = ({ userName, createdAt, content }: CommentsBoxProps) => {
+const CommentsBox = ({
+  userName,
+  createdAt,
+  content,
+  rate = 0,
+}: CommentsBoxProps) => {
   const { type } = useCommentsContext();
 
   return (
@@ -40,18 +46,17 @@ const CommentsBox = ({ userName, createdAt, content }: CommentsBoxProps) => {
         {type === "product" && (
           <div>
             <div className="flex gap-1">
-              <Star className=" size-5 cursor-pointer fill-rating stroke-rating" />
-              <Star className=" size-5 cursor-pointer fill-rating stroke-rating" />
-              <Star className=" size-5 cursor-pointer fill-rating stroke-rating" />
-              <Star className=" size-5 cursor-pointer fill-rating stroke-rating" />
-              <Star className=" size-5 cursor-pointer fill-rating stroke-rating" />
+              {Array.from({ length: 5 }).map((_, index) => (
+                <Star
+                  key={index}
+                  className={`size-5 stroke-rating ${rate > index && "fill-rating"}`}
+                />
+              ))}
             </div>
           </div>
         )}
       </div>
-      <p className="py-3 text-sm leading-6">
-        {content}
-      </p>
+      <p className="py-3 text-sm leading-6">{content}</p>
       {/* <CommentsAnswer /> */}
     </div>
   );
