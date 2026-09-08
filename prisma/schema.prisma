@@ -42,24 +42,25 @@ model CategoryAttribute {
 }
 
 model Product {
-  id          String     @id @default(cuid())
+  id          String           @id @default(cuid())
   name        String
-  slug        String     @unique
+  slug        String           @unique
   description String?
   price       Float
-  stock       Int        @default(0)
-  content     String     @db.Text
-  thumbnail   String     @default("")
+  stock       Int              @default(0)
+  content     String           @db.Text
+  thumbnail   String           @default("")
   images      String[]
   cartItems   CartItem[]
+  comments    ProductComment[]
   categoryId  String
-  category    Category   @relation(fields: [categoryId], references: [id])
+  category    Category         @relation(fields: [categoryId], references: [id])
 
   attributes ProductAttributeValue[]
   orderItems OrderItem[]
   createdAt  DateTime                @default(now())
   updatedAt  DateTime                @updatedAt
-  brand      Brand                  @relation(fields: [brandId], references: [id], onDelete: Restrict)
+  brand      Brand                   @relation(fields: [brandId], references: [id], onDelete: Restrict)
   brandId    String
 }
 
@@ -204,13 +205,14 @@ model User {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  addresses      Address[]
-  tickets        Ticket[]
-  sessions       Session[]
-  ticketMessages TicketMessage[]
-  blogs          Blog[]
-  blogComments   BlogComment[]
-  orders         Order[]
+  addresses       Address[]
+  tickets         Ticket[]
+  sessions        Session[]
+  ticketMessages  TicketMessage[]
+  blogs           Blog[]
+  blogComments    BlogComment[]
+  productComments ProductComment[]
+  orders          Order[]
 }
 
 model Blog {
@@ -245,6 +247,21 @@ model BlogComment {
   userId String?
   user   User?   @relation(fields: [userId], references: [id])
 
+  status CommentStatus @default(PENDING)
+}
+
+model ProductComment {
+  id      String @id @default(cuid())
+  content String
+
+  createdAt DateTime @default(now())
+
+  product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+
+  user   User?         @relation(fields: [userId], references: [id])
+  userId String?
+  rate   Int
   status CommentStatus @default(PENDING)
 }
 
