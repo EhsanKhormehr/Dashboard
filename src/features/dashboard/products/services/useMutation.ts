@@ -1,6 +1,7 @@
 "use client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
+  changeProductCommentStatus,
   createNewBrand,
   createNewProduct,
   deleteBrand,
@@ -12,6 +13,7 @@ import { toast } from "sonner";
 import { id } from "zod/v4/locales";
 import { NewBrandFormValues, ProductFormValues } from "../types/schema";
 import { useRouter } from "next/navigation";
+import { CommentStatus } from "../../../../../generated/prisma/enums";
 
 export const useCreateNewProduct = () => {
   // const queryClient = useQueryClient();
@@ -72,20 +74,39 @@ export const useUpdateBrand = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: NewBrandFormValues }) =>
       updateBrand(id, data),
-    onSuccess : ()=>{
-      router.refresh()
-      toast.success("Brand updated successfully!")
-    }
+    onSuccess: () => {
+      router.refresh();
+      toast.success("Brand updated successfully!");
+    },
   });
 };
 
-export const useDeleteBrand = ()=>{
-  const router = useRouter()
+export const useDeleteBrand = () => {
+  const router = useRouter();
   return useMutation({
-    mutationFn : deleteBrand,
-    onSuccess : ()=> {
-      router.refresh()
-      toast.success("Brand deleted successfully!")
-    }
-  })
-}
+    mutationFn: deleteBrand,
+    onSuccess: () => {
+      router.refresh();
+      toast.success("Brand deleted successfully!");
+    },
+  });
+};
+
+// Comments
+export const useChangeProductCommentStatus = () => {
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: ({ id, status }: { id: string; status: CommentStatus }) =>
+      changeProductCommentStatus(id, status),
+    onSuccess: (_data, variables) => {
+      if (variables.status === "APPROVED") {
+        toast.success("Comment confirmed successfully!");
+      }
+      if (variables.status === "REJECTED") {
+        toast.error("Comment rejected successfully!");
+      }
+      router.refresh();
+    },
+  });
+};
