@@ -192,7 +192,7 @@ export default function ProductForm({
             <FieldDescription>
               Select a category to show product attributes.
             </FieldDescription>
-            <FieldGroup className="grid grid-cols-2 mt-4">
+            <FieldGroup className="grid grid-cols-1 md:grid-cols-2 mt-4">
               <Controller
                 name="categoryId"
                 control={control}
