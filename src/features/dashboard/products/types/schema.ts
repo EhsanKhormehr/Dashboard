@@ -137,3 +137,110 @@ export const newBrandDefaultValues = {
   slug: "",
   logo: "",
 };
+
+// Discount
+export const discountCodeSchema = z
+  .object({
+    name: z.string().trim().min(2, "Please Enter at least 2 characters."),
+    code: z.string().trim().min(2, "Please Enter at least 2 characters."),
+    discountType: z.enum(["FIXED", "PERCENTAGE"]),
+    percentage: z.coerce.number("Please enter number").optional(),
+    amount: z.coerce.number("Please enter number").optional(),
+    startDate: z.date().optional(),
+    endDate: z.date().optional(),
+    usageLimit: z.coerce
+      .number("Please enter number")
+      .int("Please enter smaller number")
+      .positive("Please enter positive number"),
+  })
+  .superRefine((data, ctx) => {
+    if (data.discountType === "PERCENTAGE") {
+      if (data.percentage === undefined) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["percentage"],
+          message: "Percentage is required for percentage discount type",
+        });
+      }
+      if (data.amount !== undefined) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["amount"],
+          message: "Amount is not allowed for percentage discount type",
+        });
+      }
+      if (
+        data.percentage !== undefined &&
+        (data.percentage <= 0 || data.percentage > 100)
+      ) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["percentage"],
+          message: "Percentage must be between 1 and 100",
+        });
+      }
+    }
+
+    if (data.discountType === "FIXED") {
+      if (data.amount === undefined) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["amount"],
+          message: "Amount is required",
+        });
+      }
+
+      if (data.percentage !== undefined) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["percentage"],
+          message: "Percentage must be empty",
+        });
+      }
+
+      if (data.amount !== undefined && data.amount <= 0) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["amount"],
+          message: "Amount must be greater than 0",
+        });
+      }
+    }
+
+    if (!data.startDate) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["startDate"],
+        message: "Start date is required",
+      });
+    }
+
+    if (!data.endDate) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["endDate"],
+        message: "End date is required",
+      });
+    }
+
+    if (data.startDate && data.endDate && data.endDate <= data.startDate) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["endDate"],
+        message: "End date must be after start date",
+      });
+    }
+  });
+
+export type DiscountCodeFormValues = z.infer<typeof discountCodeSchema>;
+
+export const discountCodeDefaultValues: DiscountCodeFormValues = {
+  code:"",
+  name: "",
+  discountType: "FIXED",
+  percentage: undefined,
+  amount: undefined,
+  startDate: undefined,
+  endDate: undefined,
+  usageLimit: 0,
+};
