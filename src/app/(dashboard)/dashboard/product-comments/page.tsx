@@ -19,7 +19,6 @@ type ProductCommentsProps = {
 const ProductComments = async ({ searchParams }: ProductCommentsProps) => {
   const urlParams = await searchParams;
   const productComments = await getProductComments(urlParams);
-  console.log(productComments);
   return (
     <div>
       <PageHeader title="Product Comments" />
