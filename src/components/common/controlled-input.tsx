@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 type ControlledInputProps<T extends FieldValues> = {
   label?: string;
   name: Path<T>;
+  valueAsNumber?: boolean;
 } & ComponentProps<"input">;
 
 const ControlledInput = <T extends FieldValues>({
@@ -17,6 +18,7 @@ const ControlledInput = <T extends FieldValues>({
   type,
   label,
   className,
+  valueAsNumber,
   ...props
 }: ControlledInputProps<T>) => {
   const { control } = useFormContext<T>();
@@ -45,6 +47,12 @@ const ControlledInput = <T extends FieldValues>({
                 {...field}
                 {...props}
                 value={field.value ?? ""}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  field.onChange(
+                    valueAsNumber ? (value === "" ? undefined : value) : value,
+                  );
+                }}
                 disabled={props.disabled}
               />
             )}
