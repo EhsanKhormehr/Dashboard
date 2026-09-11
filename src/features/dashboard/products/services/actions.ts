@@ -1,11 +1,16 @@
 "use server";
 import { prisma } from "@/lib/prisma";
-import { NewBrandFormValues, ProductFormValues } from "../types/schema";
+import {
+  DiscountCodeFormValues,
+  NewBrandFormValues,
+  ProductFormValues,
+} from "../types/schema";
 import { executeAction } from "@/lib/executeAction";
 import { Prisma } from "../../../../../generated/prisma/client";
 import { requireAdmin } from "@/features/auth/utils/requireAdmin";
 import { CommentStatus } from "../../../../../generated/prisma/enums";
 import { ProductCommentWhereInput } from "../../../../../generated/prisma/models";
+import getDiscountStatus from "@/lib/getDiscountStatus";
 
 type FilteredProductsParams = {
   search?: string;
@@ -442,6 +447,109 @@ export const changeProductCommentStatus = async (
         },
         data: {
           status,
+        },
+      });
+    },
+  });
+};
+
+// Discount code
+
+export const createDiscountCode = async (data: DiscountCodeFormValues) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      return await prisma.discountCode.create({
+        data: {
+          name: data.name,
+          code: data.code,
+          usageLimit: data.usageLimit,
+          discountType: data.discountType,
+          startDate: data.startDate!,
+          endDate: data.endDate!,
+          amount: data.amount,
+          percentage: data.percentage,
+        },
+      });
+    },
+  });
+};
+
+export const getDiscountCodes = async () => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+      return await prisma.discountCode.findMany({
+        where: {},
+        orderBy: { createdAt: "desc" },
+      });
+    },
+  });
+};
+
+export const toggleDiscountCodeActive = async (
+  id: string,
+  isActive: boolean,
+) => {
+  return executeAction({
+    actionFn: async () => {
+      await requireAdmin();
+
+      return await prisma.discountCode.update({
+        where: {
+          id,
+        },
+        data: {
+          isActive,
+        },
+      });
+    },
+  });
+};
+
+export const deleteDiscountCode = async (id: string) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.discountCode.delete({
+        where: {
+          id,
+        },
+      });
+    },
+  });
+};
+
+export const getDiscountCodeById = async (id: string) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.discountCode.findUnique({
+        where: {
+          id,
+        },
+      });
+    },
+  });
+};
+
+export const updateDiscountCode = async (
+  id: string,
+  data: DiscountCodeFormValues,
+) => {
+  return executeAction({
+    actionFn: async () => {
+      return await prisma.discountCode.update({
+        where: {
+          id,
+        },
+        data: {
+          name: data.name,
+          code: data.code,
+          discountType: data.discountType,
+          percentage: data.percentage,
+          amount: data.amount,
+          usageLimit: data.usageLimit,
+          startDate: data.startDate,
+          endDate: data.endDate,
         },
       });
     },
