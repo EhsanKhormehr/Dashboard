@@ -64,6 +64,28 @@ model Product {
   brandId    String
 }
 
+model DiscountCode {
+  id String @id @default(cuid())
+
+  name String
+  code String @unique
+
+  discountType DiscountType
+  isActive     Boolean      @default(true)
+
+  amount     Int?
+  percentage Int?
+
+  usageLimit Int
+  usageCount Int @default(0)
+
+  startDate DateTime
+  endDate   DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Brand {
   id        String    @id @default(cuid())
   name      String    @unique
@@ -411,4 +433,9 @@ enum PaymentStatus {
 enum PaymentMethod {
   CASH_ON_DELIVERY
   ONLINE
+}
+
+enum DiscountType {
+  FIXED
+  PERCENTAGE
 }
