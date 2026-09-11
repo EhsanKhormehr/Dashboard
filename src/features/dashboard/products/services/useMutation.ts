@@ -2,16 +2,24 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   changeProductCommentStatus,
+  createDiscountCode,
   createNewBrand,
   createNewProduct,
   deleteBrand,
+  deleteDiscountCode,
   deleteProduct,
+  toggleDiscountCodeActive,
   updateBrand,
+  updateDiscountCode,
   updateProduct,
 } from "./actions";
 import { toast } from "sonner";
 import { id } from "zod/v4/locales";
-import { NewBrandFormValues, ProductFormValues } from "../types/schema";
+import {
+  DiscountCodeFormValues,
+  NewBrandFormValues,
+  ProductFormValues,
+} from "../types/schema";
 import { useRouter } from "next/navigation";
 import { CommentStatus } from "../../../../../generated/prisma/enums";
 
@@ -107,6 +115,61 @@ export const useChangeProductCommentStatus = () => {
         toast.error("Comment rejected successfully!");
       }
       router.refresh();
+    },
+  });
+};
+
+// Discount code
+export const useCreateDiscountCode = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: createDiscountCode,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["discount"] });
+      toast.success("Discount code created successfully!");
+    },
+  });
+};
+
+export const useToggleDiscountCodeActive = () => {
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: ({ id, isActive }: { id: string; isActive: boolean }) =>
+      toggleDiscountCodeActive(id, isActive),
+    onSuccess: (_, varibales) => {
+      router.refresh();
+      if (varibales.isActive === true) {
+        toast.success("Discount code activated successfully!");
+      } else {
+        toast.success("Discount code disabled successfully!");
+      }
+    },
+  });
+};
+
+export const useDeleteDiscountCode = () => {
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: deleteDiscountCode,
+    onSuccess: () => {
+      router.refresh();
+      toast.success("Discount code deleted successfully!");
+    },
+  });
+};
+
+export const useUpdateDiscountCode = () => {
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: DiscountCodeFormValues }) =>
+      updateDiscountCode(id, data),
+    onSuccess: () => {
+      router.refresh();
+      toast.success("Discount code updated successfully!");
     },
   });
 };
