@@ -38,7 +38,6 @@ const ProductsFiltering = ({
   brands,
   pricRange,
 }: ProductsFilteringProps) => {
-  console.log(pricRange._max.price);
   const {
     getParam,
     updateParam,
