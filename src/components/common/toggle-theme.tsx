@@ -4,8 +4,13 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
-export default function ToggleTheme() {
+type ToggleThemeProps = {
+  className?: string;
+};
+
+export default function ToggleTheme({ className }: ToggleThemeProps) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -22,7 +27,10 @@ export default function ToggleTheme() {
       <Button
         variant={"outline"}
         asChild
-        className="size-[45px] rounded-full bg-surface cursor-pointer border-none shadow-sm"
+        className={cn(
+          "size-[45px] rounded-full bg-surface cursor-pointer border-none shadow-sm",
+          className,
+        )}
         onClick={() => setTheme(isDark ? "light" : "dark")}
       >
         {isDark ? <Sun size={20} /> : <Moon size={20} />}
