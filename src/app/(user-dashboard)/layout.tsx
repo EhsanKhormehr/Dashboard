@@ -18,7 +18,7 @@ const Layout = async({ children }: LayoutProps) => {
     <SidebarProvider
       style={
         {
-          "--sidebar-width": "15rem",
+          "--sidebar-width": "17rem",
           "--sidebar-width-icon": "4rem",
         } as React.CSSProperties
       }
