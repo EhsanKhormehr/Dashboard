@@ -31,9 +31,9 @@ const AccountSidebar = () => {
             <Avatar className="size-[44px]">
               <AvatarImage src={"/avatar-user.jpg"} alt="avatar" />
             </Avatar>
-            <div className="flex flex-col ml-3 group-data-[collapsible=icon]:hidden">
-              <span className="text-sm font-bold">{user?.userName}</span>
-              <span className="text-xs mt-0.5">{user?.email}</span>
+            <div className="flex flex-col ml-3 group-data-[collapsible=icon]:hidden max-w-[140px] ">
+              <span className="text-sm font-bold truncate">{user?.userName}</span>
+              <span className="text-xs mt-0.5 truncate">{user?.email}</span>
             </div>
           </div>
           <div className="group-data-[collapsible=icon]:hidden">
