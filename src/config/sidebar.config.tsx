@@ -1,132 +1,195 @@
+import type { LucideIcon } from "lucide-react";
+
+import {
+  LayoutDashboard,
+  Package,
+  PackagePlus,
+  Tags,
+  Tag,
+  Heart,
+  Boxes,
+  MessageSquareText,
+  ListTree,
+  ListPlus,
+  Ticket,
+  Newspaper,
+  FilePlus2,
+  MessagesSquare,
+  BadgeCheck,
+  BadgePlus,
+  BadgePercent,
+  Percent,
+  BadgeDollarSign,
+  ListTodo,
+  UsersRound,
+} from "lucide-react";
+
+export type RouteItem = {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+};
+
 export type RouteGroup = {
-  group?: string;
-  items: {
-    href: string;
-    label: string;
-  }[];
+  label: string;
+  icon: LucideIcon;
+  href?: string;
+  items?: RouteItem[];
 };
 
 export const ROUTE_GROUPS: RouteGroup[] = [
   {
-    group: "",
+    href: "/dashboard",
+    label: "Dashboard",
+    icon: LayoutDashboard,
+  },
+
+  {
+    label: "Products",
+    icon: Package,
     items: [
       {
-        href: "/dashboard",
-        label: "Dashboard",
-      },
-      {
         href: "/dashboard/products",
-        label: "Products",
+        label: "All Products",
+        icon: Package,
       },
       {
         href: "/dashboard/new-products",
-        label: "New Products",
+        label: "New Product",
+        icon: PackagePlus,
       },
       {
         href: "/dashboard/categories",
         label: "Categories",
+        icon: Tags,
       },
       {
         href: "/dashboard/new-category",
-        label: "New Categoy",
-      },
-      {
-        href: "/dashboard/favorites",
-        label: "Favorites",
+        label: "New Category",
+        icon: Tag,
       },
       {
         href: "/dashboard/product-stock",
         label: "Product Stock",
-      },
-      {
-        href: "/dashboard/new-menu",
-        label: "New Menu",
-      },
-      {
-        href: "/dashboard/menus",
-        label: "Menus",
-      },
-      {
-        href: "/dashboard/tickets",
-        label: "Tickets",
-      },
-      {
-        href: "/dashboard/blogs",
-        label: "Blogs",
-      },
-      {
-        href: "/dashboard/new-blog",
-        label: "New Blog",
-      },
-      {
-        href: "/dashboard/new-blog-tag",
-        label: "New Blog Tag",
-      },
-      {
-        href: "/dashboard/blog-tags",
-        label: "Blog Tags",
-      },
-      {
-        href: "/dashboard/blog-comments",
-        label: "Blog Comments",
-      },
-      {
-        href: "/dashboard/brands",
-        label: "Brands",
-      },
-      {
-        href: "/dashboard/new-brand",
-        label: "New Brand",
+        icon: Boxes,
       },
       {
         href: "/dashboard/product-comments",
         label: "Product Comments",
+        icon: MessageSquareText,
+      },
+      {
+        href: "/dashboard/favorites",
+        label: "Favorites",
+        icon: Heart,
+      },
+    ],
+  },
+
+  {
+    label: "Menus",
+    icon: ListTree,
+    items: [
+      {
+        href: "/dashboard/menus",
+        label: "All Menus",
+        icon: ListTree,
+      },
+      {
+        href: "/dashboard/new-menu",
+        label: "New Menu",
+        icon: ListPlus,
+      },
+    ],
+  },
+
+  {
+    label: "Blog",
+    icon: Newspaper,
+    items: [
+      {
+        href: "/dashboard/blogs",
+        label: "All Blogs",
+        icon: Newspaper,
+      },
+      {
+        href: "/dashboard/new-blog",
+        label: "New Blog",
+        icon: FilePlus2,
+      },
+      {
+        href: "/dashboard/blog-tags",
+        label: "Blog Tags",
+        icon: Tags,
+      },
+      {
+        href: "/dashboard/new-blog-tag",
+        label: "New Blog Tag",
+        icon: Tag,
+      },
+      {
+        href: "/dashboard/blog-comments",
+        label: "Blog Comments",
+        icon: MessagesSquare,
+      },
+    ],
+  },
+
+  {
+    label: "Brands",
+    icon: BadgeCheck,
+    items: [
+      {
+        href: "/dashboard/brands",
+        label: "All Brands",
+        icon: BadgeCheck,
+      },
+      {
+        href: "/dashboard/new-brand",
+        label: "New Brand",
+        icon: BadgePlus,
+      },
+    ],
+  },
+
+  {
+    label: "Discounts",
+    icon: BadgePercent,
+    items: [
+      {
+        href: "/dashboard/discount-codes",
+        label: "Discount Codes",
+        icon: Percent,
       },
       {
         href: "/dashboard/new-discount-code",
         label: "New Discount Code",
-      },
-      {
-        href: "/dashboard/discount-codes",
-        label: "Discount Codes",
+        icon: BadgePercent,
       },
     ],
   },
+
   {
-    group: "Pages",
-    items: [
-      {
-        href: "/dashboard/pricing",
-        label: "Pricing",
-      },
-      {
-        href: "/dashboard/calender",
-        label: "Calender",
-      },
-      {
-        href: "/dashboard/todo",
-        label: "To-Do",
-      },
-      {
-        href: "/dashboard/contact",
-        label: "Contact",
-      },
-      {
-        href: "/dashboard/invoice",
-        label: "Invoice",
-      },
-      {
-        href: "/dashboard/ui-elements",
-        label: "UI Elements",
-      },
-      {
-        href: "/dashboard/team",
-        label: "Team",
-      },
-      {
-        href: "/dashboard/table",
-        label: "Table",
-      },
-    ],
+    href: "/dashboard/tickets",
+    label: "Tickets",
+    icon: Ticket,
+  },
+
+  {
+    href: "/dashboard/pricing",
+    label: "Pricing",
+    icon: BadgeDollarSign,
+  },
+
+  {
+    href: "/dashboard/todo",
+    label: "To-Do",
+    icon: ListTodo,
+  },
+
+  {
+    href: "/dashboard/team",
+    label: "Team",
+    icon: UsersRound,
   },
 ];
