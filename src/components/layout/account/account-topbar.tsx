@@ -1,4 +1,5 @@
 "use client";
+import ToggleTheme from "@/components/common/toggle-theme";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
 import { Bell, ShoppingCart, Sidebar } from "lucide-react";
@@ -16,7 +17,8 @@ const AccountTopbar = () => {
           className="size-[24px] text-muted-foreground cursor-pointer"
         />
       </div>
-      <div className="flex *:ml-5 ">
+      <div className="flex *:ml-5 items-center">
+        <ToggleTheme className="shadow-none text-muted-foreground !bg-transparent" />
         <Link href={"/cart"}>
           <ShoppingCart className="size-[24px] text-muted-foreground" />
         </Link>
